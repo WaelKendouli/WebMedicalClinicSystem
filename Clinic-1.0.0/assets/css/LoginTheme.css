@@ -82,6 +82,25 @@ input::placeholder {
     border-radius: 50px;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: var(--color-primary-dark);
+    color:var(--color-surface);
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+form button:active {
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.15);
+    transform: translateY(0);
+}
+
+form button:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 3px;
 }
 
 .Button_Container {
@@ -126,4 +145,12 @@ a:hover {
 /* 4. Active state (The exact moment of the click) */
 a:active {
   color: #ef4444;           /* Flashes red upon click */
+}
+
+.Invalid {
+    display: flex;
+    flex-wrap: wrap;
+    color : var(--color-error);
+    font-size: 1.3rem;
+    margin-block: 1.3rem;
 }
