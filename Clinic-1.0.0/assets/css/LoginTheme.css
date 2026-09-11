@@ -100,3 +100,25 @@ label {
     font-weight: bold;
     font-size: 1.2rem;
 }
+
+a:link {
+  color: #3b82f6;           /* Modern blue color */
+  text-decoration: none;    /* Removes default underline */
+  transition: color 0.3s ease; /* Smoothly transitions color changes */
+}
+
+/* 2. Visited state */
+a:visited {
+  color: #6b21a8;           /* Subtle purple for clicked links */
+}
+
+/* 3. Hover state */
+a:hover {
+  color: #1d4ed8;           /* Darker blue on hover */
+  text-decoration: underline; /* Re-introduces underline on hover */
+}
+
+/* 4. Active state (The exact moment of the click) */
+a:active {
+  color: #ef4444;           /* Flashes red upon click */
+}
