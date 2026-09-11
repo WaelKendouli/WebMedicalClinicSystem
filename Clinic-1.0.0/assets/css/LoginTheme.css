@@ -148,7 +148,7 @@ a:active {
 }
 
 .Invalid {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     color : var(--color-error);
     font-size: 1.3rem;
