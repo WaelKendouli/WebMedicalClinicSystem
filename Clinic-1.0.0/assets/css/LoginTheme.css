@@ -2,16 +2,16 @@
 :root {
 	--color-primary: #2563eb;
 	--color-primary-dark: #1d4ed8;
-	--color-background: #f4f7fb;
+	--color-background: #096bec;
 	--color-surface: #ffffff;
 	--color-text: #1f2937;
-	--color-muted: #6b7280;
+	--color-muted: #a8aaae91;
 	--color-border: #d1d5db;
 	--color-error: #dc2626;
 	--radius-sm: 0.375rem;
 	--radius-md: 0.75rem;
-	--shadow-card: 0 0.75rem 2rem rgb(15 23 42 / 10%);
-	--font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--shadow-card: 0 0.75rem 2rem rgba(255, 255, 255, 0.547);
+	--font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 html, body {
@@ -19,16 +19,84 @@ html, body {
 }
 
 * {
+    margin: 0;
+    padding: 0;
 	box-sizing: border-box;
 }
 
 body {
-	min-height: 100vh;
-	margin: 0;
+	
 	background: var(--color-background);
 	color: var(--color-text);
 	font-family: var(--font-family);
 	line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
+.wrap {
+    position: relative;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+gap: 1.3rem;
+width: 100%;
+}
 
+form
+{
+    position : relative ;
+display: flex;
+flex-wrap: wrap;
+    width:80%;
+    height: auto;
+    padding: 10px;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    border-radius: 50px;
+    min-width: 200px;
+}
+input {
+    padding: 0.9rem 1.8rem;
+    font-size: 20px;
+    background-color: var(--color-background);
+    color : var(--color-surface);
+    border: 1px solid var(--color-border);
+    margin : 10px;
+    border-radius: 50px;
+}
+input::placeholder {
+    color: var(--color-muted)
+}
+
+ form button {
+    position :"relative";
+    width: 30%;
+    padding: 0.5rem 1.9rem;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.Button_Container {
+    display: flex ;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap:1.9rem;
+}
+h1 {
+    color: var(--color-surface);
+    margin: 20px;
+}
+label {
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
