@@ -88,7 +88,11 @@ input::placeholder {
     display: flex ;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap:1.9rem;
+    position:relative;
+    width:100%;
 }
 h1 {
     color: var(--color-surface);
@@ -104,7 +108,8 @@ label {
 a:link {
   color: #3b82f6;           /* Modern blue color */
   text-decoration: none;    /* Removes default underline */
-  transition: color 0.3s ease; /* Smoothly transitions color changes */
+  transition: color 0.3s ease;
+  font-weight: bold; /* Smoothly transitions color changes */
 }
 
 /* 2. Visited state */

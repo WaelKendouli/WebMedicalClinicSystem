@@ -10,7 +10,7 @@
   
     
     <h1>Al-Shefa hospital | Login</h1>
-    <form action="#index.html" method="post">
+    <form id="loginForm">
         <div class="wrap">
             <div>
         <label for="email">Email</label>
@@ -27,6 +27,12 @@
       
         </div>
     </form>
- 
+ <script>
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    // (optional) check credentials here
+    window.location.href = 'index.html';
+  });
+</script>
 </body>
 </html>
