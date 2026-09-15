@@ -2,7 +2,15 @@ const UI = {
     ErrorMessage : document.getElementById("lbInvalid"),
     frmLogin : document.getElementById("loginForm")
 }
-
+function SetError(message)
+{
+    if (!message) {
+        UI.ErrorMessage.style.display = "flex";
+        UI.ErrorMessage.textContent = message;
+        return;
+    }
+    UI.ErrorMessage.style.display = "none";
+}
 
 function CheckInputs(value, message) {
     if (!value || !value.trim()) {
@@ -15,22 +23,10 @@ function CheckInputs(value, message) {
 const API_Base = "http://localhost:5202/api/Clinic";
 
 
-
-function CheckInputs(element , message)
-{
-        if (!element.value) {
-            SetError(message);
-            return false;
-        }
-        SetError("");
-        return true;
-}
-
-
 async function PrimaryAuthenticationMethod(username , password , email ="" , phone ="")
 {
-     if (!CheckInput(username, "Invalid username") ||
-        !CheckInput(password, "Invalid password")) {
+     if (!CheckInputs(username, "Invalid username") ||
+        !CheckInputs(password, "Invalid password")) {
         return false;
     }
     SetError("");
