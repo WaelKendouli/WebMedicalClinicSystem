@@ -116,6 +116,7 @@ form button:focus-visible {
 h1 {
     color: var(--color-surface);
     margin: 20px;
+    font-size: 4.5rem;
 }
 label {
     color: var(--color-text);
