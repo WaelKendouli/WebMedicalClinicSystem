@@ -122,103 +122,93 @@
   </header>
 
 <main>
-  <section id="add-doctor" class="appointment section section-bg">
-      <div class="container" data-aos="fade-up">
+   <div class="form-container">
+    <div class="form-header">
+      <h2>Doctor Registration</h2>
+      <p>Enter physician details below</p>
+    </div>
 
-        <div class="section-title text-center mb-5">
-          <h2>Add New Doctor</h2>
-          <p class="mb-0 text-muted">Enter the doctor's details and assign their clinical specialization below.</p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-lg-10">
-            <div class="card border-0 shadow-sm p-4 p-md-5">
-              
-              <form action="#" method="POST" role="form" class="php-email-form">
-                
-                <!-- Group 1: Personal Details -->
-                <div class="border-bottom pb-3 mb-4">
-                  <h5 class="text-primary fw-bold"><i class="bi bi-person-badge me-2"></i>Personal Information</h5>
-                </div>
-                
-                <div class="row g-3 mb-4">
-                  <div class="col-md-6">
-                    <label for="firstName" class="form-label small fw-semibold text-secondary">First Name</label>
-                    <input type="text" name="FirstName" class="form-control py-2" id="firstName" placeholder="e.g., Marcus" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="lastName" class="form-label small fw-semibold text-secondary">Last Name</label>
-                    <input type="text" name="LastName" class="form-control py-2" id="lastName" placeholder="e.g., Johnson" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="dob" class="form-label small fw-semibold text-secondary">Date of Birth</label>
-                    <input type="date" name="DateOfBirth" class="form-control py-2" id="dob" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="gender" class="form-label small fw-semibold text-secondary">Gender</label>
-                    <input type="text" name="Gender" class="form-control py-2" id="gender" placeholder="e.g., Male, Female">
-                  </div>
-                </div>
-
-                <!-- Group 2: Contact Details -->
-                <div class="border-bottom pb-3 mb-4">
-                  <h5 class="text-primary fw-bold"><i class="bi bi-telephone me-2"></i>Contact & Media</h5>
-                </div>
-
-                <div class="row g-3 mb-4">
-                  <div class="col-md-6">
-                    <label for="phone" class="form-label small fw-semibold text-secondary">Phone Number</label>
-                    <input type="tel" name="Phone" class="form-control py-2" id="phone" placeholder="+1 5589 55488 55" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="email" class="form-label small fw-semibold text-secondary">Email Address</label>
-                    <input type="email" name="Email" class="form-control py-2" id="email" placeholder="name@example.com" required>
-                  </div>
-                  <div class="col-12">
-                    <label for="address" class="form-label small fw-semibold text-secondary">Residential Address</label>
-                    <input type="text" name="Address" class="form-control py-2" id="address" placeholder="123 Creative Boulevard, NY">
-                  </div>
-                  <div class="col-12">
-                    <label for="photoUrl" class="form-label small fw-semibold text-secondary">Photo URL</label>
-                    <input type="url" name="PhotoURL" class="form-control py-2" id="photoUrl" placeholder="https://example.com">
-                  </div>
-                </div>
-
-                <!-- Group 3: Specialization Assignment -->
-                <div class="border-bottom pb-3 mb-4">
-                  <h5 class="text-primary fw-bold"><i class="bi bi-building-gear me-2"></i>Professional Assignment</h5>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-12">
-                    <label for="specializationId" class="form-label small fw-semibold text-secondary">Specialization</label>
-                    <select name="SpecializationID" id="specializationId" class="form-select py-2" required>
-                      <option value="" disabled selected>-- Select a Specialization --</option>
-                      <option value="1">Cardiologist</option>
-                      <option value="2">Neurologist</option>
-                      <option value="3">Orthopedic Surgeon</option>
-                      <option value="4">Pediatrician</option>
-                      <option value="5">Dermatologist</option>
-                      <option value="6">Oncologist</option>
-                      <option value="7">Emergency Medicine</option>
-                      <option value="8">Radiologist</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="text-center mt-4">
-                  <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill fw-medium shadow-sm">Save Doctor Record</button>
-                </div>
-
-              </form>
-
-            </div>
-          </div>
-        </div>
-
+    <!-- form action="#" method="POST" -->
+    <form action="#" method="POST">
+      
+      <!-- Group 1: Personal Details -->
+      <div class="section-divider">
+        <i class="fas fa-user-md"></i>
+        <span>Personal Information</span>
       </div>
-    </section>
+
+      <div class="form-grid" style="margin-bottom: 25px;">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" name="FirstName" id="firstName" placeholder="e.g., Marcus" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" name="LastName" id="lastName" placeholder="e.g., Johnson" required>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" name="DateOfBirth" id="dob" required>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <input type="text" name="Gender" id="gender" placeholder="e.g., Male, Female">
+        </div>
+      </div>
+
+      <!-- Group 2: Contact Details -->
+      <div class="section-divider">
+        <i class="fas fa-phone-alt"></i>
+        <span>Contact & Media</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 25px;">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" name="Phone" id="phone" placeholder="+1 5589 55488 55" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" name="Email" id="email" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group full-width">
+          <label for="address">Residential Address</label>
+          <input type="text" name="Address" id="address" placeholder="123 Creative Boulevard, NY">
+        </div>
+        <div class="form-group full-width">
+          <label for="photoUrl">Photo URL</label>
+          <input type="url" name="PhotoURL" id="photoUrl" placeholder="https://example.com">
+        </div>
+      </div>
+
+      <!-- Group 3: Specialization Assignment -->
+      <div class="section-divider">
+        <i class="fas fa-building"></i>
+        <span>Professional Assignment</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 15px;">
+        <div class="form-group full-width">
+          <label for="specializationId">Specialization</label>
+          <select name="SpecializationID" id="specializationId" required>
+            <option value="" disabled selected>-- Select a Specialization --</option>
+            <option value="1">Cardiologist</option>
+            <option value="2">Neurologist</option>
+            <option value="3">Orthopedic Surgeon</option>
+            <option value="4">Pediatrician</option>
+            <option value="5">Dermatologist</option>
+            <option value="6">Oncologist</option>
+            <option value="7">Emergency Medicine</option>
+            <option value="8">Radiologist</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn">Save Doctor Record</button>
+
+    </form>
+  </div>
 </main>
 
   <footer id="footer" class="footer-16 footer position-relative">

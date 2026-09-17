@@ -9,6 +9,7 @@
   --text-main: #333333;          /* Deep dark grey for core readability */
   --text-muted: #666666;         /* Subdued description text */
   --border-color: #e2e8f0;       /* Crisp divider and border color */
+  --muted : hsla(215, 100%, 51%, 0.729);
 }
 
 * {
@@ -72,9 +73,13 @@ legend {
   width: 100%;
 }
 
+input::placeholder {
+  color:var(--muted);
+}
+
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
