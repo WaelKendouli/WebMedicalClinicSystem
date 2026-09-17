@@ -73,9 +73,9 @@ UI.frmLogin.addEventListener("submit" ,async (event)=> {
 event.preventDefault();
 const email = document.getElementById("email").value 
  const   phone = document.getElementById("phone").value 
- const res = await PrimaryAuthenticationMethod(Username ,Password);
+ const res = await SecondaryAuthenticationMethod(email ,phone);
 if (res) {
-    window.location.href = 'index.html';
+   window.open('index.html', '_self');
 }
 else
 {
