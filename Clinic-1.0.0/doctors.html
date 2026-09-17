@@ -126,8 +126,8 @@
     <div class="form-header">
       <h2>Doctor Registration</h2>
       <p>Enter physician details below</p>
+      <div id="informUser" class="inform">this is a toast message</div>
     </div>
-
     <!-- form action="#" method="POST" -->
     <form id="frmInfo" action="#" method="POST">
       
@@ -154,6 +154,7 @@
           <label for="gender">Gender</label>
           <input type="text" name="Gender" id="gender" placeholder="e.g., Male, Female">
         </div>
+        
       </div>
 
       <!-- Group 2: Contact Details -->
@@ -179,6 +180,7 @@
           <label for="photoUrl">Photo URL</label>
           <input type="url" name="PhotoURL" id="photoUrl" placeholder="https://example.com">
         </div>
+        
       </div>
 
       <!-- Group 3: Specialization Assignment -->
@@ -203,12 +205,12 @@
           </select>
         </div>
       </div>
-
       <!-- Submit Button -->
       <button type="submit" class="submit-btn">Save Doctor Record</button>
 
     </form>
   </div>
+  
 </main>
 
   <footer id="footer" class="footer-16 footer position-relative">

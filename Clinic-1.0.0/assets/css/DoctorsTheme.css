@@ -1,5 +1,5 @@
 /* Import Google Fonts to match premium web styles */
-@import url('https://googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --primary-color: #0062ff;       /* Clinic theme brand blue */
@@ -126,13 +126,13 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(0, 98, 255, 0.15);
 }
 
-.toast {
-  position: relative;
+.inform {
+   position: relative; 
   width: 100%;
   padding: 1.3rem 0.8rem;
   border-radius: 50px;
-  font-size: 1.2rem;
-  margin: 20px;
+  font-size: 1.1rem;
+   margin: 20px; 
   background-color: var(--valid);
 }
 
