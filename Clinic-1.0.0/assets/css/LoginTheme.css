@@ -52,7 +52,7 @@ form
     position : relative ;
 display: flex;
 flex-wrap: wrap;
-    width:80%;
+    width:60%;
     height: auto;
     padding: 10px;
     background-color: var(--color-surface);
@@ -61,6 +61,8 @@ flex-wrap: wrap;
     min-width: 200px;
 }
 input {
+    position:relative;
+    width : 70%;
     padding: 0.9rem 1.8rem;
     font-size: 20px;
     background-color: var(--color-background);
@@ -102,7 +104,14 @@ form button:focus-visible {
     outline: 3px solid rgba(255, 255, 255, 0.85);
     outline-offset: 3px;
 }
-
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
 .Button_Container {
     display: flex ;
     flex-wrap: wrap;
@@ -154,4 +163,20 @@ a:active {
     color : var(--color-error);
     font-size: 1.3rem;
     margin-block: 1.3rem;
+}
+
+.Sec-auth {
+    display: flex;
+    flex-direction: column;
+    gap : 1.3rem;
+    position: relative;
+}
+
+@media  (max-width : 700px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    form button {
+        width: 80%;
+    }
 }
