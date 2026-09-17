@@ -42,8 +42,11 @@ body {
 }
 
 .form-header {
-  margin-bottom: 30px;
-  text-align: center;
+ display: flex;
+ flex-wrap: wrap;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
 }
 
 .form-header h2 {
@@ -127,6 +130,7 @@ select:focus {
 }
 
 .inform {
+  display: none;
    position: relative; 
   width: 100%;
   padding: 1.3rem 0.8rem;
@@ -134,6 +138,7 @@ select:focus {
   font-size: 1.1rem;
    margin: 20px; 
   background-color: var(--valid);
+  text-align: center;
 }
 
 /* Submit Action button */
