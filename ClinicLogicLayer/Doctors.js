@@ -4,9 +4,31 @@
     const rootStyles = getComputedStyle(document.documentElement);
     const valid = rootStyles.getPropertyValue('--valid').trim();
     const error = rootStyles.getPropertyValue('--error').trim();
-
+const ddlSepcialiaztions = document.getElementById("specializationId");
 
 const API_Base = "http://localhost:5202/api/Doctors";
+
+function FillDropDownList(dic)
+{
+    if (dic===null || dic ===undefined) {
+        throw new Error("dicitionary is empty check your API response");
+    }
+    ddlSepcialiaztions.innerHTML = "";
+    let first = document.createElement("option");
+    first.value = "";
+    first.disabled = true;
+    first.selected = true;
+    first.textContent = "-- Select a Specialization --";
+    ddlSepcialiaztions.appendChild(first);
+   for(const[name,id] of Object.entries(dic))
+   {
+        const opt = document.createElement("option");
+        opt.value = id;
+        opt.textContent = name;
+        ddlSepcialiaztions.appendChild(opt);
+   }
+}
+
 
 function ShowInformation(text , status)
 {
@@ -26,9 +48,30 @@ function ShowInformation(text , status)
     }
 }
 
+async function LoadSpecializations() {
+    try {
+        const res = await fetch(`${API_Base}/GetSpecializations`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (!res.ok) {
+            ShowInformation(`HTTP ${res.status}`, false);
+            return;
+        }
+
+        const dic = await res.json(); 
+        FillDropDownList(dic);
+
+    } catch (e) {
+        ShowInformation(`error ${e.message}`, false);
+    }
+}
 
 async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
-   phone , email , address , photoURL , specializationID = 3
+   phone , email , address , photoURL , specializationID
  ) 
 {
      try {
@@ -58,6 +101,10 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
     }
 }
 
+document.addEventListener("DOMContentLoaded", LoadSpecializations);
+
+
+
 frm.addEventListener("submit" ,async (event)=> {
 event.preventDefault();
 const firstName = document.getElementById('firstName').value;
@@ -70,7 +117,7 @@ const  address = document.getElementById('address').value;
 const  photoURL = document.getElementById('photoUrl').value;
 const  specializationID = document.getElementById('specializationId').value
 Message.classList.remove("hidden");
-const res = await PostNewDoctors(firstName , lastName , dateOfBirth ,gender ,phone , email , address , photoURL );
+const res = await PostNewDoctors(firstName , lastName , dateOfBirth ,gender ,phone , email , address , photoURL , specializationID);
 if (res) {
      ShowInformation(`Doctor ${firstName} ${lastName} was added successfully`,true);
     
