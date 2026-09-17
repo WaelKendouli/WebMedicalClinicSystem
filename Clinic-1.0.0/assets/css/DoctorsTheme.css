@@ -18,15 +18,13 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 40px 20px;
+  gap: 1.3rem;
 }
+
 
 /* Container Structure */
 .form-container {
