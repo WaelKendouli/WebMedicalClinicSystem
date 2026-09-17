@@ -1,10 +1,30 @@
  
   const  frm = document.getElementById("frmInfo");
-  
+  const Message = document.getElementById("informUser");
+    const rootStyles = getComputedStyle(document.documentElement);
+    const valid = rootStyles.getPropertyValue('--valid').trim();
+    const error = rootStyles.getPropertyValue('--error').trim();
 
-const API_Base = "http://localhost:5202/api/Clinic";
 
+const API_Base = "http://localhost:5202/api/Doctors";
 
+function ShowInformation(text , status)
+{
+    if (text.lenght === 0) {
+        Message.style.display = "none";
+        return;
+    }
+        Message.style.display = "flex";
+        Message.textContent = text;
+    if (status===true) {
+        
+        Message.style.backgroundColor = valid;
+    }
+    else
+    {
+        Message.style.backgroundColor = error;
+    }
+}
 
 
 async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
@@ -27,13 +47,13 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
         const data = await res.json();
 
         if (!res.ok) {
-            console.log(data.message || `HTTP ${res.status}`);
+            ShowInformation(`HTTP ${res.status}`,false);
             return false;
         }
 
         return true;
     } catch (e) {
-        console.log(e.message || "Network error");
+        ShowInformation(`error ${e.Message}`,false);
         return false;
     }
 }
@@ -52,10 +72,11 @@ const  specializationID = document.getElementById('specializationId').value
 
 const res = await PostNewDoctors(firstName , lastName , dateOfBirth ,gender ,phone , email , address , photoURL );
 if (res) {
-    
+    ShowInformation(`Doctor ${firstName} ${lastName} was added successfully`,true);
+
 }
 else
 {
-    
+    ShowInformation(`Adding Doctor ${firstName} ${lastName} has failed`,false);
 }
 });
