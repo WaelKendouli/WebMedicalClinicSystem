@@ -177,6 +177,7 @@ details {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     gap : 0.2rem;
     width: 100%;
     position: relative;
@@ -189,7 +190,5 @@ details {
     form button {
         width: 80%;
     }
-    .Sec-auth{
-            flex-direction: column;
-    }
+    
 }
