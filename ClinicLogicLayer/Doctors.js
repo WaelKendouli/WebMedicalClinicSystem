@@ -69,14 +69,17 @@ const  email = document.getElementById('email').value;
 const  address = document.getElementById('address').value;
 const  photoURL = document.getElementById('photoUrl').value;
 const  specializationID = document.getElementById('specializationId').value
-
+Message.classList.remove("hidden");
 const res = await PostNewDoctors(firstName , lastName , dateOfBirth ,gender ,phone , email , address , photoURL );
 if (res) {
-    ShowInformation(`Doctor ${firstName} ${lastName} was added successfully`,true);
-
+     ShowInformation(`Doctor ${firstName} ${lastName} was added successfully`,true);
+    
 }
 else
 {
     ShowInformation(`Adding Doctor ${firstName} ${lastName} has failed`,false);
 }
+setTimeout(()=>{
+        Message.classList.add("hidden");
+    },2000);
 });

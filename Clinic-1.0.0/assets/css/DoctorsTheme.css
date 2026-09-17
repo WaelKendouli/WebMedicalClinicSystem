@@ -139,8 +139,12 @@ select:focus {
    margin: 20px; 
   background-color: var(--valid);
   text-align: center;
+    opacity: 1;
+  transition: opacity 0.5s ease;
 }
-
+.inform.hidden {
+  opacity: 0;
+}
 /* Submit Action button */
 .submit-btn {
   display: block;
