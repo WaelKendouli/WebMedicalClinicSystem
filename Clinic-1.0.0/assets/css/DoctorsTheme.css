@@ -142,7 +142,9 @@ select:focus {
 .submit-btn:active {
   transform: scale(0.99);
 }
-
+h2 {
+  margin-top: 120px;
+}
 /* Responsive adjustments for narrow viewports */
 @media (max-width: 600px) {
   .form-grid {
