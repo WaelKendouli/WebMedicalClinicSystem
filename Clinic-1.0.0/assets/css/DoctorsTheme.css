@@ -10,6 +10,8 @@
   --text-muted: #666666;         /* Subdued description text */
   --border-color: #e2e8f0;       /* Crisp divider and border color */
   --muted : hsla(215, 100%, 51%, 0.729);
+  --valid : hsla(147, 87%, 50%, 0.584);
+  --error : hsla(5, 93%, 48%, 0.667);
 }
 
 * {
@@ -122,6 +124,16 @@ select:focus {
   background-color: #fff;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(0, 98, 255, 0.15);
+}
+
+.toast {
+  position: relative;
+  width: 100%;
+  padding: 1.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  margin: 20px;
+  background-color: var(--valid);
 }
 
 /* Submit Action button */
