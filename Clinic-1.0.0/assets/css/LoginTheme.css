@@ -165,10 +165,20 @@ a:active {
     margin-block: 1.3rem;
 }
 
+details {
+    position: relative;
+    width : 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 .Sec-auth {
     display: flex;
-    flex-direction: column;
-    gap : 1.3rem;
+    justify-content: center;
+    align-items: center;
+    gap : 0.2rem;
+    width: 100%;
     position: relative;
 }
 
@@ -178,5 +188,8 @@ a:active {
     }
     form button {
         width: 80%;
+    }
+    .Sec-auth{
+            flex-direction: column;
     }
 }

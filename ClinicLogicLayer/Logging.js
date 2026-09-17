@@ -1,6 +1,7 @@
 const UI = {
     ErrorMessage : document.getElementById("lbInvalid"),
-    frmLogin : document.getElementById("loginForm")
+    frmLogin : document.getElementById("loginForm"),
+    link : document.getElementById("lnSecondAuth")
 }
 function SetError(message)
 {
@@ -22,6 +23,18 @@ function CheckInputs(value, message) {
 
 const API_Base = "http://localhost:5202/api/Clinic";
 
+function LinkShow(elm)
+{
+ if(elm.checked)
+ {
+    elm.checked = false;
+ }
+ else
+ {
+    elm.checked = true;
+ }
+
+}
 
 async function PrimaryAuthenticationMethod(username , password , email ="" , phone ="")
 {
@@ -54,6 +67,8 @@ async function PrimaryAuthenticationMethod(username , password , email ="" , pho
         return false;
     }
 }
+
+
 
 UI.frmLogin.addEventListener("submit" ,async (event)=> {
 event.preventDefault();
