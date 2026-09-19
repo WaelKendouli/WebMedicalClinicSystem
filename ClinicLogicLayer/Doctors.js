@@ -5,10 +5,20 @@
     const valid = rootStyles.getPropertyValue('--valid').trim();
     const error = rootStyles.getPropertyValue('--error').trim();
 const ddlSepcialiaztions = document.getElementById("specializationId");
+const spinner = document.getElementById("spinner");
 const DoctorsGrid = document.getElementById("doc_grid");
 
 const API_Base = "http://localhost:5202/api/Doctors";
 let liDoctors = null;
+
+function setLoading(display)
+{
+     if (display === true) {
+  spinner.style.display = "flex";
+} else {
+  spinner.style.display = "none";
+}
+}
 
 function FillDropDownList(dic)
 {
@@ -113,6 +123,7 @@ DoctorsGrid.appendChild(card);
 async function  RenderDoctors()
 {
     const data = await GetAllDoctors();
+     setLoading(false);
     liDoctors = data;
     DoctorsGrid.innerHTML = "";
  if (!Array.isArray(data)) return;
@@ -122,6 +133,7 @@ async function  RenderDoctors()
 async function GetAllDoctors()
 {
     try {
+        setLoading(true);
         const res = await fetch(`${API_Base}/GetAllDoctors`, {
             method: "GET",
             headers: {
@@ -130,6 +142,7 @@ async function GetAllDoctors()
         });
         if (!res.ok) {
             ShowInformation(`HTTP ${res.status}`, false);
+            setLoading(false);
             return;
         }
         const data = await res.json();
@@ -139,6 +152,10 @@ async function GetAllDoctors()
     {
         ShowInformation(`${e.message}`, false);
             return null;
+    }
+    finally
+    {
+        setLoading(false);
     }
 }
 
