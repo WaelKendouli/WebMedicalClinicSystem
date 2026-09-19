@@ -376,8 +376,8 @@ button:disabled {
 
 /* ---------- Responsive: stack on small screens ---------- */
 @media (max-width: 480px) {
-  .search-bar {
-    flex-direction: column;
+  .search_container {
+    grid-template-columns: repeat(1,1fr);
   }
   .search-select {
     border-right: none;

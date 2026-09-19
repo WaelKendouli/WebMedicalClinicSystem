@@ -7,6 +7,7 @@
 const ddlSepcialiaztions = document.getElementById("specializationId");
 const spinner = document.getElementById("spinner");
 const DoctorsGrid = document.getElementById("doc_grid");
+const ddloptions = document.getElementById("search_options");
 
 const API_Base = "http://localhost:5202/api/Doctors";
 let liDoctors = null;
@@ -20,24 +21,24 @@ function setLoading(display)
 }
 }
 
-function FillDropDownList(dic)
+function FillDropDownList(dic , list)
 {
     if (dic===null || dic ===undefined) {
         throw new Error("dicitionary is empty check your API response");
     }
-    ddlSepcialiaztions.innerHTML = "";
+    list.innerHTML = "";
     let first = document.createElement("option");
     first.value = "";
     first.disabled = true;
     first.selected = true;
     first.textContent = "-- Select a Specialization --";
-    ddlSepcialiaztions.appendChild(first);
+    list.appendChild(first);
    for(const[name,id] of Object.entries(dic))
    {
         const opt = document.createElement("option");
         opt.value = id;
         opt.textContent = name;
-        ddlSepcialiaztions.appendChild(opt);
+        list.appendChild(opt);
    }
 }
 
@@ -75,7 +76,8 @@ async function LoadSpecializations() {
         }
 
         const dic = await res.json(); 
-        FillDropDownList(dic);
+        FillDropDownList(dic , ddlSepcialiaztions);
+        FillDropDownList(dic,ddloptions);
 
     } catch (e) {
         ShowInformation(`error ${e.message}`, false);
