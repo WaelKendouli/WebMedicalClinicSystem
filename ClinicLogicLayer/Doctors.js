@@ -95,6 +95,7 @@ function CreateDoctorCard(data)
         : "/Clinic-1.0.0/assets/img/person/Young doctor.jpg";
     img.onerror = () => { img.src = "/Clinic-1.0.0/assets/img/person/Young doctor.jpg"; };
     img.classList.add("Doctor-Img");
+    img.loading = "lazy";
     card.appendChild(img);
     const fullName = document.createElement("h3");
     fullName.textContent = `Dr. ${data.firstName} ${data.lastName}`;
@@ -114,16 +115,22 @@ function CreateDoctorCard(data)
     email.classList.add("EmailSec");
     card.appendChild(email);
 
-const btnBookAppointment = document.createElement("button");
-btnBookAppointment.textContent = "Book Appointment"
-card.appendChild(btnBookAppointment);
+const btnUpdate = document.createElement("button");
+btnUpdate.textContent = "Update";
+card.appendChild(btnUpdate);
 DoctorsGrid.appendChild(card);
 }
-
-async function  RenderDoctors()
+async function LoadDoctors()
 {
-    const data = await GetAllDoctors();
+const data = await GetAllDoctors();
      setLoading(false);
+     RenderDoctors(data);
+}
+
+
+function  RenderDoctors(data)
+{
+    
     liDoctors = data;
     DoctorsGrid.innerHTML = "";
  if (!Array.isArray(data)) return;
@@ -192,7 +199,7 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
 }
 
 document.addEventListener("DOMContentLoaded", LoadSpecializations);
-document.addEventListener("DOMContentLoaded", RenderDoctors);
+document.addEventListener("DOMContentLoaded", LoadDoctors);
 
 
 
@@ -212,7 +219,7 @@ Message.classList.remove("hidden");
 const res = await PostNewDoctors(firstName , lastName , dateOfBirth ,gender ,phone , email , address , photoURL , specializationID);
 if (res) {
      ShowInformation(`Doctor ${firstName} ${lastName} was added successfully`,true);
-    
+    LoadDoctors();
 }
 else
 {

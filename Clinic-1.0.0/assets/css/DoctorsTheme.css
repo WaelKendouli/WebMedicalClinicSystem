@@ -256,7 +256,15 @@ h2 {
   margin-top: 120px;
 }
 /* Responsive adjustments for narrow viewports */
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
+  
+  .doctors-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+
+@media (max-width: 800px) {
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -265,5 +273,8 @@ h2 {
   }
   .form-container {
     padding: 25px 20px;
+  }
+  .doctors-grid {
+    grid-template-columns: repeat(1,1fr);
   }
 }
