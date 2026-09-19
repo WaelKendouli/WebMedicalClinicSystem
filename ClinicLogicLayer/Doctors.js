@@ -5,6 +5,7 @@
     const valid = rootStyles.getPropertyValue('--valid').trim();
     const error = rootStyles.getPropertyValue('--error').trim();
 const ddlSepcialiaztions = document.getElementById("specializationId");
+const DoctorsGrid = document.getElementById("doc_grid");
 
 const API_Base = "http://localhost:5202/api/Doctors";
 
@@ -69,6 +70,67 @@ async function LoadSpecializations() {
         ShowInformation(`error ${e.message}`, false);
     }
 }
+
+function CreateDoctorCard(data)
+{
+    const card = document.createElement("div");
+    card.dataset.id = data.doctorID;
+    card.classList.add("MyDoctor-card");
+    
+    const img = document.createElement("img");
+    img.alt = `${data.firstName} ${data.lastName}`;
+    img.src = data.photoURL && data.photoURL.trim() !== ""
+        ? data.photoURL
+        : "/Clinic-1.0.0/assets/img/person/Young doctor.jpg";
+    img.onerror = () => { img.src = "/Clinic-1.0.0/assets/img/person/Young doctor.jpg"; };
+    card.appendChild(img);
+    const fullName = document.createElement("h3");
+    fullName.textContent = `Dr. ${data.firstName} ${data.lastName}`;
+    card.appendChild(fullName);
+
+    const specialazation = document.createElement("p");
+    specialazation.textContent = `${data.specialization}`;
+    card.appendChild(specialazation);
+
+     const phone = document.createElement("p");
+    phone.textContent = `Phone : ${data.phone}`;
+    phone.classList.add("PhoneSec");
+    card.appendChild(phone);
+
+    const email = document.createElement("p");
+    email.textContent = `Email : ${data.email}`;
+    email.classList.add("EmailSec");
+    card.appendChild(email);
+
+const btnBookAppointment = document.createElement("button");
+btnBookAppointment.type = "submit"; 
+card.appendChild(btnBookAppointment);
+}
+
+
+async function GetAllDoctors()
+{
+    try {
+        const res = await fetch(`${API_Base}/GetAllDoctors`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+        if (!res.ok) {
+            ShowInformation(`HTTP ${res.status}`, false);
+            return;
+        }
+        const data = await res.json();
+        return data;
+    }
+    catch(e)
+    {
+        ShowInformation(`${e.message}`, false);
+            return null;
+    }
+}
+
 
 async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
    phone , email , address , photoURL , specializationID
