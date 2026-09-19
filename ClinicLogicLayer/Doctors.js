@@ -81,6 +81,16 @@ async function LoadSpecializations() {
         ShowInformation(`error ${e.message}`, false);
     }
 }
+function SelectDefaultNamePerGender(gender)
+{
+if (gender==="Male") {
+   return "/Clinic-1.0.0/assets/img/person/Young doctor.jpg";
+}
+else
+{
+    return "/Clinic-1.0.0/assets/img/person/Female doctor.jpg";
+}
+}
 
 function CreateDoctorCard(data)
 {
@@ -92,7 +102,7 @@ function CreateDoctorCard(data)
     img.alt = `${data.firstName} ${data.lastName}`;
     img.src = data.photoURL && data.photoURL.trim() !== ""
         ? data.photoURL
-        : "/Clinic-1.0.0/assets/img/person/Young doctor.jpg";
+        : SelectDefaultNamePerGender(data.gender);
     img.onerror = () => { img.src = "/Clinic-1.0.0/assets/img/person/Young doctor.jpg"; };
     img.classList.add("Doctor-Img");
     img.loading = "lazy";
