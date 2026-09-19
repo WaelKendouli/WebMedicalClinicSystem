@@ -8,6 +8,7 @@ const ddlSepcialiaztions = document.getElementById("specializationId");
 const DoctorsGrid = document.getElementById("doc_grid");
 
 const API_Base = "http://localhost:5202/api/Doctors";
+let liDoctors = null;
 
 function FillDropDownList(dic)
 {
@@ -109,8 +110,10 @@ card.appendChild(btnBookAppointment);
 DoctorsGrid.appendChild(card);
 }
 
-function RenderDoctors(data)
+async function  RenderDoctors()
 {
+    const data = await GetAllDoctors();
+    liDoctors = data;
     DoctorsGrid.innerHTML = "";
  if (!Array.isArray(data)) return;
     data.forEach(element => CreateDoctorCard(element));
@@ -130,7 +133,7 @@ async function GetAllDoctors()
             return;
         }
         const data = await res.json();
-        RenderDoctors(data);
+        return data;
     }
     catch(e)
     {
@@ -172,7 +175,7 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
 }
 
 document.addEventListener("DOMContentLoaded", LoadSpecializations);
-document.addEventListener("DOMContentLoaded", GetAllDoctors);
+document.addEventListener("DOMContentLoaded", RenderDoctors);
 
 
 
