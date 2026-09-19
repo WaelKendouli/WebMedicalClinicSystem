@@ -83,6 +83,7 @@ function CreateDoctorCard(data)
         ? data.photoURL
         : "/Clinic-1.0.0/assets/img/person/Young doctor.jpg";
     img.onerror = () => { img.src = "/Clinic-1.0.0/assets/img/person/Young doctor.jpg"; };
+    img.classList.add("Doctor-Img");
     card.appendChild(img);
     const fullName = document.createElement("h3");
     fullName.textContent = `Dr. ${data.firstName} ${data.lastName}`;
@@ -103,10 +104,17 @@ function CreateDoctorCard(data)
     card.appendChild(email);
 
 const btnBookAppointment = document.createElement("button");
-btnBookAppointment.type = "submit"; 
+btnBookAppointment.textContent = "Book Appointment"
 card.appendChild(btnBookAppointment);
+DoctorsGrid.appendChild(card);
 }
 
+function RenderDoctors(data)
+{
+    DoctorsGrid.innerHTML = "";
+ if (!Array.isArray(data)) return;
+    data.forEach(element => CreateDoctorCard(element));
+}
 
 async function GetAllDoctors()
 {
@@ -122,7 +130,7 @@ async function GetAllDoctors()
             return;
         }
         const data = await res.json();
-        return data;
+        RenderDoctors(data);
     }
     catch(e)
     {
@@ -164,6 +172,8 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
 }
 
 document.addEventListener("DOMContentLoaded", LoadSpecializations);
+document.addEventListener("DOMContentLoaded", GetAllDoctors);
+
 
 
 
