@@ -8,9 +8,16 @@ const ddlSepcialiaztions = document.getElementById("specializationId");
 const spinner = document.getElementById("spinner");
 const DoctorsGrid = document.getElementById("doc_grid");
 const ddloptions = document.getElementById("search_options");
+const resultLabel = document.getElementById("resultLabel");
 
 const API_Base = "http://localhost:5202/api/Doctors";
 let liDoctors = null;
+
+function showResultMessage(message)
+{
+resultLabel.textContent = message;
+}
+
 
 function setLoading(display)
 {
@@ -33,8 +40,9 @@ function SearchFilter(specializationID)
         if (specializationID) {
         fliterResult = liDoctors.filter(d => 
         String(d.specializationID) === String(specializationID));
-    
+        showResultMessage(`List of doctors specialazed in  ${dicSpercialzationbyID[specializationID]}`);
     if (fliterResult.length===0) {
+        showResultMessage(`No doctors specialazed in  ${dicSpercialzationbyID[specializationID]}`);
         RenderDoctors(liDoctors);
         return;
     }
@@ -87,6 +95,16 @@ function ShowInformation(text , status)
     }
 }
 
+async function RenderSpecialazation()
+{
+    const data = await LoadSpecializations();
+    FillDropDownList(data , ddlSepcialiaztions);
+        FillDropDownList(data,ddloptions);
+}
+
+let dicSpercialzationbyID ;
+
+
 async function LoadSpecializations() {
     try {
         const res = await fetch(`${API_Base}/GetSpecializations`, {
@@ -98,12 +116,12 @@ async function LoadSpecializations() {
 
         if (!res.ok) {
             ShowInformation(`HTTP ${res.status}`, false);
-            return;
+            return null;
         }
 
         const dic = await res.json(); 
-        FillDropDownList(dic , ddlSepcialiaztions);
-        FillDropDownList(dic,ddloptions);
+        dicSpercialzationbyID = Object.fromEntries(Object.entries(dic).map(([key , value]) => [value , key]));
+        return dic;
 
     } catch (e) {
         ShowInformation(`error ${e.message}`, false);
@@ -237,7 +255,7 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
     }
 }
 
-document.addEventListener("DOMContentLoaded", LoadSpecializations);
+document.addEventListener("DOMContentLoaded", RenderSpecialazation);
 document.addEventListener("DOMContentLoaded", LoadDoctors);
 
 

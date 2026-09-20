@@ -264,7 +264,7 @@ h2 {
 .search_container {
   display: grid;
   gap:1.2rem;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(2,1fr);
 }
 
 /* ---------- Search bar container ---------- */
@@ -371,6 +371,15 @@ button:disabled {
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
+}
+.search-result-label {
+  display: flex;
+  position: relative;
+  width:100%;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin: 15px;
+  flex-wrap: wrap;
 }
 
 
