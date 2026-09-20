@@ -19,10 +19,7 @@ const objDialog = {
     Form:      document.getElementById("frmdiag"),
     BtnUpdate: document.getElementById("btnUpdate"),
     BtnCancel: document.getElementById("btnCancel"),
-
-    // --- Hidden / metadata (add a hidden input with this id if you need it) ---
-    DoctorID:  document.getElementById("doctorId"),
-
+    Toast : document.getElementById("up_informUser"),
     // --- Personal Information ---
     FirstName:   document.getElementById("up_firstName"),
     LastName:    document.getElementById("up_lastName"),
@@ -169,6 +166,8 @@ else
 }
 }
 
+
+
 function CreateDoctorCard(data)
 {
     const card = document.createElement("div");
@@ -207,6 +206,7 @@ btnUpdate.textContent = "Update";
 
 btnUpdate.addEventListener("click" , ()=>{
    objDialog.UpdateDialoge.showModal();
+   
 });
 card.appendChild(btnUpdate);
 DoctorsGrid.appendChild(card);
