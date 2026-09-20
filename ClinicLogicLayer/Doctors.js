@@ -21,6 +21,32 @@ function setLoading(display)
 }
 }
 
+function SearchFilter(specializationID)
+{
+    if (liDoctors===null || liDoctors===undefined) {
+        return;
+    }
+
+        if (!Array.isArray(liDoctors)) return;
+        let fliterResult;
+
+        if (specializationID) {
+        fliterResult = liDoctors.filter(d => 
+        String(d.specializationID) === String(specializationID));
+    
+    if (fliterResult.length===0) {
+        RenderDoctors(liDoctors);
+        return;
+    }
+}
+ else {
+    fliterResult = liDoctors;
+}
+
+        RenderDoctors(fliterResult);
+
+}
+
 function FillDropDownList(dic , list)
 {
     if (dic===null || dic ===undefined) {
@@ -143,7 +169,7 @@ const data = await GetAllDoctors();
 function  RenderDoctors(data)
 {
     
-    liDoctors = data;
+    
     DoctorsGrid.innerHTML = "";
  if (!Array.isArray(data)) return;
     data.forEach(element => CreateDoctorCard(element));
@@ -165,6 +191,7 @@ async function GetAllDoctors()
             return;
         }
         const data = await res.json();
+        liDoctors = data;
         return data;
     }
     catch(e)
@@ -240,4 +267,9 @@ else
 setTimeout(()=>{
         Message.classList.add("hidden");
     },2000);
+});
+
+ddloptions.addEventListener("change", (e) => {
+  const selectedID = e.target.value;
+  SearchFilter(selectedID);
 });
