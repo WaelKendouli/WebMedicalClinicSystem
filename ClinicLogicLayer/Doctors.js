@@ -9,6 +9,7 @@ const spinner = document.getElementById("spinner");
 const DoctorsGrid = document.getElementById("doc_grid");
 const ddloptions = document.getElementById("search_options");
 const resultLabel = document.getElementById("resultLabel");
+const btnReset = document.getElementById("btnResetSearch");
 
 const API_Base = "http://localhost:5202/api/Doctors";
 let liDoctors = null;
@@ -290,4 +291,8 @@ setTimeout(()=>{
 ddloptions.addEventListener("change", (e) => {
   const selectedID = e.target.value;
   SearchFilter(selectedID);
+});
+
+btnReset.addEventListener("click" , () => {
+    RenderDoctors(liDoctors);
 });
