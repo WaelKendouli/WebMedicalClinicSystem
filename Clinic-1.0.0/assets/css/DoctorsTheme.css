@@ -383,12 +383,14 @@ button:disabled {
 }
 
 dialog {
-        border: none;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        min-width: 300px;
-    }
+    position: fixed;
+    inset: 0;              /* shorthand: top/right/bottom/left = 0 */
+    margin: auto;          /* centers both axes */
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+}
+
     dialog::backdrop {
         background: rgba(0, 0, 0, 0.5);
     }
@@ -399,8 +401,24 @@ dialog {
         margin-top: 15px;
     }
 
+.btnCancel {
+   display: block;
+  width: 100%;
+  padding: 14px;
+  background-color: var(--error);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 10px;
+}
 
-
+dialog h2 {
+  margin-top : 10px;
+}
 /* ---------- Responsive: stack on small screens ---------- */
 @media (max-width: 480px) {
   .search_container {

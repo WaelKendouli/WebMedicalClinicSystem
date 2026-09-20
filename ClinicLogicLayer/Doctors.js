@@ -11,6 +11,36 @@ const ddloptions = document.getElementById("search_options");
 const resultLabel = document.getElementById("resultLabel");
 const btnReset = document.getElementById("btnResetSearch");
 
+
+
+const objDialog = {
+    // --- The form & its buttons ---
+     UpdateDialoge : document.getElementById("myDialog"),
+    Form:      document.getElementById("frmdiag"),
+    BtnUpdate: document.getElementById("btnUpdate"),
+    BtnCancel: document.getElementById("btnCancel"),
+
+    // --- Hidden / metadata (add a hidden input with this id if you need it) ---
+    DoctorID:  document.getElementById("doctorId"),
+
+    // --- Personal Information ---
+    FirstName:   document.getElementById("up_firstName"),
+    LastName:    document.getElementById("up_lastName"),
+    DateOfBirth: document.getElementById("up_dob"),
+    Gender:      document.getElementById("up_gender"),
+
+    // --- Contact & Media ---
+    Phone:    document.getElementById("up_phone"),
+    Email:    document.getElementById("up_email"),
+    Address:  document.getElementById("up_address"),
+    PhotoURL: document.getElementById("up_photoUrl"),
+
+    // --- Professional Assignment ---
+    SpecializationID: document.getElementById("up_specializationId")
+};
+
+
+
 const API_Base = "http://localhost:5202/api/Doctors";
 let liDoctors = null;
 
@@ -174,6 +204,10 @@ function CreateDoctorCard(data)
 
 const btnUpdate = document.createElement("button");
 btnUpdate.textContent = "Update";
+
+btnUpdate.addEventListener("click" , ()=>{
+   objDialog.UpdateDialoge.showModal();
+});
 card.appendChild(btnUpdate);
 DoctorsGrid.appendChild(card);
 }
@@ -269,7 +303,7 @@ try {
             } ,
             body : JSON.stringify(doctorData)
         });
-        
+
         if (res.ok) {
             const message = await response.text();
             console.log('Success:', message);
@@ -327,3 +361,6 @@ btnReset.addEventListener("click" , () => {
     RenderDoctors(liDoctors);
 });
 
+objDialog.BtnCancel.addEventListener("click" , ()=> {
+    objDialog.UpdateDialoge.close();
+})

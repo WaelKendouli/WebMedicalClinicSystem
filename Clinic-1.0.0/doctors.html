@@ -227,6 +227,81 @@
 
 
 </div>
+<dialog id="myDialog">
+    <h2>Update Doctor</h2>
+    <form id="frmdiag" action="#" method="PUT">
+      
+      <!-- Group 1: Personal Details -->
+      <div class="section-divider">
+        <i class="fas fa-user-md"></i>
+        <span>Personal Information</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 25px;">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" name="FirstName" id="up_firstName" placeholder="e.g., Marcus" >
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" name="LastName" id="up_lastName" placeholder="e.g., Johnson" >
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" name="DateOfBirth" id="up_dob" >
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <input type="text" name="Gender" id="up_gender" placeholder="e.g., Male, Female">
+        </div>
+        
+      </div>
+
+      <!-- Group 2: Contact Details -->
+      <div class="section-divider">
+        <i class="fas fa-phone-alt"></i>
+        <span>Contact & Media</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 25px;">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" name="Phone" id="up_phone" placeholder="+1 5589 55488 55" >
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" name="Email" id="up_email" placeholder="name@example.com" >
+        </div>
+        <div class="form-group full-width">
+          <label for="address">Residential Address</label>
+          <input type="text" name="Address" id="up_address" placeholder="123 Creative Boulevard, NY">
+        </div>
+        <div class="form-group full-width">
+          <label for="photoUrl">Photo URL</label>
+          <input type="url" name="PhotoURL" id="up_photoUrl" placeholder="https://example.com">
+        </div>
+        
+      </div>
+
+      <!-- Group 3: Specialization Assignment -->
+      <div class="section-divider">
+        <i class="fas fa-building"></i>
+        <span>Professional Assignment</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 15px;">
+        <div class="form-group full-width">
+          <label for="specializationId">Specialization</label>
+          <select name="SpecializationID" id="up_specializationId" >
+           
+          </select>
+        </div>
+      </div>
+      <!-- Submit Button -->
+      <button id="btnUpdate" type="submit" class="submit-btn">Update Doctor Record</button>
+      <button id="btnCancel" class="btnCancel">Cancel</button>
+    </form>
+</dialog>
 
   <footer id="footer" class="footer-16 footer position-relative">
 
