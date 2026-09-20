@@ -33,13 +33,26 @@ const objDialog = {
     PhotoURL: document.getElementById("up_photoUrl"),
 
     // --- Professional Assignment ---
-    SpecializationID: document.getElementById("up_specializationId")
+    SpecializationList: document.getElementById("up_specializationId")
 };
 
 
 
 const API_Base = "http://localhost:5202/api/Doctors";
 let liDoctors = null;
+
+function showToastDialog(message , visible)
+{
+    if (visible===true) {
+        objDialog.Toast.style.display = "flex";
+        objDialog.Toast.style.color = "black";
+        objDialog.Toast.textContent = message;
+    }
+    else
+    {
+        objDialog.Toast.style.display = "none";
+    }
+}
 
 function showResultMessage(message)
 {
@@ -166,7 +179,7 @@ else
 }
 }
 
-
+let currentDoctorData ; // userd for update
 
 function CreateDoctorCard(data)
 {
@@ -204,9 +217,11 @@ function CreateDoctorCard(data)
 const btnUpdate = document.createElement("button");
 btnUpdate.textContent = "Update";
 
-btnUpdate.addEventListener("click" , ()=>{
+btnUpdate.addEventListener("click" , async ()=>{
+    currentDoctorData = data;
    objDialog.UpdateDialoge.showModal();
-   
+   const specs = await LoadSpecializations();
+    FillDropDownList(specs , objDialog.SpecializationList);
 });
 card.appendChild(btnUpdate);
 DoctorsGrid.appendChild(card);
@@ -305,12 +320,14 @@ try {
         });
 
         if (res.ok) {
-            const message = await response.text();
+            const message = await res.text();
             console.log('Success:', message);
+            showToastDialog(message , true);
             return true;
         } else {
-            const errorMessage = await response.text();
+            const errorMessage = await res.text();
             console.error('Error:', errorMessage);
+            showToastDialog(errorMessage , true);
             return false;
         }
 }
@@ -363,4 +380,39 @@ btnReset.addEventListener("click" , () => {
 
 objDialog.BtnCancel.addEventListener("click" , ()=> {
     objDialog.UpdateDialoge.close();
+    LoadDoctors()
 })
+
+objDialog.BtnUpdate.addEventListener("click" , async (e)=>{
+    e.preventDefault();
+    if (currentDoctorData===null || currentDoctorData===undefined) {
+        showToastDialog("currentDoctorData is null",true);
+        return;
+    }
+        const NewInfos = {
+        doctorID:         Number(currentDoctorData.doctorID),
+        firstName:        objDialog.FirstName.value.trim(),
+        lastName:         objDialog.LastName.value.trim(),
+        dateOfBirth:      objDialog.DateOfBirth.value
+                              ? new Date(objDialog.DateOfBirth.value).toISOString()
+                              : null,
+        phone:            objDialog.Phone.value.trim(),
+        email:            objDialog.Email.value.trim(),
+        address:          objDialog.Address.value.trim(),
+        gender:           objDialog.Gender.value.trim(),
+        photoURL:         objDialog.PhotoURL.value.trim(),
+        specializationID: Number(objDialog.SpecializationList.value || 0)
+    };
+    try{
+            
+    if (await updateDoctor(NewInfos)) {
+        showToastDialog("Updated succesfully",true);
+        objDialog.UpdateDialoge.close();
+    LoadDoctors();  
+    }
+    }
+    catch(e)
+    {
+         showToastDialog(`${e.message}`,true);
+    }
+   });
