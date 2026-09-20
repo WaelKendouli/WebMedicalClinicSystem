@@ -256,12 +256,42 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
     }
 }
 
+
+async function updateDoctor(doctorData)
+{
+try {
+    const res = await fetch(`${API_Base}/UpdateDoctor`,
+        {
+            method: "PUT" ,
+            headers : {
+                'Content-Type': 'application/json',
+                "Accept": "application/json"
+            } ,
+            body : JSON.stringify(doctorData)
+        });
+        
+        if (res.ok) {
+            const message = await response.text();
+            console.log('Success:', message);
+            return true;
+        } else {
+            const errorMessage = await response.text();
+            console.error('Error:', errorMessage);
+            return false;
+        }
+}
+catch(e)
+{
+    console.log(e.message);
+    return false;
+}
+}
+
+
+
+
 document.addEventListener("DOMContentLoaded", RenderSpecialazation);
 document.addEventListener("DOMContentLoaded", LoadDoctors);
-
-
-
-
 frm.addEventListener("submit" ,async (event)=> {
 event.preventDefault();
 const firstName = document.getElementById('firstName').value;
@@ -296,3 +326,4 @@ ddloptions.addEventListener("change", (e) => {
 btnReset.addEventListener("click" , () => {
     RenderDoctors(liDoctors);
 });
+
