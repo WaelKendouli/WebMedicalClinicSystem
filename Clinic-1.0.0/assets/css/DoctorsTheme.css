@@ -382,6 +382,24 @@ button:disabled {
   flex-wrap: wrap;
 }
 
+dialog {
+        border: none;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        min-width: 300px;
+    }
+    dialog::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+    }
+    .dialog-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 15px;
+    }
+
+
 
 /* ---------- Responsive: stack on small screens ---------- */
 @media (max-width: 480px) {
