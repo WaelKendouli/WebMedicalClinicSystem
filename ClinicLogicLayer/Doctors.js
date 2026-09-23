@@ -309,7 +309,7 @@ async function PostNewDoctors( firstName , lastName , dateOfBirth ,gender ,
 async function updateDoctor(doctorData)
 {
 try {
-    const res = await fetch(`${API_Base}/UpdateDoctor`,
+    const res = await fetch(`${API_Base}/UpdateDoctor/${doctorData.doctorID}`,
         {
             method: "PUT" ,
             headers : {
@@ -324,12 +324,7 @@ try {
             console.log('Success:', message);
             showToastDialog(message , true);
             return true;
-        } else {
-            const errorMessage = await res.text();
-            console.error('Error:', errorMessage);
-            showToastDialog(errorMessage , true);
-            return false;
-        }
+        } 
 }
 catch(e)
 {
