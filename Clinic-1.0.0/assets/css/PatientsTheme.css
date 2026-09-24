@@ -1,0 +1,127 @@
+
+
+:root {
+    --primary-color: #0062ff;
+    --primary-hover: #004ecc;
+    --bg-color: #f4f7fc;
+    --card-bg: #ffffff;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --border-color: #e2e8f0;
+    --table-header : #ffff;
+    --muted: hsla(215, 100%, 51%, 0.729);
+    --valid: hsla(147, 87%, 50%, 0.584);
+    --error: hsla(5, 93%, 48%, 0.667);
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.patients-container {
+    margin-block: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    background: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    padding: 1.25rem;
+}
+
+.patients-table-wrap {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-color);
+  overflow-x: auto; /* Ensures smooth horizontal scroll on smaller viewports */
+}
+
+/* ==========================================================================
+   3. Table Structural Styling
+   ========================================================================== */
+.patients-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.925rem;
+  color: var(--text-main);
+}
+
+
+.patients-table thead th {
+  background: var(--primary-color);
+  color: var(--table-header);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Data Row Cells */
+.patients-table tbody td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+  white-space: nowrap; /* Keeps records aligned beautifully */
+}
+
+/* Interactive Hover States & Zebra Stripes */
+.patients-table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.patients-table tbody tr:hover {
+  background-color: #f1f5f9;
+  cursor: pointer;
+}
+
+.patients-table tbody tr:last-child td {
+  border-bottom: none; /* Cleaner look at the base of the card */
+}
+
+/* Text formatting utility inside row cells */
+.patients-table td strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   4. Status Component Micro-UI
+   ========================================================================== */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.status-pill.success {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+}
+
+.status-pill.warning {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+@media (max-width: 768px) {
+ 
+  .patients-container
+  {
+    min-width: 300px;
+  }
+  .patients-table {
+    min-width: 300px; /* Enforces clean horizontal layouts for complex columns */
+  }
+}
