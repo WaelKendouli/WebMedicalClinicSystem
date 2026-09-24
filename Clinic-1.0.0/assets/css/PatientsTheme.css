@@ -2,7 +2,7 @@
 
 :root {
     --primary-color: #0062ff;
-    --primary-hover: #004ecc;
+    --primary-hover: #5200cc;
     --bg-color: #f4f7fc;
     --card-bg: #ffffff;
     --text-main: #333333;
@@ -12,6 +12,7 @@
     --muted: hsla(215, 100%, 51%, 0.729);
     --valid: hsla(147, 87%, 50%, 0.584);
     --error: hsla(5, 93%, 48%, 0.667);
+    --delete-color : #d30808;
     --radius-sm: 0.5rem;
     --radius-md: 0.75rem;
     --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -141,6 +142,11 @@ button {
 button:hover {
     background-color: var(--primary-hover);
 }
+
+.btn-delete {
+    background-color: var(--delete-color) ;
+}
+
 @media (max-width: 768px) {
  
   .patients-container
@@ -235,4 +241,9 @@ button:hover {
 .select-dropdown option:checked {
   background: #f1f5f9;
   color: #0f172a;
+}
+
+h1 {
+    font-size: 2.3rem;
+    color:var(--primary-color);
 }
