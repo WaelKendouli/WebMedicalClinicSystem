@@ -377,6 +377,20 @@ select:focus {
     justify-content: center;
 }
 
+dialog {
+    position: fixed;
+    inset: 0;              /* shorthand: top/right/bottom/left = 0 */
+    margin: auto;          /* centers both axes */
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+}
+
+    dialog::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+
 @media (max-width: 600px) {
     .form-grid {
   grid-template-columns: repeat(1, 1fr);
