@@ -47,8 +47,36 @@
 
 
 
-    <div id="table-placeholder" class="patients-container">
-    <div class="patients-table-wrap">
+    <div  class="patients-container">
+        <div class="Actions-container">
+    
+    <!-- Left Hand Search Component Wrapper -->
+    <div class="search-wrapper">
+        <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Search patients by name, email, or ID..."
+        >
+    </div>
+    
+    <div class="select-wrapper">
+    <select id="menu" class="select-dropdown" name="menu">
+      <option value="" disabled selected>Select an item…</option>
+      <option value="dashboard">Dashboard</option>
+      <option value="profile">Profile</option>
+      <option value="settings">Settings</option>
+      <option value="logout">Log out</option>
+    </select>
+  </div>
+
+    <!-- Right Hand Action Trigger Button -->
+    <button type="button">
+        <span>+ Add New Patient</span>
+    </button>
+
+</div>
+
+    <div id="table-placeholder" class="patients-table-wrap">
         <table class="patients-table">
             <thead>
                 <tr>

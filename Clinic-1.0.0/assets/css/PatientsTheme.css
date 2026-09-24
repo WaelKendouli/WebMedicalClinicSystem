@@ -23,6 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     gap: 1.2rem;
     background: var(--bg-color);
     color: var(--text-main);
@@ -92,29 +93,54 @@
   font-weight: 600;
 }
 
-/* ==========================================================================
-   4. Status Component Micro-UI
-   ========================================================================== */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.625rem;
+
+
+
+.Actions-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:1.2rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.625rem 1rem 0.625rem 2.5rem; 
+  font-size: 0.9rem;
+  font-family: var(--font-family);
+  color: var(--text-main);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.25;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.status-pill.success {
-  background-color: var(--success-bg);
-  color: var(--success-text);
+/* Interactive focus ring */
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 98, 255, 0.15);
 }
 
-.status-pill.warning {
-  background-color: var(--warning-bg);
-  color: var(--warning-text);
-}
 
+button {
+    padding: 0.8rem 1.7rem;
+    background-color: var(--primary-color);
+     font-family: var(--font-family);
+     font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--table-header);
+    border-radius: 25px;
+}
+button:hover {
+    background-color: var(--primary-hover);
+}
 @media (max-width: 768px) {
  
   .patients-container
@@ -124,4 +150,89 @@
   .patients-table {
     min-width: 300px; /* Enforces clean horizontal layouts for complex columns */
   }
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 240px;
+}
+
+/* ----- label ----- */
+.select-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.02em;
+  padding-left: 0.25rem;
+}
+
+/* ----- native select element ----- */
+.select-dropdown {
+  /* remove native appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  padding: 0.85rem 2.75rem 0.85rem 1.25rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: #1e293b;
+
+  background-color: #ffffff;
+  border: 1px solid #d0d7e2;
+  border-radius: 14px;
+
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+
+  /* custom arrow via background SVG */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1.1rem center;
+  background-size: 14px;
+}
+
+/* hover state */
+.select-dropdown:hover {
+  border-color: #b3c0d0;
+  background-color: #f9fafc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* focus state */
+.select-dropdown:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+  background-color: #ffffff;
+}
+
+/* open state (when dropdown is expanded) */
+.select-dropdown:open {
+  border-color: #3b82f6;
+}
+
+/* ----- placeholder option styling (first disabled option) ----- */
+.select-dropdown option[disabled] {
+  color: #94a3b8;
+}
+
+/* ----- dropdown options (limited browser support) ----- */
+.select-dropdown option {
+  padding: 0.6rem 1rem;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+/* selected option highlight inside the list (where supported) */
+.select-dropdown option:checked {
+  background: #f1f5f9;
+  color: #0f172a;
 }
