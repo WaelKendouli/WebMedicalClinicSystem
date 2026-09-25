@@ -4,6 +4,10 @@ const myDialog = document.getElementById("diagAdd");
     const diagEdit = document.getElementById("diagEdit");
     const spinner = document.getElementById("tableLoading");
     const btnAddNewPatient = document.getElementById("btnAddNewPatient");
+    const diagQuest = document.getElementById("diagQuest");
+    const btnConfirm = document.getElementById("btnConfirm");
+    const btnCancelDeletion = document.getElementById("btnCancelDeletion");
+
     btnAdd.addEventListener("click",()=> {
         myDialog.showModal();
     });
@@ -17,6 +21,9 @@ const myDialog = document.getElementById("diagAdd");
             diagEdit.showModal();
         });
     });
+
+    let currentPatientToEdit ;
+    let currentPatientToDelete;
 
     const BASE_API = "http://localhost:5202/api/Patient";
 
@@ -149,12 +156,17 @@ const myDialog = document.getElementById("diagAdd");
             editBtn.dataset.id = patient.patientID;
             editBtn.addEventListener("click" , () => {
                  diagEdit.showModal();
+                 currentPatientToEdit = patient;
             });
 
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'btn-delete';
             deleteBtn.textContent = 'Delete';
             deleteBtn.dataset.id = patient.patientID;
+            deleteBtn.addEventListener("click" , ()=>{
+                currentPatientToDelete = patient;
+                diagQuest.showModal();
+            });
 
             actionsCell.appendChild(editBtn);
             actionsCell.appendChild(deleteBtn);
@@ -280,6 +292,33 @@ async function PostPatient(patient) {
     }
 }
 
+
+
+async function deletePatient(patientID) {
+    try {
+        const response = await fetch(`${BASE_API}/DeletePatient/${patientID}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            // Handle 400 / 404 / other errors
+            const errorText = await response.text();
+            throw new Error(errorText || `Failed to delete patient (${response.status})`);
+        }
+
+        const message = await response.text(); // "Patient deleted successfully"
+        return message;
+    } catch (error) {
+        console.error('Error deleting patient:', error);
+        throw error;
+    }
+}
+
+
+
 async function AddnewPatient()
 {
  const NewPatient = getAddPatientValues();
@@ -289,10 +328,30 @@ async function AddnewPatient()
     clearAddPatientForm();
 }
 
+// generalized logic for refreshing patients data after a certain action
+async function RefreshListAfterAction(dialog , obj , ActionFunction) 
+{
+    try {
+        await ActionFunction(obj);
+        await LoadAllPatients();
+        dialog.close();
+    }
+    catch(e)
+    {
+        console.log(e.message);
+    }
+}
 
 
+btnCancelDeletion.addEventListener("click" , ()=>{
+    diagQuest.close();
+});
 
 document.addEventListener("DOMContentLoaded", LoadAllPatients);
 btnAddNewPatient.addEventListener("click" , ()=>{
     AddnewPatient();
+});
+
+btnConfirm.addEventListener("click" , ()=>{
+    RefreshListAfterAction(diagQuest , currentPatientToDelete.patientID , deletePatient);
 });
