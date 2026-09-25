@@ -212,7 +212,7 @@ select:focus {
   
   --size: 48px;
   --offset-color: #51545803; 
-  --spin-color: #3f06ea;   
+  --spin-color:var(--primary-color);   
   --speed: 0.8s;
   display: none;
   margin: 30px;

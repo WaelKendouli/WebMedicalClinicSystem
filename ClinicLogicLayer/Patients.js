@@ -2,6 +2,8 @@ const myDialog = document.getElementById("diagAdd");
     const btnAdd = document.getElementById("btnAdd");
     const btnCancel = document.getElementById("btnCancel");
     const diagEdit = document.getElementById("diagEdit");
+    const spinner = document.getElementById("tableLoading");
+
     btnAdd.addEventListener("click",()=> {
         myDialog.showModal();
     });
@@ -24,6 +26,7 @@ const myDialog = document.getElementById("diagAdd");
     async function GetAllPatients()
     {
         try {
+            setLoading(true);
         const res = await fetch(`${BASE_API}/GetAllPatients` , {
              method: "GET",
             headers: {
@@ -44,6 +47,10 @@ const myDialog = document.getElementById("diagAdd");
         {
             console.log(e.message);
             return null;
+        }
+        finally
+        {
+            setLoading(false);
         }
     }
 
@@ -160,6 +167,15 @@ const myDialog = document.getElementById("diagAdd");
 
     // 7. Append the built structure into the placeholder
     placeholder.appendChild(wrap);
+}
+
+function setLoading(display)
+{
+     if (display === true) {
+  spinner.style.display = "flex";
+} else {
+  spinner.style.display = "none";
+}
 }
 
 async function  LoadAllPatients() {

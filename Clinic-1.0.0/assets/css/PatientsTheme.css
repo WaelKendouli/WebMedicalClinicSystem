@@ -392,10 +392,35 @@ dialog {
     }
 
 
+    .spinner {
+  display: none;
+  --size: 48px;
+  --offset-color: #51545803; 
+  --spin-color:var(--primary-color);   
+  --speed: 0.8s;
+  margin: 30px;
+  width: var(--size);
+  height: var(--size);
+  border: 4px solid var(--offset-color);
+  border-top-color: var(--spin-color); 
+  border-radius: 50%;                  
+  animation: spin var(--speed) linear infinite;
+}
+
+
 @media (max-width: 600px) {
     .form-grid {
   grid-template-columns: repeat(1, 1fr);
 }
 
 
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
