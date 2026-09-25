@@ -3,7 +3,7 @@ const myDialog = document.getElementById("diagAdd");
     const btnCancel = document.getElementById("btnCancel");
     const diagEdit = document.getElementById("diagEdit");
     const spinner = document.getElementById("tableLoading");
-
+    const btnAddNewPatient = document.getElementById("btnAddNewPatient");
     btnAdd.addEventListener("click",()=> {
         myDialog.showModal();
     });
@@ -53,6 +53,8 @@ const myDialog = document.getElementById("diagAdd");
             setLoading(false);
         }
     }
+
+
 
     function renderPatientsTable(patients) {
     // 1. Find the placeholder by ID
@@ -112,7 +114,7 @@ const myDialog = document.getElementById("diagAdd");
             // ID cell (strong tag)
             const idCell = document.createElement('td');
             const strong = document.createElement('strong');
-            strong.textContent = `PT-${String(patient.patientID).padStart(3, '0')}`;
+            strong.textContent = `${String(patient.patientID).padStart(3, '0')}`;
             idCell.appendChild(strong);
             row.appendChild(idCell);
 
@@ -183,4 +185,114 @@ async function  LoadAllPatients() {
     renderPatientsTable(data);
 }
 
+// ==========================================
+// ADD PATIENT - Get form values
+// ==========================================
+function getAddPatientValues() {
+    return {
+        FirstName:    document.getElementById('addFirstName').value.trim(),
+        LastName:     document.getElementById('addLastName').value.trim(),
+        DateOfBirth:  document.getElementById('addDateOfBirth').value,
+        Phone:        document.getElementById('addPhone').value.trim(),
+        Email:        document.getElementById('addEmail').value.trim(),
+        Gender:       document.getElementById('addGender').value,
+        Password:     document.getElementById('addPassword').value,
+        Address:      document.getElementById('addAddress').value.trim()
+    };
+}
+
+// ==========================================
+// EDIT PATIENT - Get form values
+// ==========================================
+function getEditPatientValues() {
+    return {
+        FirstName:    document.getElementById('edFirstName').value.trim(),
+        LastName:     document.getElementById('edLastName').value.trim(),
+        DateOfBirth:  document.getElementById('edDateOfBirth').value,
+        Phone:        document.getElementById('edPhone').value.trim(),
+        Email:        document.getElementById('edEmail').value.trim(),
+        Gender:       document.getElementById('edGender').value,
+        Password:     document.getElementById('edPassword').value,
+        Address:      document.getElementById('edAddress').value.trim()
+    };
+}
+
+// ==========================================
+// EDIT PATIENT - Populate form with values
+// ==========================================
+function setEditPatientValues(patient) {
+    document.getElementById('edFirstName').value   = patient.FirstName   ?? '';
+    document.getElementById('edLastName').value    = patient.LastName    ?? '';
+    document.getElementById('edDateOfBirth').value = patient.DateOfBirth 
+        ? patient.DateOfBirth.split('T')[0]  // handle ISO date from API
+        : '';
+    document.getElementById('edPhone').value       = patient.Phone       ?? '';
+    document.getElementById('edEmail').value       = patient.Email       ?? '';
+    document.getElementById('edGender').value      = patient.Gender      ?? '';
+    document.getElementById('edPassword').value    = patient.Password    ?? '';
+    document.getElementById('edAddress').value     = patient.Address     ?? '';
+}
+
+// ==========================================
+// ADD PATIENT - Clear form
+// ==========================================
+function clearAddPatientForm() {
+    document.getElementById('addFirstName').value   = '';
+    document.getElementById('addLastName').value    = '';
+    document.getElementById('addDateOfBirth').value = '';
+    document.getElementById('addPhone').value       = '';
+    document.getElementById('addEmail').value       = '';
+    document.getElementById('addGender').value      = '';
+    document.getElementById('addPassword').value    = '';
+    document.getElementById('addAddress').value     = '';
+}
+
+async function PostPatient(patient) {
+    try {
+        const response = await fetch(`${BASE_API}/AddNewPatient`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                FirstName: patient.FirstName,
+                LastName: patient.LastName,
+                DateOfBirth: patient.DateOfBirth,
+                Email: patient.Email,
+                Address: patient.Address,
+                Phone: patient.Phone,
+                Gender: patient.Gender,
+                Password: patient.Password
+            })
+        });
+
+        if (!response.ok) {
+            // Handle BadRequest response
+            const errorText = await response.text();
+            throw new Error(errorText || 'Failed to add new patient');
+        }
+
+        const data = await response.json();
+        return true; // Returns the new patient ID
+    } catch (error) {
+        console.error('Error adding new patient:', error);
+        throw error;
+    }
+}
+
+async function AddnewPatient()
+{
+ const NewPatient = getAddPatientValues();
+   await PostPatient(NewPatient);
+    LoadAllPatients();
+    myDialog.close();
+    clearAddPatientForm();
+}
+
+
+
+
 document.addEventListener("DOMContentLoaded", LoadAllPatients);
+btnAddNewPatient.addEventListener("click" , ()=>{
+    AddnewPatient();
+});
