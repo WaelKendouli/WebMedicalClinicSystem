@@ -7,7 +7,7 @@ const myDialog = document.getElementById("diagAdd");
     const diagQuest = document.getElementById("diagQuest");
     const btnConfirm = document.getElementById("btnConfirm");
     const btnCancelDeletion = document.getElementById("btnCancelDeletion");
-
+    const btnEditPatient = document.getElementById("btnEditPatient");
     btnAdd.addEventListener("click",()=> {
         myDialog.showModal();
     });
@@ -157,6 +157,7 @@ const myDialog = document.getElementById("diagAdd");
             editBtn.addEventListener("click" , () => {
                  diagEdit.showModal();
                  currentPatientToEdit = patient;
+                 setEditPatientValues(currentPatientToEdit);
             });
 
             const deleteBtn = document.createElement('button');
@@ -218,6 +219,7 @@ function getAddPatientValues() {
 // ==========================================
 function getEditPatientValues() {
     return {
+        patientID :  currentPatientToEdit.patientID ,
         FirstName:    document.getElementById('edFirstName').value.trim(),
         LastName:     document.getElementById('edLastName').value.trim(),
         DateOfBirth:  document.getElementById('edDateOfBirth').value,
@@ -317,13 +319,48 @@ async function deletePatient(patientID) {
     }
 }
 
+// ==========================================
+// UPDATE PATIENT
+// ==========================================
+async function updatePatient(patient) {
+    try {
+        const response = await fetch(`${BASE_API}/UpdatePatient/${patient.patientID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                patientID:   patient.patientID,
+                firstName:   patient.FirstName,     
+                lastName:    patient.LastName,     
+                dateOfBirth: patient.DateOfBirth,   
+                phone:       patient.Phone,         
+                email:       patient.Email,         
+                address:     patient.Address,       
+                gender:      patient.Gender,       
+                password:    patient.Password       
+            })
+        });
 
+        if (!response.ok) {
+            // Handles 400 BadRequest / 404 NotFound / other errors
+            const errorText = await response.text();
+            console.log(errorText);
+        }
+
+        return true;
+    } catch (error) {
+        console.error('Error updating patient:', error);
+        throw error;
+    }
+}
 
 async function AddnewPatient()
 {
  const NewPatient = getAddPatientValues();
    await PostPatient(NewPatient);
-    LoadAllPatients();
+   await LoadAllPatients();
     myDialog.close();
     clearAddPatientForm();
 }
@@ -354,4 +391,10 @@ btnAddNewPatient.addEventListener("click" , ()=>{
 
 btnConfirm.addEventListener("click" , ()=>{
     RefreshListAfterAction(diagQuest , currentPatientToDelete.patientID , deletePatient);
+});
+
+btnEditPatient.addEventListener("click" , ()=> {
+    
+const EditedPatient = getEditPatientValues();
+RefreshListAfterAction(diagEdit, EditedPatient , updatePatient);
 });
