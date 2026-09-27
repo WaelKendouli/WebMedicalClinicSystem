@@ -8,6 +8,9 @@ const myDialog = document.getElementById("diagAdd");
     const btnConfirm = document.getElementById("btnConfirm");
     const btnCancelDeletion = document.getElementById("btnCancelDeletion");
     const btnEditPatient = document.getElementById("btnEditPatient");
+
+
+
     btnAdd.addEventListener("click",()=> {
         myDialog.showModal();
     });
@@ -197,6 +200,66 @@ async function  LoadAllPatients() {
     const data = await GetAllPatients();
     renderPatientsTable(data);
 }
+
+function SelectFilterationOption()
+{
+    const txtInput = document.getElementById("txtInput").value;
+    const menu = document.getElementById("menu").value;
+
+    const attributeMap = {
+        ID:        "patientID",
+        FirstName: "firstName",
+        LastName:  "lastName",
+        Address:   "address",
+        Email:     "email",
+        Phone:     "phone"
+    };
+
+    const attributeName = attributeMap[menu];
+    if (!attributeName) return;
+
+    FilterPatinet(txtInput, attributeName , filterBy);
+    
+}
+
+function filterBy(value , attributeName)
+{
+    if (value === "" || value === null) {
+        return liPatients;
+    }
+    
+    if (value) {
+        const filter = liPatients.filter(p => String(p[attributeName]) === String(value));
+        return filter;
+    }
+    return liPatients;
+}
+
+
+
+function FilterPatinet(input , attributeName , filterationMethod)
+{
+    if (attributeName.length===0) {
+        return;
+    }
+    if (liPatients===null || liPatients===undefined) {
+        return;
+    }
+    if (!Array.isArray(liPatients)) {
+        return ;
+    }
+    let filtredTable ;
+    if (input) {
+        filtredTable = filterationMethod(input , attributeName);
+        if (filtredTable.length === 0) {
+        renderPatientsTable(liPatients);
+        return;
+    }
+
+    }
+        renderPatientsTable(filtredTable);
+}
+
 
 // ==========================================
 // ADD PATIENT - Get form values

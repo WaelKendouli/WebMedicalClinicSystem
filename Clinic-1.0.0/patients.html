@@ -52,6 +52,7 @@
         <div class="Actions-container">
     <div class="search-wrapper">
         <input 
+            id="txtInput"
             type="text" 
             class="search-input" 
             placeholder="Search patients by name, email, or ID..."
@@ -60,19 +61,21 @@
     
     <div class="select-wrapper">
     <select id="menu" class="select-dropdown" name="menu">
-      <option value="" disabled selected>Select an item…</option>
-      <option value="dashboard">Dashboard</option>
-      <option value="profile">Profile</option>
-      <option value="settings">Settings</option>
-      <option value="logout">Log out</option>
+      <option value="ID">ID</option>
+      <option value="FirstName">First name</option>
+      <option value="LastName">Last name</option>
+      <option value="Address">Address</option>
+      <option value="Email">Email</option>
+      <option value="Phone">Phone</option>
+
     </select>
   </div>
-
+    <button id="btnSearch" type="button">Search</button>
+    <button id="btnReset" class="btn-delete" type="button">Reset</button>
     <!-- Right Hand Action Trigger Button -->
     <button id="btnAdd" type="button">
         <span>+ Add New Patient</span>
     </button>
-
 </div>
 
     <div id="table-placeholder" class="patients-table-wrap">
@@ -145,7 +148,6 @@
                         <option value="" disabled selected>Select...</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
-                        <option value="Other">Other</option>
                     </select>
                 </div>
 
