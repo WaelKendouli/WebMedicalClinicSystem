@@ -8,7 +8,8 @@ const myDialog = document.getElementById("diagAdd");
     const btnConfirm = document.getElementById("btnConfirm");
     const btnCancelDeletion = document.getElementById("btnCancelDeletion");
     const btnEditPatient = document.getElementById("btnEditPatient");
-
+    const btnSearch = document.getElementById("btnSearch");
+    const btnReset = document.getElementById("btnReset");
 
 
     btnAdd.addEventListener("click",()=> {
@@ -461,3 +462,9 @@ btnEditPatient.addEventListener("click" , ()=> {
 const EditedPatient = getEditPatientValues();
 RefreshListAfterAction(diagEdit, EditedPatient , updatePatient);
 });
+btnSearch.addEventListener("click" , () => {
+    SelectFilterationOption();
+});
+btnReset.addEventListener("click",()=>{
+    renderPatientsTable(liPatients);
+})

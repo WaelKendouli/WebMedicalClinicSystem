@@ -19,6 +19,7 @@
     --font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
+
 .patients-container {
     margin-block: 120px;
     display: flex;
@@ -41,6 +42,8 @@
   box-shadow: var(--shadow-soft);
   border: 1px solid var(--border-color);
   overflow-x: auto; /* Ensures smooth horizontal scroll on smaller viewports */
+  max-height: 900px;
+     overflow-y: auto;
 }
 
 /* ==========================================================================
@@ -52,6 +55,7 @@
   text-align: left;
   font-size: 0.925rem;
   color: var(--text-main);
+
 }
 
 
