@@ -1,20 +1,16 @@
 class Patient {
-    constructor(patientID , firstName , lastName ,
-         dateOfBirth , email , phone , address , gender )
-{
-    this.patientID = patientID;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.dateOfBirth = dateOfBirth;
-    this.email = email;
-    this.phone = phone;
-    this.address = address;
-    this.gender = gender;
-}
-constructor()
-{
+constructor(patientID = null, firstName = '', lastName = '',
+        dateOfBirth = null, email = '', phone = '', address = '', gender = '') {
+        this.patientID = patientID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.gender = gender;
+    }
 
-}
 }
 
 export let CurrentPatient = new Patient();

@@ -1,3 +1,4 @@
+import { SetPatientInfos } from  "./CurrentPatient.js";
 const myDialog = document.getElementById("diagAdd");
     const btnAdd = document.getElementById("btnAdd");
     const btnCancel = document.getElementById("btnCancel");
@@ -176,6 +177,10 @@ const myDialog = document.getElementById("diagAdd");
             const btnSetAppointment = document.createElement('button');
             btnSetAppointment.classList.add("btn-appointement");
             btnSetAppointment.textContent = "Set Appointment";
+            btnSetAppointment.addEventListener("click" , ()=>{
+                SetPatientInfos(patient);
+                window.location.href = "setAppointment.html";
+            });
             actionsCell.appendChild(editBtn);
             actionsCell.appendChild(deleteBtn);
             actionsCell.appendChild(btnSetAppointment);
