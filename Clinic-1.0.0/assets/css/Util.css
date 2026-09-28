@@ -1,0 +1,84 @@
+
+:root {
+  --primary-color: #0062ff;       /* Clinic theme brand blue */
+  --primary-hover: #004ecc;      /* Darker blue for interactions */
+  --bg-color: #f4f7fc;           /* Soft light blue-grey background */
+  --card-bg: #ffffff;            /* Pure white form background */
+  --text-main: #333333;          /* Deep dark grey for core readability */
+  --text-muted: #666666;         /* Subdued description text */
+  --border-color: #e2e8f0;       /* Crisp divider and border color */
+  --muted : hsla(215, 100%, 51%, 0.729);
+  --valid : hsla(147, 87%, 50%, 0.584);
+  --error : hsla(5, 93%, 48%, 0.667);
+}
+
+.spinner {
+  
+  --size: 48px;
+  --offset-color: #51545803; 
+  --spin-color:var(--primary-color);   
+  --speed: 0.8s;
+  display: none;
+  margin: 30px;
+  width: var(--size);
+  height: var(--size);
+  border: 4px solid var(--offset-color);
+  border-top-color: var(--spin-color); 
+  border-radius: 50%;                  
+  animation: spin var(--speed) linear infinite;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 1.3rem 0.5rem;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+
+  color: var(--bg-color);
+  background: var(--primary-color);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.1);
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+button:active {
+  background: #3730a3;
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.35);
+}
+
+button:disabled {
+  background: #c7c9d1;
+  color: #fff;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
