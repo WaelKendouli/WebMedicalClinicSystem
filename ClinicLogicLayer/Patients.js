@@ -153,7 +153,7 @@ const myDialog = document.getElementById("diagAdd");
 
             // Actions cell
             const actionsCell = document.createElement('td');
-
+                actionsCell.classList.add("row-actions");
             const editBtn = document.createElement('button');
             editBtn.className = 'btnEdit';
             editBtn.textContent = 'Edit';
@@ -173,10 +173,13 @@ const myDialog = document.getElementById("diagAdd");
                 diagQuest.showModal();
             });
 
+            const btnSetAppointment = document.createElement('button');
+            btnSetAppointment.classList.add("btn-appointement");
+            btnSetAppointment.textContent = "Set Appointment";
             actionsCell.appendChild(editBtn);
             actionsCell.appendChild(deleteBtn);
+            actionsCell.appendChild(btnSetAppointment);
             row.appendChild(actionsCell);
-
             tbody.appendChild(row);
         });
     }

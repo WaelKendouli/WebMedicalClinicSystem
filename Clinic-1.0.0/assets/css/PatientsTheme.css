@@ -3,6 +3,7 @@
 :root {
     --primary-color: #0062ff;
     --primary-hover: #5200cc;
+    --appointment-color : #a20fe6fb;
     --bg-color: #f4f7fc;
     --card-bg: #ffffff;
     --text-main: #333333;
@@ -98,7 +99,10 @@
   font-weight: 600;
 }
 
-
+.row-actions {
+  display: inline-flex;
+  gap:0.5rem;
+}
 
 
 .Actions-container {
@@ -143,6 +147,10 @@ button {
     color: var(--table-header);
     border-radius: 25px;
 }
+.btn-appointement {
+  background-color: var(--appointment-color);
+}
+
 button:hover {
     background-color: var(--primary-hover);
 }
