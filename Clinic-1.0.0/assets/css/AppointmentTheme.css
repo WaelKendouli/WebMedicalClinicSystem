@@ -1,2 +1,213 @@
 
+:root {
+  --primary-color: #0062ff;       /* Clinic theme brand blue */
+  --primary-hover: #004ecc;      /* Darker blue for interactions */
+  --bg-color: #f4f7fc;           /* Soft light blue-grey background */
+  --card-bg: #ffffff;            /* Pure white form background */
+  --text-main: #333333;          /* Deep dark grey for core readability */
+  --text-muted: #666666;         /* Subdued description text */
+  --border-color: #e2e8f0;       /* Crisp divider and border color */
+  --muted : hsla(215, 100%, 51%, 0.729);
+  --valid : hsla(147, 87%, 50%, 0.584);
+  --error : hsla(5, 93%, 48%, 0.667);
+  --color-header : #0b2b4f;
+}
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+    margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3rem;
+}
+
+.Layout {
+    margin-bottom: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+/* ── table container / card ─────────────────────────── */
+    .table-wrapper {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 20px 35px -8px rgba(0, 20, 45, 0.15), 0 8px 20px -6px rgba(0, 32, 64, 0.08);
+      padding: 1.75rem 1.75rem 1rem 1.75rem;
+      transition: all 0.2s ease;
+     
+    }
+
+    /* ── table ───────────────────────────────────────────── */
+    .doctors-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.9rem;
+      min-width: 1100px; /* smooth horizontal scroll on narrow screens */
+      border-radius: 16px;
+      overflow-x: auto;
+    }
+
+    /* ── header ──────────────────────────────────────────── */
+    .doctors-table thead tr {
+      background: var(--primary-color);
+      color: var(--card-bg);
+    }
+
+    .doctors-table thead th {
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 1rem 0.9rem;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 2px solid #1e4a76;
+    }
+
+    /* ── body rows ───────────────────────────────────────── */
+    .doctors-table tbody tr {
+      background-color: #ffffff;
+      transition: background-color 0.15s ease, box-shadow 0.1s ease;
+      border-bottom: 1px solid #e2eaf5;
+    }
+
+    .doctors-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .doctors-table tbody tr:hover {
+      background-color: #f0f7ff;
+      box-shadow: inset 0 0 0 1px #cde1f5;
+    }
+
+    .doctors-table td {
+      padding: 0.9rem 0.9rem;
+      vertical-align: middle;
+      color: #1a2e44;
+      border-bottom: 1px solid #e9f0f9;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    /* make address + email wrap gracefully if needed */
+    .doctors-table td:nth-child(7),
+    .doctors-table td:nth-child(6) {
+      white-space: normal;
+      word-break: break-word;
+      max-width: 180px;
+    }
+
+    /* ── avatar / photo cell ────────────────────────────── */
+    .doctor-photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-thumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #d9e6f2;
+      box-shadow: 0 2px 6px rgba(0, 20, 40, 0.08);
+      border: 2px solid white;
+      transition: transform 0.15s;
+    }
+
+    .photo-thumb:hover {
+      transform: scale(1.05);
+    }
+
+    /* fallback when no photoURL or empty */
+    .photo-placeholder {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #1e4a76;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border: 2px solid white;
+      letter-spacing: 0.5px;
+    }
+
+    /* small badge for specialization */
+    .spec-badge {
+      background: #e8f0fe;
+      color: #0b2b4f;
+      font-weight: 500;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 40px;
+      display: inline-block;
+      letter-spacing: 0.01em;
+      border: 1px solid #bdd3eb;
+      white-space: nowrap;
+    }
+
+    /* gender chip */
+    .gender-chip {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: #f0f4fa;
+      color: #1e3b5c;
+      border: 1px solid #c7d9ec;
+    }
+
+    /* doctor id */
+    .doctor-id {
+      font-weight: 600;
+      color: #1a4c7a;
+      background: #e6f0fd;
+      padding: 0.15rem 0.5rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      display: inline-block;
+      text-align: center;
+      min-width: 2.5rem;
+    }
+
+    /* ── responsive touch ───────────────────────────────── */
+    @media (max-width: 680px) {
+      body {
+        padding: 1rem 0.75rem;
+      }
+      .table-wrapper {
+        padding: 1rem 0.75rem;
+        border-radius: 18px;
+      }
+    }
+
+    /* optional: sticky header for better UX */
+    .doctors-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--primary-color);
+    }
