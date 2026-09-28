@@ -178,7 +178,7 @@ const myDialog = document.getElementById("diagAdd");
             btnSetAppointment.classList.add("btn-appointement");
             btnSetAppointment.textContent = "Set Appointment";
             btnSetAppointment.addEventListener("click" , ()=>{
-                SetPatientInfos(patient);
+                localStorage.setItem("currentPatient" , JSON.stringify(patient));
                 window.location.href = "setAppointment.html";
             });
             actionsCell.appendChild(editBtn);
