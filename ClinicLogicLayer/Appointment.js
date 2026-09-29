@@ -1,14 +1,20 @@
 import { extGetAllDoctors, extGetSpeciSpecializations } from "./DoctorsAPI.js";
 import { GetPatientInfos , CurrentPatient } from "./CurrentPatient.js";
 import { SetCurrentDoctor , GetCurrentDoctor } from "./CurrentDoctor.js";
-
+import {Post , Get , Delete , Put} from "./CRUDhelper.js";
 
 
 
 const UI = {
     tableContainer : document.getElementById("tableContainer") ,
     diagAddNew : document.getElementById("diagAddNew"),
-    loadingSpin : document.getElementById("loadingSpin")
+    loadingSpin : document.getElementById("loadingSpin") ,
+    frmInfo : {
+        form : document.getElementById("frmInfo") ,
+        appointmentStatusList : document.getElementById("appointmentStatusId"),
+        btnSubmit : document.getElementById("btnSubmit") ,
+        btnCancelForm : document.getElementById("btnCancelForm")
+    }
 }
 
 
@@ -146,3 +152,6 @@ const data = await extGetAllDoctors();
 
 document.addEventListener("DOMContentLoaded", DispalyDoctorsData);
 document.addEventListener("DOMContentLoaded" , GetPatientInfos);
+UI.frmInfo.btnCancelForm.addEventListener("click" , () => {
+  UI.diagAddNew.close();
+})
