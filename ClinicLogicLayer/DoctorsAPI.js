@@ -25,7 +25,7 @@ export async function extGetAllDoctors()
     }
 }
 
-let dicSpercialzationbyID;
+export let dicSpercialzationbyID;
 
 export async function extGetSpeciSpecializations()
 {

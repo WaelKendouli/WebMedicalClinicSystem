@@ -82,3 +82,157 @@ button:disabled {
   box-shadow: none;
   transform: none;
 }
+
+.Actions-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:1.2rem;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 240px;
+}
+
+/* ----- label ----- */
+.select-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.02em;
+  padding-left: 0.25rem;
+}
+
+/* ----- native select element ----- */
+.select-dropdown {
+  /* remove native appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  padding: 0.85rem 2.75rem 0.85rem 1.25rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: #1e293b;
+
+  background-color: #ffffff;
+  border: 1px solid #d0d7e2;
+  border-radius: 14px;
+
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+
+  /* custom arrow via background SVG */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1.1rem center;
+  background-size: 14px;
+}
+
+/* hover state */
+.select-dropdown:hover {
+  border-color: #b3c0d0;
+  background-color: #f9fafc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* focus state */
+.select-dropdown:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+  background-color: #ffffff;
+}
+
+/* open state (when dropdown is expanded) */
+.select-dropdown:open {
+  border-color: #3b82f6;
+}
+
+/* ----- placeholder option styling (first disabled option) ----- */
+.select-dropdown option[disabled] {
+  color: #94a3b8;
+}
+
+/* ----- dropdown options (limited browser support) ----- */
+.select-dropdown option {
+  padding: 0.6rem 1rem;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+/* selected option highlight inside the list (where supported) */
+.select-dropdown option:checked {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 750px;
+  min-width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+  border-top: 5px solid var(--primary-color);
+}
+
+.form-header {
+ display: flex;
+ flex-wrap: wrap;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+.form-header h2 {
+  font-size: 28px;
+  color: #111;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.dialoge-button-container{
+    margin-block: 1.2rem;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap:1.2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+dialog {
+    position: fixed;
+    inset: 0;              /* shorthand: top/right/bottom/left = 0 */
+    margin: auto;          /* centers both axes */
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+    dialog::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+    }
