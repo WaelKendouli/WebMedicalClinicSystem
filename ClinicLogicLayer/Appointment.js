@@ -1,0 +1,112 @@
+import { GetAllDoctors, LoadSpecializations } from "./Doctors.js";
+
+
+const UI = {
+    tableContainer : document.getElementById("tableContainer") 
+}
+
+/**
+ * Renders the doctors list into the .doctors-table tbody.
+ * Uses only document.createElement + appendChild (no innerHTML).
+ * @param {Array} doctors - Array of doctor objects from the API/JSON.
+ */
+function renderDoctorsTable(doctors) {
+  // --- Wrap ---
+  UI.tableContainer.innerHTML ="";
+
+  // --- Table ---
+  const table = document.createElement('table');
+  table.className = 'doctors-table';
+
+  // --- Thead ---
+  const thead = document.createElement('thead');
+  const headRow = document.createElement('tr');
+
+  const headers = ['ID', 'Name', 'Specialty', 'Gender', 'Email', 'Actions'];
+  headers.forEach((label) => {
+    const th = document.createElement('th');
+    th.textContent = label;
+    headRow.appendChild(th);
+  });
+
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  // --- Tbody ---
+  const tbody = document.createElement('tbody');
+
+  if (!Array.isArray(doctors) || doctors.length === 0) {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = headers.length;
+    td.textContent = 'No doctors found.';
+    td.style.textAlign = 'center';
+    td.style.padding = '2rem';
+    td.style.color = '#64748b';
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+  } else {
+    doctors.forEach((doc) => {
+      const tr = document.createElement('tr');
+      tr.dataset.doctorId = doc.doctorID;
+
+      // ID
+      const tdId = document.createElement('td');
+      const strongId = document.createElement('strong');
+      strongId.textContent = `#D-${String(doc.doctorID).padStart(4, '0')}`;
+      tdId.appendChild(strongId);
+      tr.appendChild(tdId);
+
+      // Name
+      const tdName = document.createElement('td');
+      tdName.textContent =
+        `Dr. ${doc.firstName || ''} ${doc.lastName || ''}`.trim();
+      tr.appendChild(tdName);
+
+      // Specialty
+      const tdSpecialty = document.createElement('td');
+      tdSpecialty.textContent = doc.specialization || 'N/A';
+      tr.appendChild(tdSpecialty);
+
+      // Gender
+      const tdGender = document.createElement('td');
+      tdGender.textContent = doc.gender || 'N/A';
+      tr.appendChild(tdGender);
+
+      // Email
+      const tdEmail = document.createElement('td');
+      tdEmail.textContent = doc.email || 'N/A';
+      tr.appendChild(tdEmail);
+
+      // Actions
+      const tdActions = document.createElement('td');
+      const btn = document.createElement('button');
+      btn.className = 'btn-edit';
+      btn.textContent = 'choose doctor';
+      btn.dataset.doctorId = doc.doctorID;
+      
+      tdActions.appendChild(btn);
+      tr.appendChild(tdActions);
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  table.appendChild(tbody);
+  UI.tableContainer.appendChild(table);
+}
+
+/**
+ * Placeholder handler when a doctor is chosen.
+ * Replace with your actual logic (open modal, fill form, etc.).
+ */
+function onChooseDoctor(doctor) {
+  console.log('Chosen doctor:', doctor);
+}
+
+async function  DispalyDoctorsData() {
+    const data = await GetAllDoctors();
+    await renderDoctorsTable(data);
+}
+
+document.addEventListener("DOMContentLoaded", DispalyDoctorsData);

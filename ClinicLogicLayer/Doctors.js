@@ -146,7 +146,7 @@ async function RenderSpecialazation()
 let dicSpercialzationbyID ;
 
 
-async function LoadSpecializations() {
+export async function LoadSpecializations() {
     try {
         const res = await fetch(`${API_Base}/GetSpecializations`, {
             method: "GET",
@@ -243,7 +243,7 @@ function  RenderDoctors(data)
     data.forEach(element => CreateDoctorCard(element));
 }
 
-async function GetAllDoctors()
+export async function GetAllDoctors()
 {
     try {
         setLoading(true);
@@ -256,7 +256,7 @@ async function GetAllDoctors()
         if (!res.ok) {
             ShowInformation(`HTTP ${res.status}`, false);
             setLoading(false);
-            return;
+            return null;
         }
         const data = await res.json();
         liDoctors = data;
