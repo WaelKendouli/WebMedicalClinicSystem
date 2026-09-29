@@ -1,4 +1,8 @@
 import { extGetAllDoctors, extGetSpeciSpecializations } from "./DoctorsAPI.js";
+import { GetPatientInfos , CurrentPatient } from "./CurrentPatient.js";
+import { SetCurrentDoctor , GetCurrentDoctor } from "./CurrentDoctor.js";
+
+
 
 
 const UI = {
@@ -84,6 +88,9 @@ function renderDoctorsTable(doctors) {
       btn.className = 'btn-edit';
       btn.textContent = 'choose doctor';
       btn.dataset.doctorId = doc.doctorID;
+      btn.addEventListener("click" ,()=>{
+        SetCurrentDoctor(doc);
+      });
       
       tdActions.appendChild(btn);
       tr.appendChild(tdActions);
@@ -110,3 +117,4 @@ async function  DispalyDoctorsData() {
 }
 
 document.addEventListener("DOMContentLoaded", DispalyDoctorsData);
+document.addEventListener("DOMContentLoaded" , GetPatientInfos);

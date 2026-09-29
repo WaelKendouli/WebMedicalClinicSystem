@@ -24,5 +24,12 @@ export function SetPatientInfos(patient)
 
 export function GetPatientInfos()
 {
+    const raw = localStorage.getItem("currentPatient");
+        console.log("raw:", raw); 
+                                    // string or null
+            if (raw) {
+            CurrentPatient = JSON.parse(raw);
+            console.log("parsed:", CurrentPatient);          // object
+            }
     return CurrentPatient;
 }
