@@ -47,112 +47,84 @@
   <div id="header-placeholder"></div>
 
   <main>
-    <h1>Select a doctor</h>
-    <div class="Layout">
-  <div class="table-wrapper">
-    <table class="doctors-table">
-      <thead>
-        <tr>
-          <th>Photo</th>
-          <th>ID</th>
-          <th>First name</th>
-          <th>Last name</th>
-          <th>Specialization</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Gender</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- row 1 – Wael Kendouli (Infectious Disease) -->
-        <tr>
-          <td class="doctor-photo">
-            <!-- photoURL: "https://random.com" (broken placeholder) → fallback initials -->
-            <div class="photo-placeholder">WK</div>
-          </td>
-          <td><span class="doctor-id">26</span></td>
-          <td>Wael</td>
-          <td>Kendouli</td>
-          <td><span class="spec-badge">Infectious Disease</span></td>
-          <td>+1 548 623233</td>
-          <td>kendouliwael@gmail.com</td>
-          <td><span class="gender-chip">Male</span></td>
-          <td><button>Choose</button></td>
-        </tr>
+    <h1>Select a doctor</h1>
+      <div class="doctors-table-wrap">
+  <table class="doctors-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Specialty</th>
+        <th>Department</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>#D-1001</strong></td>
+        <td>Dr. Sarah Mitchell</td>
+        <td>Cardiology</td>
+        <td>Heart & Vascular</td>
+        <td>Available</td>
+        <td>
+            <button class="btn-edit">choose doctor</button>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>#D-1002</strong></td>
+        <td>Dr. James Carter</td>
+        <td>Neurology</td>
+        <td>Brain & Spine</td>
+        <td>On Leave</td>
+        <td>
+            <button class="btn-edit">choose doctor</button>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>#D-1003</strong></td>
+        <td>Dr. Amelia Rivera</td>
+        <td>Pediatrics</td>
+        <td>Child Health</td>
+        <td>Available</td>
+        <td>
+            <button class="btn-view">choose doctor</button>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>#D-1004</strong></td>
+        <td>Dr. Daniel Okafor</td>
+        <td>Orthopedics</td>
+        <td>Bones & Joints</td>
+        <td>In Surgery</td>
+        <td>
+          <button class="btn-view">choose doctor</button>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>#D-1005</strong></td>
+        <td>Dr. Priya Nair</td>
+        <td>Dermatology</td>
+        <td>Skin Care</td>
+        <td>Available</td>
+        <td>
+            <button class="btn-view">choose doctor</button>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>#D-1006</strong></td>
+        <td>Dr. Liam Bennett</td>
+        <td>Oncology</td>
+        <td>Cancer Care</td>
+        <td>Available</td>
+        <td>
+          <button class="btn-view">choose doctor</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-        <!-- row 2 – Macye Brado (Oncology) – has valid photoURL -->
-        <tr>
-          <td class="doctor-photo">
-            <img
-              class="photo-thumb"
-              src="https://media.istockphoto.com/id/1425798958/photo/photo-of-confident-female-doctor-in-hospital-looking-at-camera-with-smile.jpg?s=612x612&w=0&k=20&c=i91idG544pXuYkw5ju6iIzm1m-lEqQaygeOOrjG5GEk="
-              alt="Dr. Macye Brado"
-              loading="lazy"
-              onerror="this.style.display='none'; this.parentNode.querySelector('.photo-placeholder')?.style.display='flex';"
-            />
-            <!-- fallback hidden by default -->
-            <div class="photo-placeholder" style="display: none;">MB</div>
-          </td>
-          <td><span class="doctor-id">25</span></td>
-          <td>Macye</td>
-          <td>Brado</td>
-          <td><span class="spec-badge">Oncology</span></td>
-          <td>+123 5566523</td>
-          <td>MacyeBrado@gmail.com</td>
-          <td><span class="gender-chip">Female</span></td>
-          <td><button>Choose</button></td>
-        </tr>
-
-        <!-- row 3 – Mark Lucan (Nuclear Medicine) – empty photoURL → placeholder -->
-        <tr>
-          <td class="doctor-photo">
-            <div class="photo-placeholder">ML</div>
-          </td>
-          <td><span class="doctor-id">24</span></td>
-          <td>Mark</td>
-          <td>Lucan</td>
-          <td><span class="spec-badge">Nuclear Medicine</span></td>
-          <td>+122566523355</td>
-          <td>kendouliwael@gmail.com</td>
-          <td><span class="gender-chip">Male</span></td>
-          <td><button>Choose</button></td>
-        </tr>
-
-        <!-- row 4 – Example Last (Pain Management) – empty photoURL -->
-        <tr>
-          <td class="doctor-photo">
-            <div class="photo-placeholder">EL</div>
-          </td>
-          <td><span class="doctor-id">23</span></td>
-          <td>Example</td>
-          <td>Last</td>
-          <td><span class="spec-badge">Pain Management</span></td>
-          <td>+1 548 623233</td>
-          <td>kendouliwael@gmail.com</td>
-          <td><span class="gender-chip">Female</span></td>
-          <td><button>Choose</button></td>
-        </tr>
-
-        <!-- row 5 – Marcus Johnson (Sleep Medicine) – empty photoURL -->
-        <tr>
-          <td class="doctor-photo">
-            <div class="photo-placeholder">MJ</div>
-          </td>
-          <td><span class="doctor-id">22</span></td>
-          <td>Marcus</td>
-          <td>Johnson</td>
-          <td><span class="spec-badge">Sleep Medicine</span></td>
-          <td>+1 548 623233</td>
-          <td>kendouliwael@gmail.com</td>
-          <td><span class="gender-chip">Male</span></td>
-          <td><button>Choose</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  </div>
   </main>
   
 
