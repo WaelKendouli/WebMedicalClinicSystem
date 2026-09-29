@@ -6,7 +6,8 @@ import { SetCurrentDoctor , GetCurrentDoctor } from "./CurrentDoctor.js";
 
 
 const UI = {
-    tableContainer : document.getElementById("tableContainer") 
+    tableContainer : document.getElementById("tableContainer") ,
+    diagAddNew : document.getElementById("diagAddNew")
 }
 
 /**
@@ -90,6 +91,7 @@ function renderDoctorsTable(doctors) {
       btn.dataset.doctorId = doc.doctorID;
       btn.addEventListener("click" ,()=>{
         SetCurrentDoctor(doc);
+        UI.diagAddNew.showModal();
       });
       
       tdActions.appendChild(btn);
