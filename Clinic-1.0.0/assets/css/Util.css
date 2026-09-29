@@ -18,7 +18,7 @@
   --offset-color: #51545803; 
   --spin-color:var(--primary-color);   
   --speed: 0.8s;
-  display: none;
+  display: flex;
   margin: 30px;
   width: var(--size);
   height: var(--size);

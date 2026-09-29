@@ -7,9 +7,21 @@ import { SetCurrentDoctor , GetCurrentDoctor } from "./CurrentDoctor.js";
 
 const UI = {
     tableContainer : document.getElementById("tableContainer") ,
-    diagAddNew : document.getElementById("diagAddNew")
+    diagAddNew : document.getElementById("diagAddNew"),
+    loadingSpin : document.getElementById("loadingSpin")
 }
 
+
+function setLoading(display)
+{
+  if (display===false) {
+    UI.loadingSpin.style.display = "none";
+  }
+  else
+  {
+    UI.loadingSpin.style.display = "flex";
+  }
+}
 /**
  * Renders the doctors list into the .doctors-table tbody.
  * Uses only document.createElement + appendChild (no innerHTML).
@@ -114,8 +126,22 @@ function onChooseDoctor(doctor) {
 }
 
 async function  DispalyDoctorsData() {
-    const data = await extGetAllDoctors();
+  try
+  {
+    setLoading(true);
+const data = await extGetAllDoctors();
     await renderDoctorsTable(data);
+    setLoading(false);
+  }
+  catch(e){
+    console.log(e.message);
+    setLoading(false);
+  }
+  finally
+  {
+    setLoading(false);
+  }
+    
 }
 
 document.addEventListener("DOMContentLoaded", DispalyDoctorsData);
