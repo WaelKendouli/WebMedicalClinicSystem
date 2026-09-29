@@ -1,4 +1,4 @@
-import { GetAllDoctors, LoadSpecializations } from "./Doctors.js";
+import { extGetAllDoctors, extGetSpeciSpecializations } from "./DoctorsAPI.js";
 
 
 const UI = {
@@ -105,7 +105,7 @@ function onChooseDoctor(doctor) {
 }
 
 async function  DispalyDoctorsData() {
-    const data = await GetAllDoctors();
+    const data = await extGetAllDoctors();
     await renderDoctorsTable(data);
 }
 
