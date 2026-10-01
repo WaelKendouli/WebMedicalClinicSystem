@@ -50,6 +50,30 @@ export async function Get(URI , endPoint)
     }
 }
 
+export async function GetByAttribute(URI , endPoint , attribute)
+{
+     try {
+        const res = await fetch(`${API_Base}/${URI}/${endPoint}/${attribute}`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+        if (!res.ok) {
+            console.log(`HTTP ${res.status}`);
+            return null;
+        }
+        const data = await res.json();
+        return data;
+    }
+    catch(e)
+    {
+        console.log(`${e.message}`);
+            return null;
+    }
+}
+
+
 export async function Delete(Id , URI , endPoint)
 {
      try {
