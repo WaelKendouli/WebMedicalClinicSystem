@@ -2,6 +2,7 @@ import { extGetAllDoctors, extGetSpeciSpecializations } from "./DoctorsAPI.js";
 import { GetPatientInfos } from "./CurrentPatient.js";
 import { SetCurrentDoctor , GetCurrentDoctor } from "./CurrentDoctor.js";
 import {Post , Get , Delete , Put , GetByAttribute} from "./CRUDhelper.js";
+import { FillDropDownList } from "./UI_Helper.js";
 
 
 
@@ -15,7 +16,22 @@ const UI = {
         btnSubmit : document.getElementById("btnSubmit") ,
         btnCancelForm : document.getElementById("btnCancelForm")
     } ,
-    AppointmentTableContainer : document.getElementById("App_Placeholder")
+
+    
+    AppointmentTableContainer : document.getElementById("App_Placeholder"),
+     diagEdit: document.getElementById("diagEdit"),
+    frmEditInfo: {
+        form: document.getElementById("frmEditInfo"),
+
+        // "Change doctor" select (note: shares id with the status select in your HTML — see warning below)
+        doctorList: document.getElementById("EdAppointmentStatusId"),
+        // Status select
+        appointmentStatusList: document.getElementById("EdAppointmentStatusId"),
+
+        // Buttons
+        btnSubmit: document.getElementById("edBtnSubmit"),
+        btnCancelForm: document.getElementById("edBtnCancelForm")
+    }
 }
 
 
@@ -244,7 +260,7 @@ function renderAppointmentsTable(appointments) {
       btn.dataset.id = "btnEditAppointment";
       btn.textContent = 'Edit Appointment';
       btn.addEventListener('click', () => {
-        console.log('Appointment selected:', appt);
+        UI.diagEdit.showModal();
       });
       const btnCancel = document.createElement("button");
       btnCancel.dataset.id = "btnCancel";
@@ -316,6 +332,9 @@ document.addEventListener("DOMContentLoaded",DispalyAppointmentsForPatient);
 
 UI.frmInfo.btnCancelForm.addEventListener("click" , () => {
   UI.diagAddNew.close();
+})
+UI.frmEditInfo.btnCancelForm.addEventListener("click" , ()=>{
+  UI.diagEdit.close();
 })
 UI.frmInfo.btnSubmit.addEventListener("click" , async ()=> {
   await  AddNewAppointment();
