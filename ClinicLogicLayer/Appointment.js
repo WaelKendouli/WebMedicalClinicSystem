@@ -239,13 +239,24 @@ function renderAppointmentsTable(appointments) {
 
       // Actions
       const tdActions = document.createElement('td');
+      tdActions.classList.add("row-actions");
       const btn = document.createElement('button');
+      btn.dataset.id = "btnEditAppointment";
       btn.textContent = 'Edit Appointment';
       btn.addEventListener('click', () => {
         console.log('Appointment selected:', appt);
-        
       });
+      const btnCancel = document.createElement("button");
+      btnCancel.dataset.id = "btnCancel";
+      btnCancel.textContent = "Cancel";
+      btnCancel.style.background = "hsla(5, 100%, 50%, 0.67)";
+      btnCancel.addEventListener("click" , ()=>{
+        // add the cancel method here 
+      });
+
+
       tdActions.appendChild(btn);
+      tdActions.appendChild(btnCancel);
       tr.appendChild(tdActions);
 
       tbody.appendChild(tr);
