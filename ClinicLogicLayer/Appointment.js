@@ -127,6 +127,33 @@ function renderDoctorsTable(doctors) {
  * Placeholder handler when a doctor is chosen.
  * Replace with your actual logic (open modal, fill form, etc.).
  */
+async function AddNewAppointment()
+{
+    const NewAppointment = {
+      date  : document.getElementById("date").value ,
+      time : document.getElementById("time").value ,
+       doctorID : Number(GetCurrentDoctor().doctorID) ,
+       patientID : Number(GetPatientInfos().patientID) ,
+       appointmentStatusID : Number(document.getElementById("appointmentStatusId").value) 
+    } 
+    try {
+
+      if (await Post(NewAppointment , "Appointment" , "AddNewAppointment")===true) {
+         UI.diagAddNew.close();
+         console.log("Appointment added succesfully");
+      }
+      else
+      {
+         console.log("Adding Appointment failed");
+      }
+
+    } catch (error) {
+      console.log(error.message);
+    }
+    
+}
+
+
 function onChooseDoctor(doctor) {
   console.log('Chosen doctor:', doctor);
 }
@@ -155,3 +182,6 @@ document.addEventListener("DOMContentLoaded" , GetPatientInfos);
 UI.frmInfo.btnCancelForm.addEventListener("click" , () => {
   UI.diagAddNew.close();
 })
+UI.frmInfo.btnSubmit.addEventListener("click" , ()=> {
+    AddNewAppointment();
+});

@@ -10,7 +10,7 @@ try {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({obj})
+            body: JSON.stringify(obj)
         });
 
         const data = await res.json();
@@ -22,7 +22,7 @@ try {
         return true;
 
     } catch (e) {
-        console.log(`error ${e.Message}`);
+        console.log(`error ${e.message}`);
         return false;
     }
 }
@@ -69,7 +69,7 @@ export async function Delete(Id , URI , endPoint)
 
         return true;
     } catch (error) {
-        console.error('Error deleting patient:', error);
+        console.error('Error deleting patient:', error.message);
         return false;
     }
 }
