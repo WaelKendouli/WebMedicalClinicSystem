@@ -24,7 +24,7 @@ const UI = {
         form: document.getElementById("frmEditInfo"),
 
         // "Change doctor" select (note: shares id with the status select in your HTML — see warning below)
-        doctorList: document.getElementById("EdAppointmentStatusId"),
+        doctorList: document.getElementById("EdDoctorsList"),
         // Status select
         appointmentStatusList: document.getElementById("EdAppointmentStatusId"),
 
@@ -307,6 +307,18 @@ async function DispalyAppointmentsForPatient()
 
 }
 
+async function LoadDoctorsDropDownList() {
+  try{
+    const data = await Get("Doctors" , "GetDoctorsListForOptions");
+    await FillDropDownList( data , UI.frmEditInfo.doctorList);
+  }
+  catch(e)
+  {
+    throw new Error(e.message);
+  }
+}
+
+
 async function  DispalyDoctorsData() {
   try
   {
@@ -326,9 +338,12 @@ const data = await extGetAllDoctors();
     
 }
 
+
 document.addEventListener("DOMContentLoaded", DispalyDoctorsData);
 document.addEventListener("DOMContentLoaded" , GetPatientInfos);
 document.addEventListener("DOMContentLoaded",DispalyAppointmentsForPatient);
+document.addEventListener("DOMContentLoaded",LoadDoctorsDropDownList);
+
 
 UI.frmInfo.btnCancelForm.addEventListener("click" , () => {
   UI.diagAddNew.close();
