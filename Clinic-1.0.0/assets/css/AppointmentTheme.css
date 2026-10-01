@@ -41,7 +41,7 @@ main {
 
 
 .doctors-table-wrap {
-  width: 100%;
+  width: 75%;
   max-width: 1200px;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
@@ -159,7 +159,8 @@ main {
     @media (max-width: 900px) {
       
       .doctors-table-wrap {
-        width : 500px;
+        width : 65%;
+        height: auto;
         margin-inline:0.9rem;
       }
 
@@ -168,7 +169,8 @@ main {
     @media (max-width: 300px) {
       
       .doctors-table-wrap {
-        width : 250px;
+        width : 35%;
+        height: auto;
         padding-inline: 1.2rem;
         margin-inline:0.9rem;
       }

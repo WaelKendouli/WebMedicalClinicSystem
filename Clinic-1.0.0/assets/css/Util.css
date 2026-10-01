@@ -10,6 +10,9 @@
   --muted : hsla(215, 100%, 51%, 0.729);
   --valid : hsla(147, 87%, 50%, 0.584);
   --error : hsla(5, 93%, 48%, 0.667);
+  --table-header : #f9f9f9;
+  --radius-md:50px;
+  --shadow-soft:hsla(262, 100%, 50%, 0.341);
 }
 
 .spinner {
@@ -294,3 +297,91 @@ dialog {
   margin-top: 10px;
 }
 
+.cus-table-wrap {
+  position : relative;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-color);
+  overflow-x: auto; /* Ensures smooth horizontal scroll on smaller viewports */
+  max-height: 900px;
+     overflow-y: auto;
+       border-radius: 25px;
+}
+
+.cus-table {
+  position: relative;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.925rem;
+  color: var(--text-main);
+
+}
+
+
+.cus-table thead th {
+  background: var(--primary-color);
+  color: var(--table-header);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Data Row Cells */
+.cus-table tbody td {
+  padding: 0.5rem ;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+  white-space: nowrap; /* Keeps records aligned beautifully */
+}
+
+/* Interactive Hover States & Zebra Stripes */
+.cus-table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.cus-table tbody tr:hover {
+  background-color: #f1f5f9;
+  cursor: pointer;
+}
+
+.cus-table tbody tr:last-child td {
+  border-bottom: none; /* Cleaner look at the base of the card */
+}
+
+/* Text formatting utility inside row cells */
+.cus-table td strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.cus-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--primary-color);
+    }
+
+
+ @media (max-width: 900px) {
+      
+      .cus-table-wrap {
+        width : 65%;
+        height: auto;
+      }
+
+    }
+
+    @media (max-width: 300px) {
+      
+      .cus-table-wrap {
+        width : 40%;
+        height: auto;
+      }
+
+    }
