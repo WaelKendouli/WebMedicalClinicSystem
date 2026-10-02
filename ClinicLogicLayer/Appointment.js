@@ -39,6 +39,8 @@ const UI = {
     }
 }
 
+let liAppointment  ; // appointment list for caching locally
+let SelectedAppointment ;
 
 function setLoading(display)
 {
@@ -273,6 +275,7 @@ function renderAppointmentsTable(appointments) {
       btnCancel.style.background = "hsla(5, 100%, 50%, 0.67)";
       btnCancel.addEventListener("click" , ()=>{
         UI.Confirm.diagConfirm.showModal();
+        SelectedAppointment = appt;
       });
 
 
@@ -297,6 +300,7 @@ async function DispalyAppointmentsForPatient()
   try
   {
           const Appointments = await GetByAttribute("Appointment" , "GetAppointmentList" , GetPatientInfos().patientID);
+          liAppointment = Appointments;
         if (Appointments.length > 0) {
           renderAppointmentsTable(Appointments);
         }
@@ -343,6 +347,30 @@ const data = await extGetAllDoctors();
     
 }
 
+async function CancelAppointment()
+{
+   try {
+    if (SelectedAppointment===null || SelectedAppointment === undefined) {
+      throw new Error("Selected appointment is null or undfiend");
+    }
+
+   if (await Put(SelectedAppointment.appointmentID ,
+       SelectedAppointment , "Appointment" , "CancelAppointment") === true)
+    {
+     DispalyAppointmentsForPatient();
+    }
+    else 
+    {
+      console.log("Canceling appointment failed");
+    }
+
+   } catch (error) {
+    console.log(error.message);
+   }
+}
+
+
+
 
 document.addEventListener("DOMContentLoaded", DispalyDoctorsData);
 document.addEventListener("DOMContentLoaded" , GetPatientInfos);
@@ -364,6 +392,6 @@ UI.Confirm.btnNo.addEventListener("click" , ()=>{
     UI.Confirm.diagConfirm.close();
 });
 
-UI.Confirm.btnYes.addEventListener("click" , ()=>{
-    // add the cancel method here 
+UI.Confirm.btnYes.addEventListener("click" , async ()=>{
+   await CancelAppointment();
 });
