@@ -394,4 +394,6 @@ UI.Confirm.btnNo.addEventListener("click" , ()=>{
 
 UI.Confirm.btnYes.addEventListener("click" , async ()=>{
    await CancelAppointment();
+   await UI.Confirm.diagConfirm.close();
+
 });
