@@ -268,6 +268,7 @@ function renderAppointmentsTable(appointments) {
       btn.textContent = 'Edit Appointment';
       btn.addEventListener('click', () => {
         UI.diagEdit.showModal();
+        SelectedAppointment = appt;
       });
       const btnCancel = document.createElement("button");
       btnCancel.dataset.id = "btnCancel";
@@ -369,6 +370,34 @@ async function CancelAppointment()
    }
 }
 
+async function UpdateAppointment()
+{
+  try
+  {
+    if (SelectedAppointment===null || SelectedAppointment === undefined) {
+      throw new Error("the selected appointment was null / undefined");
+    }
+    const NewData = {
+      appointmentID : SelectedAppointment.appointmentID,
+      date : document.getElementById("eddate").value ,
+      time : document.getElementById("edtime").value,
+      doctorID : document.getElementById("EdDoctorsList").value,
+      patientID : GetPatientInfos().patientID,
+      appointmentStatusID : document.getElementById("EdAppointmentStatusId").value,
+    }
+    if (await Put(NewData.appointmentID , NewData , "Appointment" ,"UpdateAppointment")===true) {
+     await DispalyAppointmentsForPatient();
+     await UI.diagEdit.close();
+     return;
+    }
+    console.log("failed to update the Appointement");
+  }
+  catch(e)
+  {
+    throw new Error(e.message);
+  }
+}
+
 
 
 
@@ -384,6 +413,9 @@ UI.frmInfo.btnCancelForm.addEventListener("click" , () => {
 UI.frmEditInfo.btnCancelForm.addEventListener("click" , ()=>{
   UI.diagEdit.close();
 })
+UI.frmEditInfo.btnSubmit.addEventListener("click" , async()=>{
+await UpdateAppointment();
+});
 UI.frmInfo.btnSubmit.addEventListener("click" , async ()=> {
   await  AddNewAppointment();
   await DispalyAppointmentsForPatient();
