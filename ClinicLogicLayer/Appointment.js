@@ -31,6 +31,11 @@ const UI = {
         // Buttons
         btnSubmit: document.getElementById("edBtnSubmit"),
         btnCancelForm: document.getElementById("edBtnCancelForm")
+    },
+    Confirm : {
+          diagConfirm : document.getElementById("diagConfirm") ,
+        btnYes : document.getElementById("btnYes") ,
+        btnNo : document.getElementById("btnNo")
     }
 }
 
@@ -267,7 +272,7 @@ function renderAppointmentsTable(appointments) {
       btnCancel.textContent = "Cancel";
       btnCancel.style.background = "hsla(5, 100%, 50%, 0.67)";
       btnCancel.addEventListener("click" , ()=>{
-        // add the cancel method here 
+        UI.Confirm.diagConfirm.showModal();
       });
 
 
@@ -354,4 +359,11 @@ UI.frmEditInfo.btnCancelForm.addEventListener("click" , ()=>{
 UI.frmInfo.btnSubmit.addEventListener("click" , async ()=> {
   await  AddNewAppointment();
   await DispalyAppointmentsForPatient();
+});
+UI.Confirm.btnNo.addEventListener("click" , ()=>{
+    UI.Confirm.diagConfirm.close();
+});
+
+UI.Confirm.btnYes.addEventListener("click" , ()=>{
+    // add the cancel method here 
 });
