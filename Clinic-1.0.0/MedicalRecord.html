@@ -29,7 +29,9 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/DoctorsTheme.css" rel="stylesheet">
+  <link href="assets/css/Util.css" rel="stylesheet">
+  <link href="assets/css/AppointmentTheme.css" rel="stylesheet">
+
 
 
   <!-- =======================================================
@@ -44,12 +46,204 @@
 <body>
 
   <div id="header-placeholder"></div>
-
-<main>
     
-</main>
+<div class="FormsLayout">
+    <div class="form-container">
+
+    <!-- Header -->
+    <div class="form-header">
+      <h2>Medical Record</h2>
+      <p>Enter the diagnosis and notes for this appointment.</p>
+      <div id="mr_informUser" class="inform">this is a toast message</div>
+    </div>
+
+    <form id="frmMedicalRecord" action="#" method="POST">
+
+      <!-- Group 1: Clinical Information -->
+      <div class="section-divider">
+        <i class="fas fa-stethoscope"></i>
+        <span>Clinical Information</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 25px;">
+
+        <!-- Description -->
+        <div class="form-group full-width">
+          <label for="mr_description">Description</label>
+          <input
+            type="text"
+            id="mr_description"
+            name="Description"
+            placeholder="e.g., Routine checkup for persistent cough"
+            required>
+        </div>
+
+        <!-- Diagnosis -->
+        <div class="form-group full-width">
+          <label for="mr_diagnosis">Diagnosis</label>
+          <input
+            type="text"
+            id="mr_diagnosis"
+            name="Diagnosis"
+            placeholder="e.g., Acute bronchitis"
+            required>
+        </div>
+
+        <!-- Additional Notes -->
+        <div class="form-group full-width">
+          <label for="mr_additionalNotes">Additional Notes</label>
+          <textarea
+            id="mr_additionalNotes"
+            name="AdditionalNotes"
+            rows="4"
+            placeholder="Prescriptions, follow-up advice, observations…"></textarea>
+        </div>
+
+      </div>
+
+      <!-- Buttons -->
+      <div class="dialoge-button-container">
+        <button type="submit" id="mrBtnSubmit" class="submit-btn">Save Medical Record</button>
+        <button type="button" id="btnPrescription" class="submit-btn"> + Add Prescription</button>
+        <button type="button" class="btnCancel" id="mrBtnCancelForm">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+  <div id="frmPrescription" class="form-container">
+
+    <!-- Header -->
+    <div class="form-header">
+      <h2>Prescription</h2>
+      <p>Record medication details for this medical record.</p>
+      <div id="pr_informUser" class="inform">this is a toast message</div>
+    </div>
+
+    <form  action="#" method="POST">
+
+      <!-- Group 1: Medication -->
+      <div class="section-divider">
+        <i class="fas fa-pills"></i>
+        <span>Medication Details</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 25px;">
+
+        <!-- Dosage -->
+        <div class="form-group">
+          <label for="pr_dosage">Dosage</label>
+          <input
+            type="text"
+            id="pr_dosage"
+            name="Dosage"
+            placeholder="e.g., 500 mg, 1 tablet, 5 ml"
+            required>
+        </div>
+
+        <!-- Frequency -->
+        <div class="form-group">
+          <label for="pr_frequency">Frequency</label>
+          <input
+            type="text"
+            id="pr_frequency"
+            name="Frequency"
+            placeholder="e.g., Twice daily, Every 8 hours"
+            required>
+        </div>
+
+      </div>
+
+      <!-- Group 2: Duration -->
+      <div class="section-divider">
+        <i class="fas fa-calendar-days"></i>
+        <span>Treatment Duration</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 15px;">
+
+        <!-- Start Date -->
+        <div class="form-group">
+          <label for="pr_startDate">Start Date</label>
+          <input
+            type="date"
+            id="pr_startDate"
+            name="StartDate"
+            required>
+        </div>
+
+        <!-- End Date -->
+        <div class="form-group">
+          <label for="pr_endDate">End Date</label>
+          <input
+            type="date"
+            id="pr_endDate"
+            name="EndDate"
+            required>
+        </div>
+
+      </div>
+
+      <!-- Group 3: Linked Record -->
+      <div class="section-divider">
+        <i class="fas fa-link"></i>
+        <span>Linked Medical Record</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 15px;">
+
+        <!-- MedicalRecordID -->
+        <div class="form-group full-width">
+          <label for="pr_medicalRecordId">Medical Record</label>
+          <div class="select-wrapper">
+            <select
+              id="pr_medicalRecordId"
+              name="MedicalRecordID"
+              class="select-dropdown"
+              required>
+              <option value="" disabled selected>-- Select a Medical Record --</option>
+              <!-- populated dynamically from the MedicalRecords API -->
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      
+      <!-- Buttons -->
+      <div class="dialoge-button-container">
+        <button type="submit" id="prBtnSubmit" class="submit-btn">Save Prescription</button>
+        <button type="button" class="btnCancel" id="prBtnCancelForm">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div>
+    <h1>Medical Prescription</h1>
+    <p>Printibale Medical prescription :</p>
+  </div>
+<div class="Prescription">
+     <!-- General Information block (rows of info) -->
+  <div class="GenralInformations">
+    <span>Patient: John Doe</span>
+    <span>Doctor: Dr. Smith</span>
+    <span>Date: 2026-10-03</span>
+  </div>
+
+  <div class="SperatingLine"></div>
+
+  <!-- Prescription Details block (stacked, centered) -->
+  <div class="PrescriptionDetails">
+    <span>Dosage: 500 mg</span>
+    <span>Frequency: Twice daily</span>
+    <span>Start Date: 2026-10-03</span>
+    <span>End Date: 2026-10-10</span>
+  </div>
+
+</div>
 
 
+</div>
    <div id="footer-placeholder"></div>
 
   <!-- Scroll Top -->

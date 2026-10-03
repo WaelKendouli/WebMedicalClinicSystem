@@ -3,7 +3,7 @@
   --primary-color: #0062ff;       /* Clinic theme brand blue */
   --primary-hover: #004ecc;      /* Darker blue for interactions */
   --bg-color: #f4f7fc;           /* Soft light blue-grey background */
-  --card-bg: #ffffff;            /* Pure white form background */
+  --card-bg: hsl(60, 100%, 100%);            /* Pure white form background */
   --text-main: #333333;          /* Deep dark grey for core readability */
   --text-muted: #666666;         /* Subdued description text */
   --border-color: #e2e8f0;       /* Crisp divider and border color */
@@ -184,4 +184,46 @@ main {
       top: 0;
       z-index: 2;
       background: var(--primary-color);
+    }
+
+    .FormsLayout {
+      margin: 120px;
+      max-width: 1500px;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap:2.2rem;
+    }
+
+    .Prescription {
+      position: relative;
+      max-width: 900px;
+      max-height: 900px;
+      width:100%;
+      height: 900px;
+      background-color: var(--card-bg);
+      display: flex;
+      flex-direction:column;
+      gap:0.5rem;
+      border: 2px solid var(--primary-color);
+    }
+    .GenralInformations {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap:0.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .SperatingLine {
+      border-top: 1px solid var(--muted);
+    }
+
+    .PrescriptionDetails {
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5em;
     }
