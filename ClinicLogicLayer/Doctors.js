@@ -223,6 +223,7 @@ btnSeeAppointments.textContent = "Manage appointment";
 
 btnSeeAppointments.addEventListener("click", ()=>{
     SetCurrentDoctor(data);
+    window.location.href = "appointment.html"
 });
 
 btnUpdate.addEventListener("click" , async ()=>{
