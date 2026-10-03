@@ -18,3 +18,14 @@ export function FillDropDownList(data , list , message = "choose an options")
         list.appendChild(opt);
    }
 }
+
+export function setLoading( element ,display)
+{
+  if (display===false) {
+    element.style.display = "none";
+  }
+  else
+  {
+    element.style.display = "flex";
+  }
+}
