@@ -11,7 +11,7 @@ const ddloptions = document.getElementById("search_options");
 const resultLabel = document.getElementById("resultLabel");
 const btnReset = document.getElementById("btnResetSearch");
 
-
+import {SetCurrentDoctor } from "./CurrentDoctor.js";
 
 const objDialog = {
     // --- The form & its buttons ---
@@ -218,6 +218,12 @@ function CreateDoctorCard(data)
 
 const btnUpdate = document.createElement("button");
 btnUpdate.textContent = "Update";
+const btnSeeAppointments = document.createElement("button");
+btnSeeAppointments.textContent = "Manage appointment"; 
+
+btnSeeAppointments.addEventListener("click", ()=>{
+    SetCurrentDoctor(data);
+});
 
 btnUpdate.addEventListener("click" , async ()=>{
     currentDoctorData = data;
@@ -225,6 +231,7 @@ btnUpdate.addEventListener("click" , async ()=>{
    const specs = await LoadSpecializations();
     FillDropDownList(specs , objDialog.SpecializationList);
 });
+card.appendChild(btnSeeAppointments);
 card.appendChild(btnUpdate);
 DoctorsGrid.appendChild(card);
 }
