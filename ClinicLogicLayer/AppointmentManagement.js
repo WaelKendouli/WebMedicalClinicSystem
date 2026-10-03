@@ -89,7 +89,7 @@ function renderAppointmentsTable(appointments) {
       tdActions.classList.add("row-actions");
      const btnSetMedicalRecord = document.createElement("button");
      btnSetMedicalRecord.textContent = "Set Medical record";
-
+      tdActions.appendChild(btnSetMedicalRecord);
       tr.appendChild(tdActions);
 
       tbody.appendChild(tr);
