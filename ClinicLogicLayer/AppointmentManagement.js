@@ -1,7 +1,10 @@
 
 import {GetCurrentDoctor} from "./CurrentDoctor.js";
-import {Post , Get , Put , Delete} from "./CRUDhelper.js";
+import {Post , Get , Put , Delete, GetByAttribute} from "./CRUDhelper.js";
 
+const UI = {
+    AppointmentTableContainer : document.getElementById("App_Table")
+}
 
 function renderAppointmentsTable(appointments) {
 
@@ -84,25 +87,9 @@ function renderAppointmentsTable(appointments) {
       // Actions
       const tdActions = document.createElement('td');
       tdActions.classList.add("row-actions");
-      const btn = document.createElement('button');
-      btn.dataset.id = "btnEditAppointment";
-      btn.textContent = 'Edit Appointment';
-      btn.addEventListener('click', () => {
-        UI.diagEdit.showModal();
-        SelectedAppointment = appt;
-      });
-      const btnCancel = document.createElement("button");
-      btnCancel.dataset.id = "btnCancel";
-      btnCancel.textContent = "Cancel";
-      btnCancel.style.background = "hsla(5, 100%, 50%, 0.67)";
-      btnCancel.addEventListener("click" , ()=>{
-        UI.Confirm.diagConfirm.showModal();
-        SelectedAppointment = appt;
-      });
+     const btnSetMedicalRecord = document.createElement("button");
+     btnSetMedicalRecord.textContent = "Set Medical record";
 
-
-      tdActions.appendChild(btn);
-      tdActions.appendChild(btnCancel);
       tr.appendChild(tdActions);
 
       tbody.appendChild(tr);
@@ -115,3 +102,22 @@ function renderAppointmentsTable(appointments) {
   
   UI.AppointmentTableContainer.appendChild(table);
 }
+
+async function displayAppointments()
+{
+  try 
+  {
+    const doctor = GetCurrentDoctor();
+    if (doctor===null || doctor === undefined) {
+      throw new Error("Current doctor is null");
+    }
+      const data = await GetByAttribute("Doctors" , "GetListOfAppointmentsByDoctorID" , doctor.doctorID);
+      await renderAppointmentsTable(data);
+  }
+  catch(e)
+  {
+    throw new Error(e.message);
+  }
+}
+
+document.addEventListener("DOMContentLoaded",displayAppointments);
