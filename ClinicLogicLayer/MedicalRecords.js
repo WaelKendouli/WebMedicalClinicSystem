@@ -1,4 +1,4 @@
-import { Post } from "./CRUDhelper.js";
+import { PostWithDataReturned } from "./CRUDhelper.js";
 import { GetCurrent , SetCurrent } from "./CurrentObject.js";
 import { SetToastMessage } from "./UI_Helper.js";
 
@@ -28,10 +28,11 @@ async function AddNewMedicalRecord() {
             PatientID : GetCurrent("CurrentAppointment").patientID ,
             AppointmentID : GetCurrent("CurrentAppointment").appointmentID
         }
-        const data = await Post(NewMedical , "MedicalRecords" , "AddMedicalRecord");
-        if (data === true) {
+        const data = await PostWithDataReturned(NewMedical , "MedicalRecords" , "AddMedicalRecord");
+        if (data.success === true) {
             console.log("Medical record added successfully");
             SetToastMessage(UI_Medical.Toast ,"Medical record added successfully" , "");
+            SetCurrent("MedicalRecord",data.mr);
         } else {
             console.log("Medical record adding failed", data);
             SetToastMessage(UI_Medical.Toast ,"Medical record adding failed" , "");

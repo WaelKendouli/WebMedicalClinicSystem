@@ -123,3 +123,29 @@ catch(e)
     return false;
 }
 }
+
+export async function PostWithDataReturned(obj , URI , endPoint)
+{
+try {
+        const res = await fetch(`${API_Base}/${URI}/${endPoint}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(obj)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.log(`HTTP ${res.status}`);
+            return null;
+        }
+        return data;
+
+    } catch (e) {
+        console.log(`error ${e.message}`);
+        return null;
+    }
+}
