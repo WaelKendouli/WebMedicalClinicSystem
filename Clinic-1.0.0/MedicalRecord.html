@@ -54,7 +54,7 @@
     <div class="form-header">
       <h2>Medical Record</h2>
       <p>Enter the diagnosis and notes for this appointment.</p>
-      <div id="mr_informUser" class="inform">this is a toast message</div>
+      <p id="mr_informUser" class="inform">this is a toast message</p>
     </div>
 
     <form id="frmMedicalRecord">
@@ -105,7 +105,8 @@
       <div class="dialoge-button-container">
         <button type="button" id="mrBtnSubmit" class="submit-btn">Save Medical Record</button>
         <button type="button" id="btnPrescription" class="submit-btn"> + Add Prescription</button>
-        <button type="button" id="btnPrescription" class="submit-btn">Show Medical records history</button>
+        <button type="button" id="btnHistory" class="submit-btn">Show Medical records history</button>
+        <button type="button" id="BtnClearPrescriptionLayout" class="elmPrescription">Hide prescription layout</button>
         <button type="button" class="btnCancel" id="mrBtnCancelForm">Cancel</button>
       </div>
 
@@ -113,7 +114,7 @@
   </div>
 
 
-  <div id="frmPrescription" class="form-container">
+  <div id="frmPrescription"  class="form-container elmPrescription">
 
     <!-- Header -->
     <div class="form-header">
@@ -225,7 +226,7 @@
     <h1>Medical Prescription</h1>
     <p>click add prescription to show information :</p>
   </div>
-<div class="Prescription">
+<div class="Prescription elmPrescription">
     <h3>Al-Shefa clinic prescription</h3>
       <div class="SperatingLine"></div>
      <!-- General Information block (rows of info) -->

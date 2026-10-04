@@ -338,3 +338,7 @@ main {
       gap:0.8rem;
     }
 }
+
+.elmPrescription {
+  display: none;
+}

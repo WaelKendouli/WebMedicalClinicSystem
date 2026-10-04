@@ -29,3 +29,13 @@ export function setLoading( element ,display)
     element.style.display = "flex";
   }
 }
+
+
+export function SetToastMessage(element , message , className ="")
+{
+   if (!element) return;
+  if (className) {
+    element.classList.add(className);
+  }
+  element.textContent = message;
+}
