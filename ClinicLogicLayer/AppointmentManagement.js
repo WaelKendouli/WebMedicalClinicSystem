@@ -1,7 +1,7 @@
 
 import {GetCurrentDoctor} from "./CurrentDoctor.js";
 import {Post , Get , Put , Delete, GetByAttribute} from "./CRUDhelper.js";
-
+import {SetCurrent , GetCurrent} from "./CurrentObject.js";
 const UI = {
     AppointmentTableContainer : document.getElementById("App_Table")
 }
@@ -89,6 +89,10 @@ function renderAppointmentsTable(appointments) {
       tdActions.classList.add("row-actions");
      const btnSetMedicalRecord = document.createElement("button");
      btnSetMedicalRecord.textContent = "Set Medical record";
+btnSetMedicalRecord.addEventListener("click" , ()=> {
+      SetCurrent("CurrentAppointment" , appt);
+      window.location.href = "MedicalRecord.html";
+});
       tdActions.appendChild(btnSetMedicalRecord);
       tr.appendChild(tdActions);
 
