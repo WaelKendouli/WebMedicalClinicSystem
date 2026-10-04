@@ -1,4 +1,6 @@
-import { Post } from "./CRUDhelper";
+import { Post } from "./CRUDhelper.js";
+import { GetCurrent , SetCurrent } from "./CurrentObject.js";
+
 
 const UI_Medical = {
     get Form()          { return document.getElementById("frmMedicalRecord"); },
@@ -18,15 +20,16 @@ async function AddNewMedicalRecord() {
         const NewMedical = {
             Description : UI_Medical.Description ,
             Diagnosis : UI_Medical.Diagnosis ,
-            AdditionalNotes : UI_Medical.AdditionalNotes
+            AdditionalNotes : UI_Medical.AdditionalNotes ,
+            DoctorID :  GetCurrent("CurrentAppointment").doctorID ,
+            PatientID : GetCurrent("CurrentAppointment").patientID ,
+            AppointmentID : GetCurrent("CurrentAppointment").appointmentID
         }
         const data = await Post(NewMedical , "MedicalRecords" , "AddMedicalRecord");
-        if (data === true) {
-            console.log("Medical record Added successfully");
-        }
-        else
-        {
-            console.log("Medical record adding failed");
+        if (data?.Success === true || data?.success === true) {
+            console.log("Medical record added successfully");
+        } else {
+            console.log("Medical record adding failed", data);
         }
     }
     catch(e)
