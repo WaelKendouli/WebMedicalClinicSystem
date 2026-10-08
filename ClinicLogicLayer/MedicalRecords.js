@@ -25,7 +25,7 @@ const UI_Prescription = {
     // ---- Buttons ----
     get BtnAddMedication(){ return document.getElementById("btnAddMediction"); }, // note: id has a typo in HTML
      btnSavePrescription : document.getElementById("btnSavePrescription"),
-
+    btnNewPrescription : document.getElementById("btnNewPrescription"),
     // ---- Containers ----
     get MedicationSection(){ return document.getElementById("MedicationSection"); } ,
      Toast     :  document.getElementById("pr_informUser")
@@ -114,6 +114,9 @@ async function AddNewPrescription()
 
 function RenderMedication()
 {
+    if ( UI_Prescription.btnSavePrescription.disabled === false) {
+        return;
+    }
     const Medications = document.getElementById("Medications");
     const Medication = 
     {
@@ -171,3 +174,8 @@ UI_Prescription.btnSavePrescription.addEventListener("click" , async()=> {
 })
 
 UI_Prescription.BtnAddMedication.addEventListener("click" , RenderMedication);
+UI_Prescription.btnNewPrescription.addEventListener("click" , ()=> {
+         UI_Prescription.btnSavePrescription.disabled = false;
+      const Medications = document.getElementById("Medications");
+    Medications.innerHTML = '';
+});
