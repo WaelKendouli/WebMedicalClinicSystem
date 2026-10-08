@@ -126,7 +126,7 @@
 
       
 
-      <!-- Group 2: Duration -->
+     <div id="PrescrtionSect">
       <div class="section-divider">
         <i class="fas fa-calendar-days"></i>
         <span>Treatment Duration</span>
@@ -155,25 +155,21 @@
         </div>
 
       </div>
-
-      <!-- Group 3: Linked Record -->
+     </div>
       
-
-      
-
-      <div id="MedicationSection">
-        <!-- Group 1: Medication -->
-        <div class="section-divider">
-        <i class="fas fa-link"></i>
-        <span>Linked Medical Record</span>
-      </div>
-
       <div class="section-divider">
         <i class="fas fa-pills"></i>
         <span>Medication Details</span>
       </div>
+     
+        
 
       <div class="form-grid" style="margin-bottom: 25px;">
+
+        <label for="medicationSelect">Select Medication:</label>
+<select id="liMedicationSelect" name="MedicationName">
+  <option selected disabled>Select a medication</option>
+</select>
 
         <!-- Dosage -->
         <div class="form-group">
@@ -196,8 +192,10 @@
             placeholder="e.g., Twice daily, Every 8 hours"
             required>
         </div>
-        <button type="button" id="btnAddMediction">Add medication</button>
-      </div>
+        <div class="dialoge-button-container">
+        <button type="button" id="btnAddMediction"> + Add medication</button>
+        </div>
+      
       </div>
 
       

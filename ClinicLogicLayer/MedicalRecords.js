@@ -1,6 +1,6 @@
-import { PostWithDataReturned } from "./CRUDhelper.js";
+import { PostWithDataReturned  ,  Get} from "./CRUDhelper.js";
 import { GetCurrent , SetCurrent } from "./CurrentObject.js";
-import { SetToastMessage } from "./UI_Helper.js";
+import { SetToastMessage , FillDropDownList } from "./UI_Helper.js";
 
 const UI_Medical = {
     get Form()          { return document.getElementById("frmMedicalRecord"); },
@@ -10,7 +10,8 @@ const UI_Medical = {
     BtnClearPrescriptionLayout : document.getElementById("BtnClearPrescriptionLayout") ,
     get Description()     { return document.getElementById("mr_description").value; },
     get Diagnosis()       { return document.getElementById("mr_diagnosis").value; },
-    get AdditionalNotes() { return document.getElementById("mr_additionalNotes").value; }
+    get AdditionalNotes() { return document.getElementById("mr_additionalNotes").value; },
+    get liMedicationSelect () {return document.getElementById("liMedicationSelect"); }
 };
 
 const UI_Prescription = {
@@ -32,6 +33,19 @@ const UI_Prescription = {
      Toast     :  document.getElementById("pr_informUser")
 
 }
+
+async function LoadMedicationList()
+{
+    try {
+        const data = await Get("Medications" , "GetListOfMedications");
+         await FillDropDownList(data , UI_Medical.liMedicationSelect , "Select medication")
+    }
+    catch(e)
+    {
+     throw new Error(e.message)
+    }
+}
+
 
 async function AddNewMedicalRecord() {
     try {
@@ -112,6 +126,9 @@ function DisplayPrescriptionLayout(display)
     })
 }
 
+document.addEventListener("DOMContentLoaded" , async()=>{
+    await LoadMedicationList();
+});
 UI_Medical.BtnPrescription.addEventListener("click" , ()=>{
     DisplayPrescriptionLayout(true);
 });
