@@ -5,9 +5,7 @@ import { SetToastMessage , FillDropDownList } from "./UI_Helper.js";
 const UI_Medical = {
     get Form()          { return document.getElementById("frmMedicalRecord"); },
      BtnSubmit    : document.getElementById("mrBtnSubmit"),
-    get BtnPrescription(){ return document.getElementById("btnPrescription"); },
      Toast     :     document.getElementById("mr_informUser"),
-    BtnClearPrescriptionLayout : document.getElementById("BtnClearPrescriptionLayout") ,
     get Description()     { return document.getElementById("mr_description").value; },
     get Diagnosis()       { return document.getElementById("mr_diagnosis").value; },
     get AdditionalNotes() { return document.getElementById("mr_additionalNotes").value; },
@@ -59,6 +57,8 @@ async function AddNewMedicalRecord() {
         }
         const data = await PostWithDataReturned(NewMedical , "MedicalRecords" , "AddMedicalRecord");
         if (data.success === true) {
+            UI_Medical.BtnSubmit.disabled = true;
+            DisplayPrescriptionLayout(true);
             console.log("Medical record added successfully");
             SetToastMessage(UI_Medical.Toast ,"Medical record added successfully" , "");
             SetCurrent("MedicalRecord",data.mr);
@@ -70,6 +70,7 @@ async function AddNewMedicalRecord() {
     }
     catch(e)
     {
+    DisplayPrescriptionLayout(false);
        SetToastMessage(UI_Medical.Toast ,e.message, "");
         throw new Error(e.message);
     }
@@ -95,6 +96,7 @@ async function AddNewPrescription()
 
         if (data.success === true) {
             console.log("Prescription record added successfully");
+            UI_Prescription.btnSavePrescription.disabled = true;
             SetToastMessage(UI_Prescription.Toast ,"Prescription record added successfully" , "");
             SetCurrent("Prescription",data.prescription);
         } else {
@@ -162,12 +164,8 @@ function DisplayPrescriptionLayout(display)
 document.addEventListener("DOMContentLoaded" , async()=>{
     await LoadMedicationList();
 });
-UI_Medical.BtnPrescription.addEventListener("click" , ()=>{
-    DisplayPrescriptionLayout(true);
-});
-UI_Medical.BtnClearPrescriptionLayout.addEventListener("click" ,()=> {
-    DisplayPrescriptionLayout(false);
-});
+
+
 UI_Prescription.btnSavePrescription.addEventListener("click" , async()=> {
     await AddNewPrescription();
 })
