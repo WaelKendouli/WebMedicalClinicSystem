@@ -110,6 +110,39 @@ async function AddNewPrescription()
 
 }
 
+function RenderMedication()
+{
+    const Medications = document.getElementById("Medications");
+    const Medication = 
+    {
+        MedicationName : UI_Medical.liMedicationSelect.selectedOptions[0]?.textContent.trim(),
+        Dosage : UI_Prescription.Dosage,
+        Frequency : UI_Prescription.Frequency,
+        StartDate :  GetCurrent("Prescription").startDate,
+        EndDate :GetCurrent("Prescription").endDate
+    };
+    const MedicationContainer = document.createElement("div");
+     const MedicationName  = document.createElement("p");
+     MedicationName.classList.add("MedicationName");
+    MedicationName.textContent = `${Medication.MedicationName}`;
+    MedicationContainer.appendChild(MedicationName);
+    const Dosage  = document.createElement("p");
+    Dosage.textContent = `Dosage : ${Medication.Dosage}`;
+    MedicationContainer.appendChild(Dosage);
+    const Frequency  = document.createElement("p");
+    Frequency.textContent = `Frequency : ${Medication.Frequency}`;
+    MedicationContainer.appendChild(Frequency);
+    const StartDate  = document.createElement("p");
+    StartDate.textContent = `Start Date : ${Medication.StartDate}`;
+    MedicationContainer.appendChild(StartDate);
+    const EndDate  = document.createElement("p");
+    EndDate.textContent = `End Date : ${Medication.EndDate}`;
+    MedicationContainer.appendChild(EndDate);
+    const Seperate = document.createElement("div");
+    Seperate.classList.add("SperatingLine");
+    MedicationContainer.appendChild(Seperate);
+    Medications.appendChild(MedicationContainer);
+}
 
 function DisplayPrescriptionLayout(display)
 {
@@ -138,3 +171,5 @@ UI_Medical.BtnClearPrescriptionLayout.addEventListener("click" ,()=> {
 UI_Prescription.btnSavePrescription.addEventListener("click" , async()=> {
     await AddNewPrescription();
 })
+
+UI_Prescription.BtnAddMedication.addEventListener("click" , RenderMedication);
