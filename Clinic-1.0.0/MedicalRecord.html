@@ -107,7 +107,6 @@
         <button type="button" id="btnPrescription" class="submit-btn"> + Add Prescription</button>
         <button type="button" id="btnHistory" class="submit-btn">Show Medical records history</button>
         <button type="button" id="BtnClearPrescriptionLayout" class="elmPrescription">Hide prescription layout</button>
-        <button type="button" class="btnCancel" id="mrBtnCancelForm">Cancel</button>
       </div>
 
     </form>
@@ -123,39 +122,9 @@
       <div id="pr_informUser" class="inform">this is a toast message</div>
     </div>
 
-    <form  action="#" method="POST">
+    <form  >
 
-      <!-- Group 1: Medication -->
-      <div class="section-divider">
-        <i class="fas fa-pills"></i>
-        <span>Medication Details</span>
-      </div>
-
-      <div class="form-grid" style="margin-bottom: 25px;">
-
-        <!-- Dosage -->
-        <div class="form-group">
-          <label for="pr_dosage">Dosage</label>
-          <input
-            type="text"
-            id="pr_dosage"
-            name="Dosage"
-            placeholder="e.g., 500 mg, 1 tablet, 5 ml"
-            required>
-        </div>
-
-        <!-- Frequency -->
-        <div class="form-group">
-          <label for="pr_frequency">Frequency</label>
-          <input
-            type="text"
-            id="pr_frequency"
-            name="Frequency"
-            placeholder="e.g., Twice daily, Every 8 hours"
-            required>
-        </div>
-
-      </div>
+      
 
       <!-- Group 2: Duration -->
       <div class="section-divider">
@@ -193,30 +162,46 @@
         <span>Linked Medical Record</span>
       </div>
 
-      <div class="form-grid" style="margin-bottom: 15px;">
+      
 
-        <!-- MedicalRecordID -->
-        <div class="form-group full-width">
-          <label for="pr_medicalRecordId">Medical Record</label>
-          <div class="select-wrapper">
-            <select
-              id="pr_medicalRecordId"
-              name="MedicalRecordID"
-              class="select-dropdown"
-              required>
-              <option value="" disabled selected>-- Select a Medical Record --</option>
-              <!-- populated dynamically from the MedicalRecords API -->
-            </select>
-          </div>
+      <div id="MedicationSection">
+        <!-- Group 1: Medication -->
+      <div class="section-divider">
+        <i class="fas fa-pills"></i>
+        <span>Medication Details</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 25px;">
+
+        <!-- Dosage -->
+        <div class="form-group">
+          <label for="pr_dosage">Dosage</label>
+          <input
+            type="text"
+            id="pr_dosage"
+            name="Dosage"
+            placeholder="e.g., 500 mg, 1 tablet, 5 ml"
+            required>
         </div>
 
+        <!-- Frequency -->
+        <div class="form-group">
+          <label for="pr_frequency">Frequency</label>
+          <input
+            type="text"
+            id="pr_frequency"
+            name="Frequency"
+            placeholder="e.g., Twice daily, Every 8 hours"
+            required>
+        </div>
+      </div>
       </div>
 
       
       <!-- Buttons -->
       <div class="dialoge-button-container">
-        <button type="submit" id="prBtnSubmit" class="submit-btn">Save Prescription</button>
-        <button type="button" class="btnCancel" id="prBtnCancelForm">Cancel</button>
+        <button type="button" id="btnAddMediction">Add medication</button>
+        <button type="button" id="btnSavePrescription" class="submit-btn">Save Prescription</button>
       </div>
 
     </form>
