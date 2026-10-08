@@ -342,3 +342,6 @@ main {
 .elmPrescription {
   display: none;
 }
+#MedicationSection {
+  display : none;
+}
