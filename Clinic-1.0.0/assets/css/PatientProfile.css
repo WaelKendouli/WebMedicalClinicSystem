@@ -1,0 +1,22 @@
+
+:root {
+  --sidebar-width: 250px;
+  --dashboardSign-bg: #9314e1;
+  --dashboardSign2-bg: #1466e1;
+  --sidebar-bg-hover: #3a42d6;
+  --sidebar-text: #e6e8ff;
+  --sidebar-text-active: #ffffff;
+}
+
+.dashbordSign {
+background: linear-gradient(#9314e1 , #1466e1);
+color: white;
+display: flex;
+font-weight: bold;
+flex-direction: column;
+flex-wrap: wrap;
+padding: 10px;
+}
+.dashbordSign p {
+margin-bottom: 2px;
+}
