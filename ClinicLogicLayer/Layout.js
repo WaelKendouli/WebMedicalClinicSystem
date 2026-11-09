@@ -10,3 +10,5 @@ async function loadComponent(selector, url)
 }
 loadComponent("#header-placeholder", "forms/elements/header.html");
 loadComponent("#footer-placeholder", "forms/elements/footer.html");
+loadComponent("#User-sidebar-placeholder", "forms/elements/UserSidebar.html");
+
