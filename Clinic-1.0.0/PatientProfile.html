@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-    <title>Patients Account</title>
-     <!-- Favicons -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Profile</title>
+
+  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -13,10 +13,10 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&display=swap"
     rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
+  <!-- Vendor CSS -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -24,97 +24,483 @@
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/PatientsAccStyling.css">
-    <link rel="stylesheet" href="assets/css/PatientProfile.css">
-    <script defer src="/ClinicLogicLayer/Layout.js"></script>
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="assets/css/PatientsAccStyling.css">
+  <link rel="stylesheet" href="assets/css/PatientProfile.css">
+
+  <script defer src="/ClinicLogicLayer/Layout.js"></script>
+
 </head>
 <body>
-     <div class="container d-grid">
-    <div class="row">
-      <div id="User-sidebar-placeholder" class="position-relative col-md-6 col-lg-2"></div>
-      <div class="col-md-6 col-lg-10">
-       <div class="flex-column">
-        <h1>Patient profile</h1>
-        <div class="row">
-            <div class="col-lg-4">
-        <div>
-        <div class="d-flex flex-column gap-1 align-items-center justify-content-center"> 
-        <img class="rounded-circle border border-black" width="50%" height="50%" src="./assets/img/person/person-m-13.webp" alt="photo">
-        <button class="btn btn-primary">Edit my profile</button>
-           </div>
-        </div>
+  <div class="container-xxl py-4">
+    <div class="row g-4">
+
+      <!-- Reusable sidebar placeholder -->
+      <aside id="User-sidebar-placeholder"
+             class="col-12 col-lg-2 position-relative"></aside>
+
+      <!-- Main content -->
+      <main class="col-12 col-lg-10">
+
+        <!-- Profile header -->
+        <section class="profile-header mb-4" data-aos="fade-down">
+          <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+            <img src="./assets/img/person/person-f-9.webp"
+                 alt="Patient photo"
+                 class="rounded-circle profile-avatar">
+            <div class="text-center text-md-start flex-grow-1">
+              <h1 class="h3 mb-1">Wael Kendouli</h1>
+              <p class="mb-2 opacity-75">
+                <i class="bi bi-person-badge me-1"></i>Patient
+              </p>
+              <span class="badge bg-light text-primary rounded-pill px-3 py-2">
+                <i class="bi bi-check-circle-fill me-1"></i>Account active
+              </span>
             </div>
-            <div class="col-lg-8 gap-1 dashbordSign rounded-5">
-                <h2 class="text-light">Your main Informations</h2>
-                <div class="d-grid">
-                <div class="row">
-                    <div class="col-4"> 
-                <p>Email :</p>
-                <p id="your-email">user@gmail.com</p>
-                <p>Phone :</p>
-                <p id="your-phone">+213xxxxxxxxx</p>
-                    </div>
-                    <div class="col-4">
-                <p>First Name :</p>
-                <p id="your-fname">Wael</p>
-                <p>Last Name:</p>
-                <p id="your-lname">Kendouli</p>
-                    </div>
-                    <div class="col-4">
-                <p>Gender :</p>
-                <p id="your-gender">Male</p>
-                <p>Current role:</p>
-                <p id="your-lname">Patient</p>
-                    </div>
-                </div>
-                </div>
-                
+            <div class="d-flex flex-column gap-3">
+              <button class="btn btn-light text-primary fw-semibold px-4 py-2"
+                      data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                <i class="bi bi-pencil-square me-1"></i>Edit my profile
+              </button>
+              <button class="btn btn-light text-primary fw-semibold px-4 py-2"
+                      data-bs-toggle="modal" data-bs-target="#changeMyPhoto">
+                <i class="bi bi-pencil-square me-1"></i>Change my profile photo
+              </button>
+              <button class="btn btn-light text-danger fw-semibold px-4 py-2"
+                      data-bs-toggle="modal" data-bs-target="#changeMyPassword">
+                <i class="bi bi-pencil-square me-1"></i>Change my password
+              </button>
             </div>
-        </div>
-        <h1 class="m-5">My current appointments</h1>
-        <div class="row container">
-        <div class="col-12">
-            
-                  <table class="table table-bordered rounded-5 overflow-hidden text-center">
-  <thead>
-    <tr>
-      <th class="bg-primary text-white">ID</th>
-      <th class="bg-primary text-white">Name</th>
-      <th class="bg-primary text-white">Email</th>
-    </tr>
-  </thead>
-  <tbody class="table-primary">
-    <tr>
-      <th scope="row">1</th>
-      <td>Alice</td>
-      <td>alice@example.com</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Bob</td>
-      <td>bob@example.com</td>
-    </tr>
-  </tbody>
-</table>
-            
-          
-        </div>
-        </div>
-        
-       </div>
+          </div>
+        </section>
+
+        <!-- Main information -->
+        <section class="card info-card mb-4" data-aos="fade-up">
+          <div class="card-body p-4">
+            <h2 class="section-title h5">
+              <i class="bi bi-person-lines-fill"></i>Your main information
+            </h2>
+            <div class="row g-3">
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">Email</div>
+                <div class="info-value" id="your-email">user@gmail.com</div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">Phone</div>
+                <div class="info-value" id="your-phone">+213xxxxxxxxx</div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">First name</div>
+                <div class="info-value" id="your-fname">Wael</div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">Last name</div>
+                <div class="info-value" id="your-lname">Kendouli</div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">Gender</div>
+                <div class="info-value" id="your-gender">Male</div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">Current role</div>
+                <div class="info-value" id="your-role">Patient</div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">Date of birth</div>
+                <div class="info-value" id="your-dob">—</div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="info-label">Blood type</div>
+                <div class="info-value" id="your-blood">—</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Current appointments -->
+        <section class="card info-card mb-4" data-aos="fade-up">
+          <div class="card-body p-4">
+            <h2 class="section-title h5">
+              <i class="bi bi-calendar-check"></i>My current appointments
+            </h2>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover align-middle text-center mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Dr. Alice</td>
+                    <td>alice@example.com</td>
+                    <td>2025-01-15</td>
+                    <td><span class="badge bg-success">Confirmed</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Dr. Bob</td>
+                    <td>bob@example.com</td>
+                    <td>2025-02-03</td>
+                    <td><span class="badge bg-warning text-dark">Pending</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Last visited doctors -->
+        <section class="card info-card mb-4" data-aos="fade-up">
+          <div class="card-body p-4">
+            <h2 class="section-title h5">
+              <i class="bi bi-clock-history"></i>My last visited doctors
+            </h2>
+
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <div class="doctor-card card p-3 h-100">
+                  <div class="d-flex align-items-center gap-3">
+                    <img src="./assets/img/health/staff-4.webp"
+                         alt="Doctor"
+                         class="doctor-avatar">
+                    <div class="flex-grow-1">
+                      <h3 class="h6 mb-0">Dr. Sarah Benali</h3>
+                      <small class="text-muted">Cardiologist</small>
+                    </div>
+                    <span class="badge bg-light text-dark">
+                      12 Dec 2024
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="doctor-card card p-3 h-100">
+                  <div class="d-flex align-items-center gap-3">
+                    <img src="./assets/img/health/staff-11.webp"
+                         alt="Doctor"
+                         class="doctor-avatar">
+                    <div class="flex-grow-1">
+                      <h3 class="h6 mb-0">Dr. Yasmine Haddad</h3>
+                      <small class="text-muted">Dermatologist</small>
+                    </div>
+                    <span class="badge bg-light text-dark">
+                      05 Nov 2024
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+          <!-- Prescriptions — swipeable layout -->
+<section class="card info-card mb-4" data-aos="fade-up">
+  <div class="card-body p-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+      <h2 class="section-title h5 mb-0">
+        <i class="bi bi-prescription2"></i>My prescriptions
+      </h2>
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">
+          <i class="bi bi-arrow-left-right me-1"></i>Swipe or use arrows
+        </span>
+      </div>
+    </div>
+
+    <!-- Carousel: swipe left / right -->
+    <div id="prescriptionsCarousel"
+         class="carousel slide"
+         data-bs-ride="false"
+         data-bs-touch="true"
+         data-bs-interval="false">
+
+      <!-- Indicators -->
+      <div class="carousel-indicators position-static mb-3">
+        <button type="button" data-bs-target="#prescriptionsCarousel" data-bs-slide-to="0"
+                class="active" aria-current="true" aria-label="Prescription 1"></button>
+        <button type="button" data-bs-target="#prescriptionsCarousel" data-bs-slide-to="1"
+                aria-label="Prescription 2"></button>
+        <button type="button" data-bs-target="#prescriptionsCarousel" data-bs-slide-to="2"
+                aria-label="Prescription 3"></button>
       </div>
 
+      <div class="carousel-inner">
+        <!-- Prescription 1 -->
+        <div class="carousel-item active">
+          <div class="prescription-card m-4 p-3 p-md-4">
+            <div class="d-flex justify-content-between flex-wrap gap-2 mb-3">
+              <div>
+                <h3 class="h6 mb-1"><i class="bi bi-clipboard2-pulse me-2"></i>Prescription #RX-1024</h3>
+                <small class="text-muted">
+                  Dr. Sarah Benali · Cardiology · 12 Dec 2024
+                </small>
+              </div>
+              <span class="badge bg-success align-self-start">Active</span>
+            </div>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item d-flex justify-content-between px-0">
+                <span><i class="bi bi-capsule me-2 text-primary"></i>Amlodipine 5mg</span>
+                <small class="text-muted">1× daily · 30 days</small>
+              </li>
+              <li class="list-group-item d-flex justify-content-between px-0">
+                <span><i class="bi bi-capsule me-2 text-primary"></i>Atorvastatin 20mg</span>
+                <small class="text-muted">1× evening · 30 days</small>
+              </li>
+            </ul>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-download me-1"></i>PDF
+              </button>
+              <button class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-share me-1"></i>Share
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prescription 2 -->
+        <div class="carousel-item">
+          <div class="prescription-card p-3 p-md-4">
+            <div class="d-flex justify-content-between flex-wrap gap-2 mb-3">
+              <div>
+                <h3 class="h6 mb-1"><i class="bi bi-clipboard2-pulse me-2"></i>Prescription #RX-1017</h3>
+                <small class="text-muted">
+                  Dr. Yasmine Haddad · Dermatology · 05 Nov 2024
+                </small>
+              </div>
+              <span class="badge bg-secondary align-self-start">Completed</span>
+            </div>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item d-flex justify-content-between px-0">
+                <span><i class="bi bi-droplet me-2 text-primary"></i>Adapalene cream 0.1%</span>
+                <small class="text-muted">Apply nightly · 60 days</small>
+              </li>
+            </ul>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-download me-1"></i>PDF
+              </button>
+              <button class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-share me-1"></i>Share
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prescription 3 -->
+        <div class="carousel-item">
+          <div class="prescription-card p-3 p-md-4">
+            <div class="d-flex justify-content-between flex-wrap gap-2 mb-3">
+              <div>
+                <h3 class="h6 mb-1"><i class="bi bi-clipboard2-pulse me-2"></i>Prescription #RX-0992</h3>
+                <small class="text-muted">
+                  Dr. Karim Mansouri · General Medicine · 20 Sep 2024
+                </small>
+              </div>
+              <span class="badge bg-warning text-dark align-self-start">Expired</span>
+            </div>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item d-flex justify-content-between px-0">
+                <span><i class="bi bi-capsule me-2 text-primary"></i>Amoxicillin 500mg</span>
+                <small class="text-muted">3× daily · 7 days</small>
+              </li>
+            </ul>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-download me-1"></i>PDF
+              </button>
+              <button class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-share me-1"></i>Share
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left / Right controls -->
+      <button class="carousel-control-prev z-2 bg-primary text-light  rounded-pill w-auto h-25 px-3 py-1"  type="button"
+              data-bs-target="#prescriptionsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span>Previous</span>
+      </button>
+      <button class="carousel-control-next z-2 bg-primary text-light  rounded-pill w-auto h-25 px-3 py-1"  type="button"
+              data-bs-target="#prescriptionsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span >Next</span>
+      </button>
     </div>
-    
-      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </div>
+</section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Edit profile modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <form id="editProfileForm">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bi bi-pencil-square me-2"></i>Edit my profile
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-fname">First name</label>
+                <input id="edit-fname" class="form-control" value="Wael">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-lname">Last name</label>
+                <input id="edit-lname" class="form-control" value="Kendouli">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-email">Email</label>
+                <input id="edit-email" type="email" class="form-control" value="user@gmail.com">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-phone">Phone</label>
+                <input id="edit-phone" class="form-control" value="+213xxxxxxxxx">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-gender">Gender</label>
+                <select id="edit-gender" class="form-select">
+                  <option selected>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-dob">Date of birth</label>
+                <input id="edit-dob" type="date" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check2 me-1"></i>Save changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="changeMyPassword" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <form id="changeMyPasswordForm">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bi bi-pencil-square me-2"></i>Change my password
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-fname">Enter your previous password</label>
+                <input id="prv-password" class="form-control">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-lname">Enter your new password</label>
+                <input id="new-password" class="form-control" value="Kendouli">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="edit-email">Confirm your password</label>
+                <input id="confirm-password"  class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-danger disabled">
+              <i class="bi bi-check2 me-1"></i>Change password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="changeMyPhoto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <form id="changeMyPhotoForm">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bi bi-pencil-square me-2"></i>Change my profile photos
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <img src="/Clinic-1.0.0/assets/img/person/person-f-9.webp" class="d-block w-100 h-auto rounded-3 object-fit-cover" alt="your current">
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary text-light">Choose new photo</button>
+              </div>
+              
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+
+
+  <script>
+    // Init AOS
+    if (window.AOS) AOS.init({ duration: 600, once: true });
+
+    // Demo: save changes back into the profile card
+    document.getElementById('editProfileForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('your-fname').textContent = document.getElementById('edit-fname').value;
+      document.getElementById('your-lname').textContent = document.getElementById('edit-lname').value;
+      document.getElementById('your-email').textContent = document.getElementById('edit-email').value;
+      document.getElementById('your-phone').textContent = document.getElementById('edit-phone').value;
+      document.getElementById('your-gender').textContent = document.getElementById('edit-gender').value;
+      bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
+    });
+  </script>
 </body>
 </html>
