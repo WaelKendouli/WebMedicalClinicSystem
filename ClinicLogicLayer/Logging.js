@@ -1,3 +1,4 @@
+import {GetCurrent, SetCurrent} from './CurrentObject.js';
 const UI = {
     ErrorMessage : document.getElementById("lbInvalid"),
     frmLogin : document.getElementById("loginForm"),
@@ -60,7 +61,7 @@ async function PrimaryAuthenticationMethod(username , password , email ="" , pho
             SetError(data.message || `HTTP ${res.status}`);
             return false;
         }
-
+        SetCurrent("current_loggedIn_Patient" , data);
         return true;
     } catch (e) {
         SetError(e.message || "Network error");
