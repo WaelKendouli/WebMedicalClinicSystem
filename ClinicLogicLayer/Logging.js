@@ -76,6 +76,6 @@ const Username = document.getElementById("username").value
  const   Password = document.getElementById("password").value 
  const res = await PrimaryAuthenticationMethod(Username ,Password);
 if (res) {
-    window.location.href = 'PatientAccount.html';
+    window.location.href = 'PatientGateway.html';
 }
 });
