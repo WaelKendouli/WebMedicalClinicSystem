@@ -1,5 +1,6 @@
 import * as CRUD_API from './CRUDhelper.js';
-
+import * as LoggedInUser from './CurrentObject.js';
+const ObjName = 'current_loggedIn_User';
 /* ---------- HEADER / ACTION BUTTONS ---------- */
 var HeaderUI = {
   editProfileBtn:    document.querySelector('[data-bs-target="#editProfileModal"]'),
@@ -17,9 +18,7 @@ var MainInfoUI = {
   firstName: document.getElementById('your-fname'),
   lastName:  document.getElementById('your-lname'),
   gender:    document.getElementById('your-gender'),
-  role:      document.getElementById('your-role'),
   dob:       document.getElementById('your-dob'),
-  bloodType: document.getElementById('your-blood')
 };
 
 /* ---------- EDIT PROFILE MODAL ---------- */
@@ -54,6 +53,64 @@ var ChangePasswordUI = {
     submit: document.querySelector('#changeMyPasswordForm button[type="submit"]')
   }
 };
+
+const Toast = {
+  el:      document.getElementById('tst'),
+  titleEl: document.getElementById('tst-Title'),
+  msgEl:   document.getElementById('tst-message'),
+
+  // Bootstrap colors we support
+  variants: {
+    success: 'bg-success',
+    danger:  'bg-danger',
+    warning: 'bg-warning',
+    info:    'bg-info',
+    primary: 'bg-primary',
+    dark:    'bg-dark'
+  },
+
+  /** Set the toast color by variant name (success | danger | warning | info | primary | dark) */
+  setColor: function (variant) {
+    // Remove any existing bg-* class
+    Object.keys(this.variants).forEach(function (key) {
+      Toast.el.classList.remove(Toast.variants[key]);
+    });
+    // Add the requested one (fallback to success)
+    var cls = this.variants[variant] || this.variants.success;
+    this.el.classList.add(cls);
+  },
+
+  /** Show the toast with a title + message + color */
+  show: function (message, variant, title) {
+    this.titleEl.textContent = title || (variant === 'danger' ? 'Error' : 'Success');
+    this.msgEl.textContent   = message || '';
+    this.setColor(variant || 'success');
+    this.el.classList.add('show');
+    this.el.style.display = 'block';
+
+    // Auto-hide after 4 seconds
+    clearTimeout(this._timer);
+    this._timer = setTimeout(function () {
+      Toast.el.classList.remove('show');
+      Toast.el.style.display = 'none';
+    }, 4000);
+  },
+
+  hide: function () {
+    clearTimeout(this._timer);
+    this.el.classList.remove('show');
+    this.el.style.display = 'none';
+  }
+};
+
+/* ---------- Shortcuts ---------- */
+function toastSuccess(message, title) {
+  Toast.show(message, 'success', title || 'Success');
+}
+
+function toastError(message, title) {
+  Toast.show(message, 'danger', title || 'Error');
+}
 
 /* ---------- CHANGE PHOTO MODAL ---------- */
 var ChangePhotoUI = {
@@ -98,3 +155,19 @@ var ProfileSync = {
     return n.length > 0 && n === c;
   }
 };
+
+
+
+/*async function UpdateMainUserData()
+{
+ try {
+    let currentPatientData = LoggedInUser.GetCurrent(ObjName);
+    if (await ) {
+        
+    }
+
+ } catch (error) {
+    console.log(error.message);
+ }
+
+}*/

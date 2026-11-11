@@ -32,7 +32,20 @@
 
 </head>
 <body>
+
+  <div id="tst" class="toast bg-success text-light sticky-top align-self-end" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    <small id="tst-Title" class="px-2"><b>Success</b></small>
+  </div>
+  <div class="toast-body">
+    <p id="tst-message"> world! This is a toast message.</p>
+  </div>
+</div>
+
+
   <div class="container-xxl py-4">
+    
     <div class="row g-4">
 
       <!-- Reusable sidebar placeholder -->
@@ -477,6 +490,7 @@
     </div>
   </div>
 
+  
 
   <!-- Vendor JS -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
