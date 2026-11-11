@@ -22,7 +22,7 @@ var MainInfoUI = {
 };
 
 /* ---------- EDIT PROFILE MODAL ---------- */
-var EditProfileUI = {
+const EditProfileUI = {
   modalEl: document.getElementById('editProfileModal'),
   form:    document.getElementById('editProfileForm'),
   inputs: {
@@ -36,7 +36,17 @@ var EditProfileUI = {
   buttons: {
     cancel: document.querySelector('#editProfileModal [data-bs-dismiss="modal"]'),
     submit: document.querySelector('#editProfileForm button[type="submit"]')
+  },
+  spinner: {
+    loadingSpinner: document.getElementById('spinner'),
+  HideSpinner: function () {
+    if (this.loadingSpinner) this.loadingSpinner.classList.add('d-none');
+  },
+  ShowSpinner: function () {
+    if (this.loadingSpinner) this.loadingSpinner.classList.remove('d-none');
   }
+  }
+  
 };
 
 /* ---------- CHANGE PASSWORD MODAL ---------- */
@@ -158,16 +168,74 @@ var ProfileSync = {
 
 
 
-/*async function UpdateMainUserData()
+async function UpdateMainUserData()
 {
- try {
+  try {
+    // 1. Read current patient from local storage
     let currentPatientData = LoggedInUser.GetCurrent(ObjName);
-    if (await ) {
-        
+    if (!currentPatientData) {
+      toastError('No logged-in patient found.');
+      return false;
     }
 
- } catch (error) {
-    console.log(error.message);
- }
+    // 2. Pull edited values from the edit-profile modal inputs
+    const inputs = EditProfileUI.inputs;
+    const updatedPatient = {
+      patientID:      currentPatientData.PatientID,          // from URL
+      userID:         currentPatientData.UserID,             // unchanged
+      username:       currentPatientData.Username,           // unchanged
+      hashedPassword: currentPatientData.HashedPassword,     // unchanged (password is updated elsewhere)
+      firstName:      inputs.firstName.value.trim(),
+      lastName:       inputs.lastName.value.trim(),
+      email:          inputs.email.value.trim(),
+      phone:          inputs.phone.value.trim(),
+      gender:         inputs.gender.value === 'Male',        // bool: true = Male
+      dateOfBirth:    inputs.dob.value
+                        ? new Date(inputs.dob.value).toISOString()
+                        : currentPatientData.DateOfBirth,
+      address:        currentPatientData.Address || ''       // not in modal → keep existing
+    };
 
-}*/
+   
+    if (!updatedPatient.firstName || !updatedPatient.lastName) {
+      toastError('First name and last name are required.');
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(updatedPatient.email)) {
+      toastError('Please enter a valid email address.');
+      return false;
+    }
+
+    // 4. Build URL + call the PUT endpoint
+    
+    const response = await CRUD_API.Put(updatedPatient.patientID , updatedPatient ,'Patient' , 'UpdatePatient');
+
+    // 5. Handle result
+    if (response && response.ok) {
+      // Update local storage so next read is fresh
+      LoggedInUser.SetCurrent(updatedPatient, ObjName); // adjust to your API name
+      ProfileSync.applyEditProfile();                   // update the on-screen card
+
+      // Close the edit modal
+      const modal = bootstrap.Modal.getInstance(EditProfileUI.modalEl);
+      if (modal) modal.hide();
+
+      toastSuccess('Profile updated successfully.');
+      return true;
+    }
+
+    // 5b. Server returned 400/404/etc.
+    const errorText = response ? await response.text() : 'Unknown error';
+    if (response && response.status === 404) {
+      toastError('Patient not found. Please log in again.');
+    } else {
+      toastError('Update failed: ' + errorText);
+    }
+    return false;
+
+  } catch (error) {
+    console.error(error);
+    toastError('Unexpected error: ' + error.message);
+    return false;
+  }
+}
