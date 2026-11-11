@@ -61,7 +61,8 @@ async function PrimaryAuthenticationMethod(username , password , email ="" , pho
             SetError(data.message || `HTTP ${res.status}`);
             return false;
         }
-        SetCurrent("current_loggedIn_Patient" , data);
+        localStorage.clear();
+        SetCurrent("current_loggedIn_User" , data);
         return true;
     } catch (e) {
         SetError(e.message || "Network error");
