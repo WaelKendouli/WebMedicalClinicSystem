@@ -31,7 +31,8 @@ const EditProfileUI = {
     email:     document.getElementById('edit-email'),
     phone:     document.getElementById('edit-phone'),
     gender:    document.getElementById('edit-gender'),
-    dob:       document.getElementById('edit-dob')
+    dob:       document.getElementById('edit-dob'),
+    address:   document.getElementById('edit-address')
   },
   buttons: {
     cancel: document.querySelector('#editProfileModal [data-bs-dismiss="modal"]'),
@@ -181,10 +182,10 @@ async function UpdateMainUserData()
     // 2. Pull edited values from the edit-profile modal inputs
     const inputs = EditProfileUI.inputs;
     const updatedPatient = {
-      patientID:      currentPatientData.PatientID,          // from URL
-      userID:         currentPatientData.UserID,             // unchanged
-      username:       currentPatientData.Username,           // unchanged
-      hashedPassword: currentPatientData.HashedPassword,     // unchanged (password is updated elsewhere)
+      patientID:      currentPatientData.patientID,          // from URL
+      userID:         currentPatientData.userID,             // unchanged
+      username:       currentPatientData.username,           // unchanged
+      hashedPassword: currentPatientData.hashedPassword,     // unchanged (password is updated elsewhere)
       firstName:      inputs.firstName.value.trim(),
       lastName:       inputs.lastName.value.trim(),
       email:          inputs.email.value.trim(),
@@ -193,7 +194,7 @@ async function UpdateMainUserData()
       dateOfBirth:    inputs.dob.value
                         ? new Date(inputs.dob.value).toISOString()
                         : currentPatientData.DateOfBirth,
-      address:        currentPatientData.Address || ''       // not in modal → keep existing
+      address:        inputs.address.value    
     };
 
    
@@ -206,31 +207,22 @@ async function UpdateMainUserData()
       return false;
     }
 
-    // 4. Build URL + call the PUT endpoint
-    
-    const response = await CRUD_API.Put(updatedPatient.patientID , updatedPatient ,'Patient' , 'UpdatePatient');
-
+    EditProfileUI.spinner.ShowSpinner();
+    const response = await CRUD_API.Put(updatedPatient.userID , updatedPatient ,'Patient' , 'UpdatePatient');
+    EditProfileUI.spinner.HideSpinner();
     // 5. Handle result
     if (response && response.ok) {
       // Update local storage so next read is fresh
       LoggedInUser.SetCurrent(updatedPatient, ObjName); // adjust to your API name
       ProfileSync.applyEditProfile();                   // update the on-screen card
 
-      // Close the edit modal
-      const modal = bootstrap.Modal.getInstance(EditProfileUI.modalEl);
-      if (modal) modal.hide();
+      
 
       toastSuccess('Profile updated successfully.');
       return true;
     }
 
-    // 5b. Server returned 400/404/etc.
-    const errorText = response ? await response.text() : 'Unknown error';
-    if (response && response.status === 404) {
-      toastError('Patient not found. Please log in again.');
-    } else {
-      toastError('Update failed: ' + errorText);
-    }
+    
     return false;
 
   } catch (error) {
@@ -239,3 +231,8 @@ async function UpdateMainUserData()
     return false;
   }
 }
+
+EditProfileUI.form.addEventListener("submit" , async (e) => {
+e.preventDefault();
+await UpdateMainUserData();
+});
