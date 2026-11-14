@@ -33,8 +33,180 @@
       <div id="User-sidebar-placeholder" class="col-md-6 col-lg-2"></div>
       <div class="col-md-6 col-lg-10">
         <h1 id="welcominTitle">This is your appointment page</h1>
-       <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus officiis aspernatur eum quo corporis exercitationem beatae animi distinctio aliquid placeat reiciendis ad atque iure totam at illo temporibus, numquam labore.</p>
+        <h2> choose a doctor</h2>
+    <div class="row">
+        <div class="col">
+            <div class="card border-0 shadow-sm rounded-4">
+  <div class="card-header bg-white border-0 pt-3 pb-0 d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <h5 class="mb-0 fw-semibold">
+      <i class="bi bi-person-badge text-primary me-2"></i>Choose a doctor
+    </h5>
+    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">
+      4 doctors available
+    </span>
+  </div>
+
+  <div class="card-body">
+    <!-- Search / filter row -->
+    <div class="row g-2 mb-3">
+      <div class="col-12 col-md-6">
+        <div class="input-group">
+          <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search doctor by name…">
+        </div>
       </div>
+      <div class="col-12 col-md-4">
+        <select class="form-select">
+          <option selected>All specialties</option>
+          <option>Cardiology</option>
+          <option>Dermatology</option>
+          <option>General Medicine</option>
+          <option>Orthopedics</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-2">
+        <button class="btn btn-primary w-100">
+          <i class="bi bi-funnel me-1"></i>Filter
+        </button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0 text-center">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" style="width: 40px;">
+              <input class="form-check-input" type="radio" disabled title="Select one row">
+            </th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Specialty</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Availability</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input class="form-check-input" type="radio" name="doctorSelect" value="1" id="doc1">
+            </td>
+            <td class="text-start">
+              <label for="doc1" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
+                <img src="https://ui-avatars.com/api/?name=Sarah+Benali&background=e7f1ff&color=0d6efd&size=36"
+                     alt="Dr. Sarah Benali" class="rounded-circle" width="36" height="36">
+                <span>
+                  <span class="fw-semibold d-block">Dr. Sarah Benali</span>
+                  <small class="text-muted">Cardiology</small>
+                </span>
+              </label>
+            </td>
+            <td>Cardiology</td>
+            <td class="text-muted small">s.benali@clinic.com</td>
+            <td class="text-muted small">+213 555 12 34</td>
+            <td><span class="badge bg-success-subtle text-success">Available</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-calendar-plus me-1"></i>Book
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="form-check-input" type="radio" name="doctorSelect" value="2" id="doc2">
+            </td>
+            <td class="text-start">
+              <label for="doc2" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
+                <img src="https://ui-avatars.com/api/?name=Yasmine+Haddad&background=e6f6ee&color=198754&size=36"
+                     alt="Dr. Yasmine Haddad" class="rounded-circle" width="36" height="36">
+                <span>
+                  <span class="fw-semibold d-block">Dr. Yasmine Haddad</span>
+                  <small class="text-muted">Dermatology</small>
+                </span>
+              </label>
+            </td>
+            <td>Dermatology</td>
+            <td class="text-muted small">y.haddad@clinic.com</td>
+            <td class="text-muted small">+213 555 56 78</td>
+            <td><span class="badge bg-success-subtle text-success">Available</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-calendar-plus me-1"></i>Book
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="form-check-input" type="radio" name="doctorSelect" value="3" id="doc3">
+            </td>
+            <td class="text-start">
+              <label for="doc3" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
+                <img src="https://ui-avatars.com/api/?name=Karim+Mansouri&background=fff6e0&color=f0a300&size=36"
+                     alt="Dr. Karim Mansouri" class="rounded-circle" width="36" height="36">
+                <span>
+                  <span class="fw-semibold d-block">Dr. Karim Mansouri</span>
+                  <small class="text-muted">General Medicine</small>
+                </span>
+              </label>
+            </td>
+            <td>General Medicine</td>
+            <td class="text-muted small">k.mansouri@clinic.com</td>
+            <td class="text-muted small">+213 555 90 12</td>
+            <td><span class="badge bg-warning-subtle text-warning">Busy</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-calendar-plus me-1"></i>Book
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="form-check-input" type="radio" name="doctorSelect" value="4" id="doc4">
+            </td>
+            <td class="text-start">
+              <label for="doc4" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
+                <img src="https://ui-avatars.com/api/?name=Omar+Farouk&background=fdecee&color=dc3545&size=36"
+                     alt="Dr. Omar Farouk" class="rounded-circle" width="36" height="36">
+                <span>
+                  <span class="fw-semibold d-block">Dr. Omar Farouk</span>
+                  <small class="text-muted">Orthopedics</small>
+                </span>
+              </label>
+            </td>
+            <td>Orthopedics</td>
+            <td class="text-muted small">o.farouk@clinic.com</td>
+            <td class="text-muted small">+213 555 34 56</td>
+            <td><span class="badge bg-danger-subtle text-danger">On leave</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-secondary" disabled>
+                <i class="bi bi-calendar-plus me-1"></i>Book
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer actions -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 border-top mt-3">
+      <small class="text-muted">
+        <i class="bi bi-info-circle me-1"></i>Select a doctor by clicking the radio button
+      </small>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm">Clear</button>
+        <button class="btn btn-primary btn-sm">
+          <i class="bi bi-arrow-right me-1"></i>Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+    </div>
+
+    </div>
+    
     </div>
     </div>
 </body>
