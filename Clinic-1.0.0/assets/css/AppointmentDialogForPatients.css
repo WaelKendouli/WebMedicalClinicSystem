@@ -1,0 +1,98 @@
+ /* ==========================================================================
+   Time slot dropdowns — start / end time
+   ========================================================================== */
+
+/* Wrapper for the pair */
+.time-slot-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 575.98px) {
+  .time-slot-row { grid-template-columns: 1fr; }
+}
+
+/* Field group */
+.time-slot-field {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.time-slot-field__label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: #6c7a90;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.time-slot-field__label i {
+  color: #0d6efd;
+  font-size: .95rem;
+}
+
+/* The <select> itself */
+.time-slot-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: .6rem 2.4rem .6rem .85rem;
+  font-size: .9rem;
+  font-weight: 500;
+  color: #1f2d3d;
+  background-color: #fbfcfe;
+  border: 1px solid #e6ebf2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #0d6efd 50%),
+    linear-gradient(135deg, #0d6efd 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% + 2px),
+    calc(100% - 13px) calc(50% + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.time-slot-select:hover {
+  background-color: #f4f8ff;
+  border-color: #d3e5ff;
+}
+
+.time-slot-select:focus {
+  outline: none;
+  border-color: #0d6efd;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, .15);
+}
+
+.time-slot-select:disabled {
+  background-color: #eef1f5;
+  color: #adb5bd;
+  cursor: not-allowed;
+  border-color: #e6ebf2;
+  background-image: none;
+}
+
+/* Placeholder option look */
+.time-slot-select option {
+  color: #1f2d3d;
+  background: #fff;
+}
+.time-slot-select option:disabled {
+  color: #adb5bd;
+}
+
+/* Optional: hint under the field */
+.time-slot-field__hint {
+  font-size: .78rem;
+  color: #6c7a90;
+}
+.time-slot-field__hint--error {
+  color: #dc3545;
+}
