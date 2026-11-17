@@ -25,6 +25,8 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/PatientsAccStyling.css">
+      <script defer type="module" src="/ClinicLogicLayer/PatientAppointmentManagement.js"></script>
+
         <link rel="stylesheet" href="assets/css/AppointmentDialogForPatients.css">
 
     <script defer src="/ClinicLogicLayer/Layout.js"></script>
@@ -109,7 +111,7 @@
             <td class="text-muted small">+213 555 12 34</td>
             <td><span class="badge bg-success-subtle text-success">Available</span></td>
             <td>
-              <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+              <button id="btn-chooseAppointment" type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
         data-bs-target="#bookAppointmentModal">
                 <i class="bi bi-calendar-plus me-1"></i>Book
               </button>
@@ -497,11 +499,7 @@
                 <i class="bi bi-clipboard2-pulse text-primary me-1"></i>Service
               </label>
               <select class="form-select" id="apptService" name="ServiceID" required>
-                <option value="" selected disabled>Select a service…</option>
-                <option value="1" data-price="2500">General consultation — 2 500 DA</option>
-                <option value="2" data-price="3500">Cardiology check-up — 3 500 DA</option>
-                <option value="3" data-price="4000">Dermatology exam — 4 000 DA</option>
-                <option value="4" data-price="5000">Orthopedic assessment — 5 000 DA</option>
+                
               </select>
               <div class="form-text" id="apptServicePrice">Price will appear here.</div>
             </div>
