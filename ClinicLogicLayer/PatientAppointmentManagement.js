@@ -38,6 +38,17 @@ const bookAppointmentUI = {
   slotFeedback:     document.getElementById('slotFeedback'),
 };
 
+const doctorsListUI = {
+  // Header elements
+  headerContainer: document.querySelector('.card-header'),
+  titleIcon:       document.querySelector('.bi-person-badge'),
+  titleText:       document.querySelector('h5.mb-0.fw-semibold'),
+  availableBadge:  document.querySelector('.badge.bg-primary-subtle'),
+
+  listContainer:   document.getElementById('doctorsListContainer')
+};
+
+
 function populateServiceDropdown(servicesData) {
   
 
@@ -67,6 +78,7 @@ function populateServiceDropdown(servicesData) {
 }
 
 
+
 async function LoadAllClinicServices()
 {
     try {
@@ -82,5 +94,5 @@ async function LoadAllClinicServices()
 }
 
 bookAppointmentUI.btnChooseAppointment.addEventListener("click" , async ()=> {
-    await LoadAllClinicServices();
+  await LoadAllClinicServices();
 })
