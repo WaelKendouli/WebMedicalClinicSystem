@@ -48,7 +48,44 @@ const doctorsListUI = {
   listContainer:   document.getElementById('doctorsListContainer')
 };
 
+const UI_Search = {
+  search:       document.getElementById('txtSearch'),
+    specialities: document.getElementById('listSpecialities'),
+    filterBtn:    document.getElementById('btnFilter'),
+}
+
+
+
 let CurrentDoctor = null;
+
+
+function GenerateSpecialitiesList(specializations)
+{
+UI_Search.specialities.innerHTML = '<option value="" selected disabled>Select a speciality</option>'
+
+      Object.entries(specializations).forEach(([name, id]) => {
+      const opt = document.createElement('option');
+      opt.value = id;          // specializationID — used for filtering
+      opt.textContent = name;  // display name
+     UI_Search.specialities.appendChild(opt);
+})
+}
+
+async function LoadAllSpecialitiesForSearch(RenderingFunction)
+{
+try {
+  const data = await CRUDHelper.Get("Doctors" , "GetSpecializations");
+  if (data == null) {
+    console.log("data is empty");
+    return;
+  }
+  RenderingFunction(data);
+
+} catch (error) {
+  console.log(error.message);
+}
+
+}
 
 
 function populateServiceDropdown(servicesData) {
@@ -261,6 +298,7 @@ async function LoadAllClinicServices()
 
 document.addEventListener("DOMContentLoaded", async () => {
     await LoadDoctorsTable(renderDoctorsTable);
+    await LoadAllSpecialitiesForSearch(GenerateSpecialitiesList);
 });
 
 bookAppointmentUI.service.onchange = () => {
