@@ -162,10 +162,11 @@ function renderDoctorsTable(doctors) {
 
     // Attach Event Listener to the Book button inside this row
     const bookBtn = tr.querySelector('.book-btn');
-    bookBtn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent row click if you add one later
-      
-      bookAppointmentUI.modal.showModal();
+    bookBtn.addEventListener('click', async (e) => {
+      e.stopPropagation(); 
+      await LoadAllClinicServices();
+       const bsModal = bootstrap.Modal.getOrCreateInstance(bookAppointmentUI.modal);
+      bsModal.show();
     });
 
     // Append the completed row to the table body
