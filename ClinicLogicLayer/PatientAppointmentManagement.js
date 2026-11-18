@@ -48,6 +48,8 @@ const doctorsListUI = {
   listContainer:   document.getElementById('doctorsListContainer')
 };
 
+let CurrentDoctor = null;
+
 
 function populateServiceDropdown(servicesData) {
   
@@ -60,10 +62,12 @@ function populateServiceDropdown(servicesData) {
     const option = document.createElement('option');
     
     // Set the value to the serviceID
-    option.value = service.serviceID;
+    option.value = service.serviceName;
     
     // Add the price as a data attribute (formatted as a raw number)
     option.setAttribute('data-price', service.price);
+    option.setAttribute('data-id', service.serviceID);
+
     
     // Format the display text
     // Example: "General Consultation — 50 DA"
@@ -79,20 +83,7 @@ function populateServiceDropdown(servicesData) {
 
 
 
-/**
- * Placeholder for your selection logic
- */
-function handleDoctorSelection(doctor) {
-  console.log(`Selected Doctor ID: ${doctor.doctorID} - Dr. ${doctor.firstName} ${doctor.lastName}`);
-  
-  // Example: Open the appointment modal and fill hidden fields
-  // document.getElementById('apptDoctorId').value = doctor.doctorID;
-  // document.getElementById('apptDoctorName').textContent = `Dr. ${doctor.firstName} ${doctor.lastName}`;
-  // document.getElementById('apptDoctorSpecialty').textContent = doctor.specialization;
-  
-  // const modal = new bootstrap.Modal(document.getElementById('bookAppointmentModal'));
-  // modal.show();
-}
+
 
 async function LoadDoctorsTable(RenderingFunction)
 {
@@ -164,7 +155,8 @@ function renderDoctorsTable(doctors) {
     const bookBtn = tr.querySelector('.book-btn');
     bookBtn.addEventListener('click', async (e) => {
       e.stopPropagation(); 
-      await LoadAllClinicServices();
+      CurrentDoctor = doc;
+     await InitializeDialogComponenets();
        const bsModal = bootstrap.Modal.getOrCreateInstance(bookAppointmentUI.modal);
       bsModal.show();
     });
@@ -172,6 +164,83 @@ function renderDoctorsTable(doctors) {
     // Append the completed row to the table body
     doctorsListUI.listContainer.appendChild(tr);
   });
+}
+
+
+function renderBookAppointmentModal(doctor) {
+  const ui = bookAppointmentUI;
+
+  // Doctor summary
+  const initials = `${doctor.firstName?.[0] ?? ''}${doctor.lastName?.[0] ?? ''}`;
+  ui.doctorAvatar.src = doctor.photoURL
+    || `https://ui-avatars.com/api/?name=${initials}&background=e7f1ff&color=0d6efd&size=64&bold=true`;
+  ui.doctorName.textContent = `Dr. ${doctor.firstName} ${doctor.lastName}`;
+  ui.doctorSpecialty.textContent = doctor.specialization || 'General';
+
+  const isActive = !!doctor.scheduel?.isActive;
+  ui.doctorStatus.textContent = isActive ? 'Available' : 'Off Duty';
+  ui.doctorStatus.className = `badge border rounded-pill ${
+    isActive ? 'bg-success-subtle text-success border-success'
+             : 'bg-danger-subtle text-danger border-danger'
+  }`;
+
+  // Hidden + reset fields
+  ui.doctorId.value = doctor.doctorID;
+  ui.startTimeHidden.value = '';
+  ui.endTimeHidden.value = '';
+  ui.statusId.value = '';
+
+  // Reset summary + inputs
+  ui.sumDate.textContent = ui.sumStart.textContent = ui.sumEnd.textContent = ui.sumService.textContent = '—';
+  ui.date.value = ui.service.value = ui.servicePrice.value = '';
+  ui.slotFeedback.textContent = '';
+
+  // Slots: "08:00:00" -> "08:00"
+  const slots = [...new Set((doctor.scheduel?.liTimeSlots || []).map(t => t.slice(0, 5)))];
+
+  // Fill start time
+  ui.startTimeSel.innerHTML = `<option value="" disabled selected>Select start time…</option>`;
+  slots.forEach(t => ui.startTimeSel.add(new Option(t, t)));
+
+  // Reset end time
+  ui.endTimeSel.innerHTML = `<option value="" disabled selected>Select end time…</option>`;
+
+  // On start change, fill end time with later slots
+  ui.startTimeSel.onchange = () => {
+    const start = ui.startTimeSel.value;
+    const laterSlots = slots.slice(slots.indexOf(start) + 1);
+
+    ui.endTimeSel.innerHTML = `<option value="" disabled selected>Select end time…</option>`;
+    laterSlots.forEach(t => ui.endTimeSel.add(new Option(t, t)));
+
+    ui.startTimeHidden.value = start;
+    ui.sumStart.textContent = start;
+  };
+
+  // On end change, update hidden + summary
+  ui.endTimeSel.onchange = () => {
+    ui.endTimeHidden.value = ui.endTimeSel.value;
+    ui.sumEnd.textContent = ui.endTimeSel.value || '—';
+  };
+
+  // Disable choose button if off duty or no slots
+  ui.btnChooseAppointment.disabled = !isActive || slots.length === 0;
+
+
+}
+
+
+async function InitializeDialogComponenets()
+{
+  
+  try {
+   await LoadAllClinicServices();
+  await renderBookAppointmentModal(CurrentDoctor);
+
+  } catch (error) {
+    console.log(error.message);
+  }
+
 }
 
 
@@ -192,4 +261,11 @@ async function LoadAllClinicServices()
 
 document.addEventListener("DOMContentLoaded", async () => {
     await LoadDoctorsTable(renderDoctorsTable);
-})
+});
+
+bookAppointmentUI.service.onchange = () => {
+bookAppointmentUI.sumService.textContent = bookAppointmentUI.service.value;
+}
+bookAppointmentUI.date.onchange = () => {
+  bookAppointmentUI.sumDate.textContent = bookAppointmentUI.date.value; 
+}
