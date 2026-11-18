@@ -79,6 +79,101 @@ function populateServiceDropdown(servicesData) {
 
 
 
+/**
+ * Placeholder for your selection logic
+ */
+function handleDoctorSelection(doctor) {
+  console.log(`Selected Doctor ID: ${doctor.doctorID} - Dr. ${doctor.firstName} ${doctor.lastName}`);
+  
+  // Example: Open the appointment modal and fill hidden fields
+  // document.getElementById('apptDoctorId').value = doctor.doctorID;
+  // document.getElementById('apptDoctorName').textContent = `Dr. ${doctor.firstName} ${doctor.lastName}`;
+  // document.getElementById('apptDoctorSpecialty').textContent = doctor.specialization;
+  
+  // const modal = new bootstrap.Modal(document.getElementById('bookAppointmentModal'));
+  // modal.show();
+}
+
+async function LoadDoctorsTable(RenderingFunction)
+{
+const data = await CRUDHelper.Get("Doctors" , "GetAllDoctors");
+RenderingFunction(data);
+}
+
+function renderDoctorsTable(doctors) {
+
+  // 2. Clear existing rows
+  doctorsListUI.listContainer.innerHTML = '';
+
+  // 3. Handle Empty State
+  if (!doctors || doctors.length === 0) {
+    doctorsListUI.listContainer.innerHTML = `
+      <tr>
+        <td colspan="7" class="text-center text-muted p-4">
+          <i class="bi bi-person-x fs-3 d-block mb-2"></i>
+          No doctors available at the moment.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  // 4. Loop through doctors and build the table rows
+  doctors.forEach(doc => {
+    
+    // Build the Avatar URL (Fallback to initials if photoURL is empty)
+    const initials = `${doc.firstName ? doc.firstName[0] : ''}${doc.lastName ? doc.lastName[0] : ''}`;
+    const avatarUrl = doc.photoURL 
+      ? doc.photoURL 
+      : `https://ui-avatars.com/api/?name=${initials}&background=e7f1ff&color=0d6efd&size=32&bold=true`;
+
+    // Determine Availability (Checking the scheduel object)
+    const isAvailable = doc.scheduel && doc.scheduel.isActive;
+    const badgeClass = isAvailable ? 'bg-success-subtle text-success border-success' : 'bg-danger-subtle text-danger border-danger';
+    const statusText = isAvailable ? 'Available' : 'Off Duty';
+
+    // Create the table row
+    const tr = document.createElement('tr');
+    
+    // Store ID for reference
+    tr.dataset.doctorId = doc.doctorID;
+
+    tr.innerHTML = `
+      <td>
+        <input class="form-check-input" type="radio" name="doctorSelect" value="${doc.doctorID}">
+      </td>
+      <td>
+        <div class="d-flex align-items-center gap-4 w-100">
+          <img src="${avatarUrl}" alt="${doc.firstName}" class="rounded-circle object-fit-cover" width="32" height="32">
+          <span class="fw-semibold">Dr. ${doc.firstName} ${doc.lastName}</span>
+        </div>
+      </td>
+      <td><span class="text-muted">${doc.specialization || 'General'}</span></td>
+      <td><a href="mailto:${doc.email}" class="text-decoration-none">${doc.email}</a></td>
+      <td>${doc.phone || 'N/A'}</td>
+      <td>
+        <span class="badge ${badgeClass} border rounded-pill">${statusText}</span>
+      </td>
+      <td>
+        <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 book-btn" data-id="${doc.doctorID}">
+          <i class="bi bi-calendar-plus me-1"></i>Book
+        </button>
+      </td>
+    `;
+
+    // Attach Event Listener to the Book button inside this row
+    const bookBtn = tr.querySelector('.book-btn');
+    bookBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent row click if you add one later
+      
+      bookAppointmentUI.modal.showModal();
+    });
+
+    // Append the completed row to the table body
+    doctorsListUI.listContainer.appendChild(tr);
+  });
+}
+
+
 async function LoadAllClinicServices()
 {
     try {
@@ -93,6 +188,7 @@ async function LoadAllClinicServices()
 
 }
 
-bookAppointmentUI.btnChooseAppointment.addEventListener("click" , async ()=> {
-  await LoadAllClinicServices();
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await LoadDoctorsTable(renderDoctorsTable);
 })

@@ -91,104 +91,10 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <input class="form-check-input" type="radio" name="doctorSelect" value="1" id="doc1">
-            </td>
-            <td class="text-start">
-              <label for="doc1" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
-                <img src="https://ui-avatars.com/api/?name=Sarah+Benali&background=e7f1ff&color=0d6efd&size=36"
-                     alt="Dr. Sarah Benali" class="rounded-circle" width="36" height="36">
-                <span>
-                  <span class="fw-semibold d-block">Dr. Sarah Benali</span>
-                  <small class="text-muted">Cardiology</small>
-                </span>
-              </label>
-            </td>
-            <td>Cardiology</td>
-            <td class="text-muted small">s.benali@clinic.com</td>
-            <td class="text-muted small">+213 555 12 34</td>
-            <td><span class="badge bg-success-subtle text-success">Available</span></td>
-            <td>
-              <button id="btn-chooseAppointment" type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-        data-bs-target="#bookAppointmentModal">
-                <i class="bi bi-calendar-plus me-1"></i>Book
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input class="form-check-input" type="radio" name="doctorSelect" value="2" id="doc2">
-            </td>
-            <td class="text-start">
-              <label for="doc2" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
-                <img src="https://ui-avatars.com/api/?name=Yasmine+Haddad&background=e6f6ee&color=198754&size=36"
-                     alt="Dr. Yasmine Haddad" class="rounded-circle" width="36" height="36">
-                <span>
-                  <span class="fw-semibold d-block">Dr. Yasmine Haddad</span>
-                  <small class="text-muted">Dermatology</small>
-                </span>
-              </label>
-            </td>
-            <td>Dermatology</td>
-            <td class="text-muted small">y.haddad@clinic.com</td>
-            <td class="text-muted small">+213 555 56 78</td>
-            <td><span class="badge bg-success-subtle text-success">Available</span></td>
-            <td>
-              <button class="btn btn-sm btn-outline-primary">
-                <i class="bi bi-calendar-plus me-1"></i>Book
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input class="form-check-input" type="radio" name="doctorSelect" value="3" id="doc3">
-            </td>
-            <td class="text-start">
-              <label for="doc3" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
-                <img src="https://ui-avatars.com/api/?name=Karim+Mansouri&background=fff6e0&color=f0a300&size=36"
-                     alt="Dr. Karim Mansouri" class="rounded-circle" width="36" height="36">
-                <span>
-                  <span class="fw-semibold d-block">Dr. Karim Mansouri</span>
-                  <small class="text-muted">General Medicine</small>
-                </span>
-              </label>
-            </td>
-            <td>General Medicine</td>
-            <td class="text-muted small">k.mansouri@clinic.com</td>
-            <td class="text-muted small">+213 555 90 12</td>
-            <td><span class="badge bg-warning-subtle text-warning">Busy</span></td>
-            <td>
-              <button class="btn btn-sm btn-outline-primary">
-                <i class="bi bi-calendar-plus me-1"></i>Book
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input class="form-check-input" type="radio" name="doctorSelect" value="4" id="doc4">
-            </td>
-            <td class="text-start">
-              <label for="doc4" class="d-flex align-items-center gap-2 mb-0 cursor-pointer">
-                <img src="https://ui-avatars.com/api/?name=Omar+Farouk&background=fdecee&color=dc3545&size=36"
-                     alt="Dr. Omar Farouk" class="rounded-circle" width="36" height="36">
-                <span>
-                  <span class="fw-semibold d-block">Dr. Omar Farouk</span>
-                  <small class="text-muted">Orthopedics</small>
-                </span>
-              </label>
-            </td>
-            <td>Orthopedics</td>
-            <td class="text-muted small">o.farouk@clinic.com</td>
-            <td class="text-muted small">+213 555 34 56</td>
-            <td><span class="badge bg-danger-subtle text-danger">On leave</span></td>
-            <td>
-              <button class="btn btn-sm btn-outline-secondary" disabled>
-                <i class="bi bi-calendar-plus me-1"></i>Book
-              </button>
-            </td>
-          </tr>
+        <tbody id ="doctorsListContainer">
+           
+            
+          
         </tbody>
       </table>
     </div>
