@@ -56,6 +56,7 @@ const UI_Search = {
     filterBtn:    document.getElementById('btnFilter'),
 }
 
+const obj_name = "current_loggedIn_User";
 
 
 let CurrentDoctor = null;
@@ -295,10 +296,121 @@ async function LoadAllClinicServices()
 
 }
 
+/**
+ * Renders the tbody of the appointments table.
+ * @param {Array} appointments - array of us_AppointmentItemDTO objects
+ */
+function renderAppointmentsTable(appointments) {
+  const tbody = document.getElementById('appointmentsTableBody');
+  tbody.innerHTML = '';
+
+  // Empty state (colspan must match the 8 columns)
+  if (!appointments || appointments.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="text-center text-muted p-4">
+          <i class="bi bi-calendar-x fs-3 d-block mb-2"></i>
+          No appointments found.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  // Helpers -----------------------------------------------------------
+  const formatDate = (iso) => {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', {
+      day: '2-digit', month: 'short', year: 'numeric'
+    });
+  };
+
+  const formatTime = (t) => (t ? t.slice(0, 5) : '—'); // "10:30:00" -> "10:30"
+
+  const statusBadge = (status) => {
+    const map = {
+      'Scheduled': 'bg-primary-subtle text-primary border-primary',
+      'Completed': 'bg-success-subtle text-success border-success',
+      'Cancelled': 'bg-danger-subtle  text-danger  border-danger',
+      'Pending'  : 'bg-warning-subtle text-warning border-warning'
+    };
+    const cls = map[status] || 'bg-secondary-subtle text-secondary border-secondary';
+    return `<span class="badge ${cls} border rounded-pill">${status}</span>`;
+  };
+
+  // Rows --------------------------------------------------------------
+  appointments.forEach(appt => {
+    const tr = document.createElement('tr');
+    tr.dataset.appointmentId = appt.appointmentID;
+
+    // Cancel is only meaningful while the appointment is still active
+    const canCancel = appt.status !== 'Cancelled' && appt.status !== 'Completed';
+
+    tr.innerHTML = `
+      <td class="text-muted">#${appt.appointmentID}</td>
+      <td class="text-start fw-semibold">${formatDate(appt.date)}</td>
+      <td>${appt.doctorName}</td>
+      <td>${statusBadge(appt.status)}</td>
+      <td>${appt.service}</td>
+      <td><i class="bi bi-clock me-1 text-muted"></i>${formatTime(appt.start)}</td>
+      <td>${formatTime(appt.end)}</td>
+      <td class="text-end">
+        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 me-1 btn-view">
+          <i class="bi bi-eye me-1"></i>View
+        </button>
+        <button type="button"
+                class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-cancel"
+                ${canCancel ? '' : 'disabled'}>
+          <i class="bi bi-x-circle me-1"></i>Cancel
+        </button>
+      </td>
+    `;
+
+    // Events
+    tr.querySelector('.btn-view').addEventListener('click', () => {
+      console.log('View appointment', appt.appointmentID);
+      // e.g. open details modal / navigate
+    });
+
+    const cancelBtn = tr.querySelector('.btn-cancel');
+    if (canCancel) {
+      cancelBtn.addEventListener('click', () => {
+        cancelAppointment(appt.appointmentID);
+      });
+    }
+
+    tbody.appendChild(tr);
+  });
+}
+
+
+async function LoadCurrentAppointments(RenderingFunction)
+{
+try {
+  const patient = obj_LocalStorage.GetCurrent(obj_name);
+  if (patient === null) {
+    throw new Error("patient data is unavailable");
+  }
+  const data = await CRUDHelper.GetByAttribute("Appointment" ,"GetAppointmentList" , patient.patientID);
+  if (data === null) {
+    console.log("no appointments for this patient");
+  }
+  else
+  {
+    RenderingFunction(data);
+  }
+
+} catch (error) {
+  console.log(error.message);
+}
+
+}
+
+
+
 async function AddNewAppointment()
 {
   try {
-    const p = obj_LocalStorage.GetCurrent("current_loggedIn_User");
+    const p = obj_LocalStorage.GetCurrent(obj_name);
     if (!p) throw new Error("No logged-in user found.");
 
     const ui = bookAppointmentUI;
@@ -333,7 +445,6 @@ async function AddNewAppointment()
     const res = await CRUDHelper.Post(objNewApp , "Appointment" , "AddNewAppointment");
     return (res === true);
   } catch (e) {
-    const M = e.message;
     console.log(e.message);
   }
 }
@@ -342,12 +453,14 @@ async function AddNewAppointment()
 document.addEventListener("DOMContentLoaded", async () => {
     await LoadDoctorsTable(renderDoctorsTable);
     await LoadAllSpecialitiesForSearch(GenerateSpecialitiesList);
+    await LoadCurrentAppointments(renderAppointmentsTable);
 });
 
 bookAppointmentUI.submitBtn.addEventListener("click" , async () => {
 try {
   if (await AddNewAppointment()===true) {
 console.log("Appointment added successfully");
+  await LoadCurrentAppointments(renderAppointmentsTable);
   } 
 } catch (error) {
   console.log(error.message);
