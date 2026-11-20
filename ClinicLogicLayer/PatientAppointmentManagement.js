@@ -382,6 +382,24 @@ function renderAppointmentsTable(appointments) {
   });
 }
 
+async function cancelAppointment(appointmentID)
+{
+try {
+  const res = await CRUDHelper.Put(appointmentID , null , "Appointment" , "CancelAppointment");
+  if (res===true) {
+    console.log("appointment canceled successfully")
+        await LoadCurrentAppointments(renderAppointmentsTable);
+  }
+  else
+  {
+    console.log("cancelation failed , it may becuase of the clinic cancelation policy within the range of 24 hour");
+  }
+
+} catch (error) {
+  throw new Error(error.message);
+}
+
+}
 
 async function LoadCurrentAppointments(RenderingFunction)
 {
