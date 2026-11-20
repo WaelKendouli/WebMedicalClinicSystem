@@ -6,7 +6,7 @@ export function SetCurrent(key ,obj)
     console.log(tmp);
 }
 
-export function GetCurrent(key)
+export function GetCurrent(key) 
 {
     const raw = localStorage.getItem(key);
     if (!raw) return null;               

@@ -1,5 +1,7 @@
 // Import all exports from CRUDhelper.js using the proper ES6 syntax
 import * as CRUDHelper from "./CRUDhelper.js";
+import * as obj_LocalStorage from "./CurrentObject.js";
+
 const bookAppointmentUI = {
   // Modal
   modal:            document.getElementById('bookAppointmentModal'),
@@ -260,8 +262,6 @@ function renderBookAppointmentModal(doctor) {
     ui.sumEnd.textContent = ui.endTimeSel.value || '—';
   };
 
-  // Disable choose button if off duty or no slots
-  ui.btnChooseAppointment.disabled = !isActive || slots.length === 0;
 
 
 }
@@ -295,11 +295,64 @@ async function LoadAllClinicServices()
 
 }
 
+async function AddNewAppointment()
+{
+  try {
+    const p = obj_LocalStorage.GetCurrent("current_loggedIn_User");
+    if (!p) throw new Error("No logged-in user found.");
+
+    const ui = bookAppointmentUI;
+
+    // --- Validate required fields before building the DTO ---
+    const serviceOption = ui.service.selectedOptions[0];
+    const serviceID = serviceOption?.getAttribute("data-id");
+    const doctorID  = ui.doctorId.value;
+    const date      = ui.date.value;
+    const startTime = ui.startTimeHidden.value;
+    const endTime   = ui.endTimeHidden.value;
+
+    if (!doctorID)             throw new Error("Doctor is not selected.");
+    if (!date)                 throw new Error("Appointment date is missing.");
+    if (!startTime || !endTime) throw new Error("Start/end time is missing.");
+    if (!serviceID)            throw new Error("Service is not selected.");
+
+    // --- Build the DTO matching AppointmentDTO ---
+    const objNewApp = {
+      appointmentID:       0,             // server assigns (identity / auto-increment)
+      issueDate:           new Date().toISOString(), // booking timestamp
+      date:                date,             // "YYYY-MM-DD" from <input type="date">
+      startTime:           startTime,        // "HH:mm"
+      endTime:             endTime,          // "HH:mm"
+      doctorID:            Number(doctorID),
+      patientID:           Number(p.patientID),
+      appointmentStatusID: 1, // always scheduled
+      serviceID:           Number(serviceID)
+    };
+
+
+    const res = await CRUDHelper.Post(objNewApp , "Appointment" , "AddNewAppointment");
+    return (res === true);
+  } catch (e) {
+    const M = e.message;
+    console.log(e.message);
+  }
+}
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     await LoadDoctorsTable(renderDoctorsTable);
     await LoadAllSpecialitiesForSearch(GenerateSpecialitiesList);
 });
+
+bookAppointmentUI.submitBtn.addEventListener("click" , async () => {
+try {
+  if (await AddNewAppointment()===true) {
+console.log("Appointment added successfully");
+  } 
+} catch (error) {
+  console.log(error.message);
+}
+})
 
 bookAppointmentUI.service.onchange = () => {
 bookAppointmentUI.sumService.textContent = bookAppointmentUI.service.value;
