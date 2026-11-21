@@ -1,6 +1,14 @@
 // Import all exports from CRUDhelper.js using the proper ES6 syntax
 import * as CRUDHelper from "./CRUDhelper.js";
 import * as obj_LocalStorage from "./CurrentObject.js";
+import * as Spinner from './SpinnerHelper.js';
+
+const Spinners = {
+  DoctorsList :"spDoctors" ,
+  AppointmentList : "spAppointments" ,
+  CancelledList : "spCancelledAppointment" ,
+  Modal : "spAddAppointments"
+}
 
 const bookAppointmentUI = {
   // Modal
@@ -127,8 +135,17 @@ function populateServiceDropdown(servicesData) {
 
 async function LoadDoctorsTable(RenderingFunction)
 {
-const data = await CRUDHelper.Get("Doctors" , "GetAllDoctors");
-RenderingFunction(data);
+  try {
+    Spinner.ShowSpinner(Spinners.DoctorsList);
+    const data = await CRUDHelper.Get("Doctors" , "GetAllDoctors");
+      RenderingFunction(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+  finally {
+    Spinner.HideSpinner(Spinners.DoctorsList);
+  }
+
 }
 
 function renderDoctorsTable(doctors) {
@@ -385,6 +402,8 @@ function renderAppointmentsTable(appointments) {
 async function cancelAppointment(appointmentID)
 {
 try {
+  Spinner.ShowSpinner(Spinners.CancelledList);
+  Spinner.ShowSpinner(Spinners.AppointmentList);
   const res = await CRUDHelper.Put(appointmentID , null , "Appointment" , "CancelAppointment");
   if (res===true) {
     console.log("appointment canceled successfully")
@@ -399,7 +418,11 @@ try {
 } catch (error) {
   throw new Error(error.message);
 }
-
+finally
+{
+  Spinner.HideSpinner(Spinners.CancelledList);
+  Spinner.HideSpinner(Spinners.AppointmentList);
+}
 }
 
 
@@ -468,6 +491,7 @@ function renderCancelledAppointmentsTable(appointments) {
 async function LoadCurrentAppointments(RenderingFunction)
 {
 try {
+  Spinner.ShowSpinner(Spinners.AppointmentList);
   const patient = obj_LocalStorage.GetCurrent(obj_name);
   if (patient === null) {
     throw new Error("patient data is unavailable");
@@ -484,12 +508,16 @@ try {
 } catch (error) {
   console.log(error.message);
 }
-
+finally
+{
+  Spinner.HideSpinner(Spinners.AppointmentList);
+}
 }
 
 async function LoadCancelledAppointments(RenderingFunction)
 {
 try {
+  Spinner.ShowSpinner(Spinners.CancelledList);
   const patient = obj_LocalStorage.GetCurrent(obj_name);
   if (patient === null) {
     throw new Error("patient data is unavailable");
@@ -506,7 +534,9 @@ try {
 } catch (error) {
   console.log(error.message);
 }
-
+finally {
+  Spinner.HideSpinner(Spinners.CancelledList);
+}
 }
 
 
@@ -514,6 +544,7 @@ try {
 async function AddNewAppointment()
 {
   try {
+    Spinner.ShowSpinner(Spinners.Modal);
     const p = obj_LocalStorage.GetCurrent(obj_name);
     if (!p) throw new Error("No logged-in user found.");
 
@@ -551,6 +582,9 @@ async function AddNewAppointment()
   } catch (e) {
     console.log(e.message);
   }
+  finally{
+        Spinner.HideSpinner(Spinners.Modal);
+  }
 }
 
 
@@ -561,6 +595,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await LoadCancelledAppointments(renderCancelledAppointmentsTable);
 
 });
+
 
 bookAppointmentUI.submitBtn.addEventListener("click" , async () => {
 try {
