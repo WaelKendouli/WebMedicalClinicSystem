@@ -389,6 +389,7 @@ try {
   if (res===true) {
     console.log("appointment canceled successfully")
         await LoadCurrentAppointments(renderAppointmentsTable);
+        await LoadCancelledAppointments(renderCancelledAppointmentsTable);
   }
   else
   {
@@ -401,6 +402,69 @@ try {
 
 }
 
+
+/**
+ * Renders the tbody of the appointments table.
+ * @param {Array} appointments - array of us_AppointmentItemDTO objects
+ */
+function renderCancelledAppointmentsTable(appointments) {
+  const tbody = document.getElementById('CancelledTable');
+  tbody.innerHTML = '';
+
+  // Empty state (colspan must match the 8 columns)
+  if (!appointments || appointments.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="text-center text-muted p-4">
+          <i class="bi bi-calendar-x fs-3 d-block mb-2"></i>
+          No appointments found.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  // Helpers -----------------------------------------------------------
+  const formatDate = (iso) => {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', {
+      day: '2-digit', month: 'short', year: 'numeric'
+    });
+  };
+
+  const formatTime = (t) => (t ? t.slice(0, 5) : '—'); // "10:30:00" -> "10:30"
+
+  const statusBadge = (status) => {
+    const map = {
+      'Scheduled': 'bg-primary-subtle text-primary border-primary',
+      'Completed': 'bg-success-subtle text-success border-success',
+      'Cancelled': 'bg-danger-subtle  text-danger  border-danger',
+      'Pending'  : 'bg-warning-subtle text-warning border-warning'
+    };
+    const cls = map[status] || 'bg-secondary-subtle text-secondary border-secondary';
+    return `<span class="badge ${cls} border rounded-pill">${status}</span>`;
+  };
+
+  // Rows --------------------------------------------------------------
+  appointments.forEach(appt => {
+    const tr = document.createElement('tr');
+    tr.dataset.appointmentId = appt.appointmentID;
+
+   
+
+    tr.innerHTML = `
+      <td class="text-muted">#${appt.appointmentID}</td>
+      <td class="text-start fw-semibold">${formatDate(appt.date)}</td>
+      <td>${appt.doctorName}</td>
+      <td>${statusBadge(appt.status)}</td>
+      <td>${appt.service}</td>
+      <td><i class="bi bi-clock me-1 text-muted"></i>${formatTime(appt.start)}</td>
+      <td>${formatTime(appt.end)}</td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+}
+
 async function LoadCurrentAppointments(RenderingFunction)
 {
 try {
@@ -409,6 +473,28 @@ try {
     throw new Error("patient data is unavailable");
   }
   const data = await CRUDHelper.GetByAttribute("Appointment" ,"GetAppointmentList" , patient.patientID);
+  if (data === null) {
+    console.log("no appointments for this patient");
+  }
+  else
+  {
+    RenderingFunction(data);
+  }
+
+} catch (error) {
+  console.log(error.message);
+}
+
+}
+
+async function LoadCancelledAppointments(RenderingFunction)
+{
+try {
+  const patient = obj_LocalStorage.GetCurrent(obj_name);
+  if (patient === null) {
+    throw new Error("patient data is unavailable");
+  }
+  const data = await CRUDHelper.GetByAttribute("Appointment" ,"GetCancelledAppointmentList" , patient.patientID);
   if (data === null) {
     console.log("no appointments for this patient");
   }
@@ -472,6 +558,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     await LoadDoctorsTable(renderDoctorsTable);
     await LoadAllSpecialitiesForSearch(GenerateSpecialitiesList);
     await LoadCurrentAppointments(renderAppointmentsTable);
+    await LoadCancelledAppointments(renderCancelledAppointmentsTable);
+
 });
 
 bookAppointmentUI.submitBtn.addEventListener("click" , async () => {
