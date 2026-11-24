@@ -9,6 +9,8 @@ const spinner = {
     sendEmail : "sendingEmail"
 }
 
+let SelectedDoctor = null;
+
 /**
  * Render doctor cards into the doctor grid.
  * @param {Array<Object>|Object} doctors - Array (or single object) of doctors from the API.
@@ -72,8 +74,8 @@ export function renderDoctors(doctors) {
             <i class="bi bi-clock me-1"></i>${escapeHtml(hours)}
           </p>
 
-          <button type="button"
-                  class="btn btn-primary rounded-2 w-100"
+          <button  type="button"
+                  class="btn btn-primary rounded-2 w-100 btnContact"
                   commandfor="ContactDialog"
                   command="show-modal"
                   data-doctor-id="${doc.doctorID ?? ''}"
@@ -84,6 +86,10 @@ export function renderDoctors(doctors) {
         </div>
       </div>
     `;
+    const btn = document.querySelector("btnContact");
+    btn.addEventListener("click" , () => {
+        SelectedDoctor = doc;
+    })
 
     fragment.appendChild(col);
   });
