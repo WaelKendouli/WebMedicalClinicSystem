@@ -3,6 +3,12 @@ import * as objLoading from './h_LoadAndRender.js';
 import * as objSpinner from './SpinnerHelper.js';
 import * as objCrud from './CRUDhelper.js';
 
+
+const spinner = {
+    doctors : "doctorsList",
+    sendEmail : "sendingEmail"
+}
+
 /**
  * Render doctor cards into the doctor grid.
  * @param {Array<Object>|Object} doctors - Array (or single object) of doctors from the API.
@@ -50,7 +56,8 @@ export function renderDoctors(doctors) {
              style="height: 300px;"
              src="${escapeHtml(photo)}"
              alt="${escapeHtml(fullName)}"
-             onerror="this.src='/Clinic-1.0.0/assets/img/health/staff-4.webp'">
+             onerror="this.src='/Clinic-1.0.0/assets/img/health/staff-4.webp'"
+             loading="lazy">
 
         <div class="card-body d-flex flex-column">
           <h2 class="card-title h5 mb-1">${escapeHtml(fullName)}</h2>
@@ -97,9 +104,13 @@ function escapeHtml(str) {
 async function DisplayDoctors()
 {
     try {
+        objSpinner.ShowSpinner(spinner.doctors);
         await objLoading.LoadDoctors(renderDoctors);
     } catch (error) {
         throw new Error(error.message);
+    }
+    finally{
+        objSpinner.HideSpinner(spinner.doctors);
     }
 }
 
