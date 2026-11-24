@@ -2,6 +2,8 @@
 import * as objLoading from './h_LoadAndRender.js';
 import * as objSpinner from './SpinnerHelper.js';
 import * as objCrud from './CRUDhelper.js';
+import * as objEmail from './h_EmailModule.js';
+import * as objUser from './CurrentObject.js';
 
 
 const spinner = {
@@ -9,7 +11,16 @@ const spinner = {
     sendEmail : "sendingEmail"
 }
 
-let SelectedDoctor = null;
+const ContactDialog = {
+  // Elements
+  dialog:       document.getElementById('ContactDialog'),
+  subjectInput: document.getElementById('txtSub'),
+  bodyInput:    document.getElementById('txtbody'),
+  btnSend:    document.getElementById('btnSend'),
+  closeBtn:     document.getElementById('btnClose')
+}
+
+let SelectedDoctor = undefined ;
 
 /**
  * Render doctor cards into the doctor grid.
@@ -86,15 +97,23 @@ export function renderDoctors(doctors) {
         </div>
       </div>
     `;
-    const btn = document.querySelector("btnContact");
-    btn.addEventListener("click" , () => {
-        SelectedDoctor = doc;
-    })
+    
 
     fragment.appendChild(col);
   });
 
   container.appendChild(fragment);
+
+  document.getElementById('doctorGrid')?.addEventListener('click', (e) => {
+  const btn = e.target.closest('.btnContact');
+  if (!btn) return;
+  // find the doctor in the last-rendered list by email, or store it on the button:
+  // simplest: pass what you need via data-* attributes (already there)
+  SelectedDoctor = {
+    email: btn.dataset.doctorEmail,
+    name:  btn.dataset.doctorName
+  };
+});
 }
 
 /** Escape user-supplied strings to avoid breaking HTML / XSS. */
@@ -120,6 +139,36 @@ async function DisplayDoctors()
     }
 }
 
+async function TrySendEmail()
+{
+    try {
+        objSpinner.ShowSpinner(spinner.sendEmail);
+        const EmailDTO = {
+            from : "exampleEmail@gmail.com", // for testing
+            to : SelectedDoctor.email ,
+            subject : "this is subject" ,
+            body : "this is body"
+        }
+      const res =  await objEmail.SendEmail(EmailDTO);
+      if (res===true) {
+        console.log("email sending process was executed succcessfully");
+        return true ;
+      }
+    } catch (error) {
+        throw new Error(error.message);
+    }
+    finally{
+        objSpinner.HideSpinner(spinner.sendEmail);
+    }
+    return false;
+}
+
+
+
 document.addEventListener("DOMContentLoaded", async () => {
     await DisplayDoctors();
+});
+
+ContactDialog.btnSend.addEventListener("click" , async ()=> {
+await TrySendEmail();
 });
