@@ -1,10 +1,10 @@
 
 const API_Base = "http://localhost:5202/api";
 
-export async function Post(obj , URI , endPoint)
+export async function Post(obj , ControllerName , endPoint)
 {
 try {
-        const res = await fetch(`${API_Base}/${URI}/${endPoint}`, {
+        const res = await fetch(`${API_Base}/${ControllerName}/${endPoint}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -27,10 +27,10 @@ try {
     }
 }
 
-export async function Get(URI , endPoint)
+export async function Get(ControllerName , endPoint)
 {
      try {
-        const res = await fetch(`${API_Base}/${URI}/${endPoint}`, {
+        const res = await fetch(`${API_Base}/${ControllerName}/${endPoint}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -50,10 +50,10 @@ export async function Get(URI , endPoint)
     }
 }
 
-export async function GetByAttribute(URI , endPoint , attribute)
+export async function GetByAttribute(ControllerName , endPoint , attribute)
 {
      try {
-        const res = await fetch(`${API_Base}/${URI}/${endPoint}/${attribute}`, {
+        const res = await fetch(`${API_Base}/${ControllerName}/${endPoint}/${attribute}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json"
@@ -74,10 +74,10 @@ export async function GetByAttribute(URI , endPoint , attribute)
 }
 
 
-export async function Delete(Id , URI , endPoint)
+export async function Delete(Id , ControllerName , endPoint)
 {
      try {
-        const response = await fetch(`${API_Base}/${URI}/${endPoint}/${Id}`, {
+        const response = await fetch(`${API_Base}/${ControllerName}/${endPoint}/${Id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json'
@@ -98,10 +98,10 @@ export async function Delete(Id , URI , endPoint)
     }
 }
 
-export async function Put(Id , NewData , URI , endPoint)
+export async function Put(Id , NewData , ControllerName , endPoint)
 {
     try {
-    const res = await fetch(`${API_Base}/${URI}/${endPoint}/${Id}`,
+    const res = await fetch(`${API_Base}/${ControllerName}/${endPoint}/${Id}`,
         {
             method: "PUT" ,
             headers : {
@@ -124,10 +124,10 @@ catch(e)
 }
 }
 
-export async function PostWithDataReturned(obj , URI , endPoint)
+export async function PostWithDataReturned(obj , ControllerName , endPoint)
 {
 try {
-        const res = await fetch(`${API_Base}/${URI}/${endPoint}`, {
+        const res = await fetch(`${API_Base}/${ControllerName}/${endPoint}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
