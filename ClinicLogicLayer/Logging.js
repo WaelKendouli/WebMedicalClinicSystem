@@ -37,6 +37,16 @@ function LinkShow(elm)
 
 }
 
+function  RedirectUsersBasedOnThierRole(res)
+{
+    const Pages = {
+        "Patient" : 'PatientGateway.html' ,
+        "Doctor" : "DoctorsGateway.html"
+    }
+    return Pages[res.role];
+}
+
+
 async function PrimaryAuthenticationMethod(username , password , email ="" , phone ="")
 {
      if (!CheckInputs(username, "Invalid username") ||
@@ -59,14 +69,14 @@ async function PrimaryAuthenticationMethod(username , password , email ="" , pho
 
         if (!res.ok) {
             SetError(data.message || `HTTP ${res.status}`);
-            return false;
+            return null;
         }
         localStorage.clear();
         SetCurrent("current_loggedIn_User" , data);
-        return true;
+        return data;
     } catch (e) {
         SetError(e.message || "Network error");
-        return false;
+        return null;
     }
 }
 
@@ -77,7 +87,7 @@ event.preventDefault();
 const Username = document.getElementById("username").value 
  const   Password = document.getElementById("password").value 
  const res = await PrimaryAuthenticationMethod(Username ,Password);
-if (res) {
-    window.location.href = 'PatientGateway.html';
+if (res !== null) {
+    window.location.href = RedirectUsersBasedOnThierRole(res);
 }
 });
