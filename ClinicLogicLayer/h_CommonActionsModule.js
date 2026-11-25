@@ -5,7 +5,7 @@ import * as objCRUD from "./CRUDhelper.js"
 export async function UpdateAppointementForPatient(patientID , newObj)
 {
 try {
- const res = objCRUD.Put(patientID , newObj , "Appointment" , "UpdateAppointment");
+ const res = await objCRUD.Put(patientID , newObj , "Appointment" , "UpdateAppointment");
  return res;  
 } catch (error) {
     throw new Error(error.message);
