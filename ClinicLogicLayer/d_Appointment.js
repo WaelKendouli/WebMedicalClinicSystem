@@ -220,9 +220,11 @@ document.getElementById("target").addEventListener("click", async function (e) {
 document.getElementById("btnConfirmSelection").addEventListener("click", async function () {
     if(await MakeAppointmtInProgress(CurrentAppointment.appointmentID)) {
             console.log(`Appointment #${CurrentAppointment.appointmentID} status changed to In Progress.`);
+            objCurrent.SetCurrent("SelectedAppointment" , CurrentAppointment);
              objSpinner.ShowSpinner(Spinners.spnApptTable);
-           await RefreshTable();
-           await  objSpinner.HideSpinner(Spinners.spnApptTable);
+           
+             window.location.href = 'd_MedicalRecordsPage.html';
+            
        }   
 });
 

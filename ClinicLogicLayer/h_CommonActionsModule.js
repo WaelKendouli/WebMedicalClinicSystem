@@ -22,3 +22,12 @@ try {
     throw new Error(error.message);
 }
 }
+
+export async function AddNewMedicalRecord(aggregatedObj) {
+    try {
+       return await objCRUD.Post(aggregatedObj , "MedicalRecords" , "AddMedicalRecord");
+    } catch (error) {
+            throw new Error(error.message);
+    }
+
+} 
