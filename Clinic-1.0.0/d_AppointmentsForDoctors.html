@@ -42,7 +42,7 @@
         </h2>
       </div>
       <div class="card-body p-0">
-        <!-- Bootstrap responsive table -->
+        <div id="spnApptTable" class="spinner-border text-primary d-none"></div>
         <div class="table-responsive">
           <table class="table table-hover table-striped align-middle mb-0">
             <thead class="table-light">
@@ -141,11 +141,11 @@
         </div>
     </div>
     <div class="card-footer bg-white border-top-0 py-3 d-flex justify-content-end gap-2">
-      <div class="spinner-border text-muted"></div>
+      <div id="spnApptCard" class="spinner-border text-muted d-none"></div>
         <button type="button" class="btn btn-outline-secondary" id="btnCancelSelection" commandfor="diagSelectedAppointment" command="close">
             Cancel
         </button>
-        <button type="button" class="btn btn-primary" id="btnConfirmSelection">
+        <button  type="button" class="btn btn-primary" id="btnConfirmSelection">
             Confirm Appointment
         </button>
     </div>

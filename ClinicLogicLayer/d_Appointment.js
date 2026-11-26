@@ -1,20 +1,18 @@
 
 import * as objLoading from './h_LoadAndRender.js'; 
 import * as objSpinner from './SpinnerHelper.js'; 
-import * as objCurrent from './CurrentObject.js'
+import * as objCurrent from './CurrentObject.js';
+import * as objActions from './h_CommonActionsModule.js';
 
 let liAppointments = [];
 const CurrentDoctor = objCurrent.GetCurrent("current_loggedIn_User"); 
 
-async function InitializeTable()
-{
-    
-    try {
-        await objLoading.LoadAllAppointmentsForDoctor(renderAppointmentsTable ,CurrentDoctor.doctorID);
-    } catch (error) {
-        throw new Error(error.message);
-    }
+const Spinners = {
+ AppointmetCard:"spnApptCard",
+ spnApptTable : "spnApptTable"
 }
+
+
 
 /**
  * Renders appointment rows into the <tbody> of the table whose id is "target".
@@ -178,12 +176,35 @@ function renderSelectedAppointment(appt) {
     document.getElementById("apptPatient").textContent = appt.patientFullName || "—";
     document.getElementById("apptStatus").innerHTML    = statusBadge(appt.status);
 }
+async function RefreshTable()
+{
+    
+    try {
+       
+        await objLoading.LoadAllAppointmentsForDoctor(renderAppointmentsTable ,CurrentDoctor.doctorID);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
 
-document.addEventListener("DOMContentLoaded", async () => {
-    await InitializeTable();
-});
 
-document.getElementById("target").addEventListener("click", function (e) {
+
+async function MakeAppointmtInProgress(appointmentID) {
+    try {
+        objSpinner.ShowSpinner(Spinners.AppointmetCard);
+        const res = await objActions.ChangeAppointmentStatusToInProgress(appointmentID);
+        return res;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+    finally {
+        objSpinner.HideSpinner(Spinners.AppointmetCard);
+    }
+}
+
+let c_appt = null;
+
+document.getElementById("target").addEventListener("click", async function (e) {
     const btn = e.target.closest('button[data-action="select"]');
     if (!btn) return;
 
@@ -191,7 +212,20 @@ document.getElementById("target").addEventListener("click", function (e) {
     const appt = liAppointments.find(a => a.appointmentID === id);
 
     if (appt) {
+        c_appt = appt;
         renderSelectedAppointment(appt);
-        // The dialog opens natively via commandfor/command="show-modal" on the button.
-    }
+     }
+});
+
+document.getElementById("btnConfirmSelection").addEventListener("click", async function () {
+    if(await MakeAppointmtInProgress(c_appt.appointmentID)) {
+            console.log(`Appointment #${c_appt.appointmentID} status changed to In Progress.`);
+             objSpinner.ShowSpinner(Spinners.spnApptTable);
+           await RefreshTable();
+           await  objSpinner.HideSpinner(Spinners.spnApptTable);
+       }   
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await RefreshTable();
 });
