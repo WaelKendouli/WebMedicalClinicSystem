@@ -3,6 +3,7 @@ import * as objLoading from './h_LoadAndRender.js';
 import * as objSpinner from './SpinnerHelper.js'; 
 import * as objCurrent from './CurrentObject.js'
 
+let liAppointments = [];
 const CurrentDoctor = objCurrent.GetCurrent("current_loggedIn_User"); 
 
 async function InitializeTable()
@@ -40,7 +41,7 @@ function renderAppointmentsTable(Appointments) {
         tbody.appendChild(tr);
         return;
     }
-
+    liAppointments = Appointments; // Store for later use
     // Status -> badge color mapping
     const statusBadge = (status) => {
         const s = (status || "").toLowerCase();
@@ -111,16 +112,11 @@ function renderAppointmentsTable(Appointments) {
             <td>${formatTime(appt.start)}</td>
             <td>${formatTime(appt.end)}</td>
             <td class="text-nowrap">
-                <button type="button" class="btn btn-sm btn-outline-primary me-1"
-                        data-action="view" data-id="${escapeHtml(appt.appointmentID)}">
-                    View
-                </button>
                 <button type="button" class="btn btn-sm btn-primary"
-                        data-action="select" data-id="${escapeHtml(appt.appointmentID)}">
+                        data-action="select" data-id="${escapeHtml(appt.appointmentID)}" commandfor="diagSelectedAppointment" command="show-modal">
                     Select
                 </button>
-            </td>
-        `;
+            </td>`;
 
         fragment.appendChild(tr);
     });
@@ -128,6 +124,74 @@ function renderAppointmentsTable(Appointments) {
     tbody.appendChild(fragment);
 }
 
+/**
+ * Populates the #diagSelectedAppointment dialog with a single DTO.
+ * @param {Object} appt - us_AppointmentItemDTO
+ */
+function renderSelectedAppointment(appt) {
+    if (!appt) return;
+
+    const escapeHtml = (s) =>
+        s == null ? "" : String(s)
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+
+    const formatDate = (d) => {
+        if (!d) return "—";
+        const dt = d instanceof Date ? d : new Date(d);
+        if (isNaN(dt)) return "—";
+        return dt.toLocaleDateString(undefined, {
+            weekday: "short", year: "numeric", month: "short", day: "numeric"
+        });
+    };
+
+    const formatTime = (t) => {
+        if (t == null) return "—";
+        if (typeof t === "string") {
+            const p = t.split(":");
+            return `${p[0].padStart(2, "0")}:${(p[1] || "00").padStart(2, "0")}`;
+        }
+        if (typeof t === "object" && "hours" in t) {
+            return `${String(t.hours).padStart(2, "0")}:${String(t.minutes || 0).padStart(2, "0")}`;
+        }
+        if (typeof t === "number") {
+            return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
+        }
+        return "—";
+    };
+
+    const statusBadge = (status) => {
+        const s = (status || "").toLowerCase();
+        let cls = "bg-secondary";
+        if (s.includes("confirm") || s.includes("active") || s.includes("complete")) cls = "bg-success";
+        else if (s.includes("pend") || s.includes("schedul")) cls = "bg-warning text-dark";
+        else if (s.includes("cancel") || s.includes("no-show")) cls = "bg-danger";
+        else if (s.includes("info")) cls = "bg-info text-dark";
+        return `<span class="badge ${cls}">${escapeHtml(status || "—")}</span>`;
+    };
+
+    document.getElementById("apptIdBadge").textContent = `#${appt.appointmentID ?? "—"}`;
+    document.getElementById("apptDate").textContent    = formatDate(appt.date);
+    document.getElementById("apptS_Time").textContent  = formatTime(appt.start);
+    document.getElementById("apptE_Time").textContent  = formatTime(appt.end);
+    document.getElementById("apptService").textContent = appt.service || "—";
+    document.getElementById("apptPatient").textContent = appt.patientFullName || "—";
+    document.getElementById("apptStatus").innerHTML    = statusBadge(appt.status);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     await InitializeTable();
+});
+
+document.getElementById("target").addEventListener("click", function (e) {
+    const btn = e.target.closest('button[data-action="select"]');
+    if (!btn) return;
+
+    const id = Number(btn.dataset.id);
+    const appt = liAppointments.find(a => a.appointmentID === id);
+
+    if (appt) {
+        renderSelectedAppointment(appt);
+        // The dialog opens natively via commandfor/command="show-modal" on the button.
+    }
 });
