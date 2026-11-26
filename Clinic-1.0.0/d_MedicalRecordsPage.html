@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+       <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+
+    <script src="/ClinicLogicLayer/Layout.js" defer></script>
+</head>
+<body>
+    <div id="Doctor-header-placeholder"> </div>
+   <div class="container" style="margin-block: 10rem;">
+    <div class="d-flex justify-content-between align-content-center flex-wrap">
+ <h1 class="mb-4">Medical Records page</h1>
+ <div id="spnSaveChanges" class="spinner-border text-primary"></div>
+<div class="my-3 d-flex flex-row flex-wrap justify-content-between align-content-center gap-3">
+<div class="text-danger">this is a validation message</div>
+ <button class="btn btn-primary">Save Medical Record</button>
+</div>
+    </div>
+    <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card">
+            <h3 class="card-title m-3">General informations :</h3>
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="txtDescription" class="form-label fw-semibold">
+                            Description
+                        </label>
+                        <textarea
+                            class="form-control"
+                            id="txtDescription"
+                            name="description"
+                            rows="3"
+                            placeholder="Enter a brief description..."
+                            maxlength="500"></textarea>
+                        <div class="form-text">Brief summary of the appointment or issue.</div>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="mb-3">
+                        <label for="txtAdditionalNotes" class="form-label fw-semibold">
+                            Additional Notes
+                        </label>
+                        <textarea
+                            class="form-control"
+                            id="txtAdditionalNotes"
+                            name="additionalNotes"
+                            rows="4"
+                            placeholder="Any extra notes, instructions, or context..."
+                            maxlength="1000"></textarea>
+                        <div class="form-text">Optional — extra details the doctor should know.</div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="reset" class="btn btn-outline-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+    <div class="card">
+        <h3 class="card-title m-3">Vitals :</h3>
+        <div class="card-body">
+            <form>
+                <!-- Height -->
+                <div class="mb-3">
+                    <label for="txtHeight" class="form-label fw-semibold">Height (cm)</label>
+                    <input type="number" step="0.1" min="0" max="300"
+                           class="form-control" id="txtHeight" name="height"
+                           placeholder="e.g. 175.5">
+                </div>
+
+                <!-- Weight -->
+                <div class="mb-3">
+                    <label for="txtWeight" class="form-label fw-semibold">Weight (kg)</label>
+                    <input type="number" step="0.1" min="0" max="500"
+                           class="form-control" id="txtWeight" name="weight"
+                           placeholder="e.g. 72.3">
+                </div>
+
+                <!-- Blood Pressure -->
+                <div class="mb-3">
+                    <label for="txtBloodPressure" class="form-label fw-semibold">Blood Pressure</label>
+                    <input type="text" class="form-control" id="txtBloodPressure"
+                           name="bloodPressure" placeholder="e.g. 120/80" maxlength="20">
+                </div>
+
+                <!-- Temperature -->
+                <div class="mb-3">
+                    <label for="txtTemperature" class="form-label fw-semibold">Temperature (°C)</label>
+                    <input type="number" step="0.1" min="0" max="50"
+                           class="form-control" id="txtTemperature" name="temperature"
+                           placeholder="e.g. 36.8">
+                </div>
+
+                <!-- Pulse -->
+                <div class="mb-3">
+                    <label for="txtPulse" class="form-label fw-semibold">Pulse (bpm)</label>
+                    <input type="number" step="1" min="0" max="300"
+                           class="form-control" id="txtPulse" name="pulse"
+                           placeholder="e.g. 72">
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="reset" class="btn btn-outline-secondary">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 col-md-6 col-lg-4">
+    <div class="card">
+        <h3 class="card-title m-3">Diagnosis :</h3>
+        <div class="card-body">
+            <form>
+                <!-- Conclusion -->
+                <div class="mb-3">
+                    <label for="txtConclusion" class="form-label fw-semibold">
+                        Conclusion <span class="text-danger">*</span>
+                    </label>
+                    <textarea class="form-control" id="txtConclusion" name="conclusion"
+                              rows="4" placeholder="Enter the diagnosis conclusion..."
+                              required></textarea>
+                    <div class="form-text">Required — final clinical conclusion.</div>
+                </div>
+
+                <!-- ICD10 Code -->
+                <div class="mb-3">
+                    <label for="txtICD10Code" class="form-label fw-semibold">
+                        ICD-10 Code <span class="text-danger">*</span>
+                    </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="txtICD10Code"
+                               name="icd10Code" placeholder="e.g. J45.909"
+                               maxlength="10" readonly required>
+                        <button type="button" class="btn btn-outline-secondary"
+                                id="btnRegenerateICD10" title="Regenerate code">
+                            ⟳
+                        </button>
+                    </div>
+                    <div class="form-text">Auto-generated. Must be unique.</div>
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="reset" class="btn btn-outline-secondary">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+
+   </div>
+</body>
+</html>
