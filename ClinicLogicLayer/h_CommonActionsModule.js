@@ -12,3 +12,13 @@ try {
 }
 return false;
 }
+
+export async function ChangeAppointmentStatusToInProgress(appointmentID)
+{
+try {
+ const res = await objCRUD.Put(appointmentID , null , "Appointment" , "InProgressAppointment");
+ return res;  
+} catch (error) {
+    throw new Error(error.message);
+}
+}
