@@ -202,7 +202,7 @@ async function MakeAppointmtInProgress(appointmentID) {
     }
 }
 
-let c_appt = null;
+export let CurrentAppointment = null;
 
 document.getElementById("target").addEventListener("click", async function (e) {
     const btn = e.target.closest('button[data-action="select"]');
@@ -212,14 +212,14 @@ document.getElementById("target").addEventListener("click", async function (e) {
     const appt = liAppointments.find(a => a.appointmentID === id);
 
     if (appt) {
-        c_appt = appt;
+        CurrentAppointment = appt;
         renderSelectedAppointment(appt);
      }
 });
 
 document.getElementById("btnConfirmSelection").addEventListener("click", async function () {
-    if(await MakeAppointmtInProgress(c_appt.appointmentID)) {
-            console.log(`Appointment #${c_appt.appointmentID} status changed to In Progress.`);
+    if(await MakeAppointmtInProgress(CurrentAppointment.appointmentID)) {
+            console.log(`Appointment #${CurrentAppointment.appointmentID} status changed to In Progress.`);
              objSpinner.ShowSpinner(Spinners.spnApptTable);
            await RefreshTable();
            await  objSpinner.HideSpinner(Spinners.spnApptTable);
