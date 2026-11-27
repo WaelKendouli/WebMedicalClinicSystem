@@ -152,11 +152,11 @@
                   </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="my-4 col-12 col-lg-6">
                 <div class="card text-center">
                     <h2 class="card-title my-5">Customize your prescrtiption</h2>
-                    <div class="m-3 d-flex justify-content-between align-items-center flex-wrap">
-                        <div class="d-flex flex-row align-content-center gap-4">
+                    <div class="m-3 d-flex flex-row justify-content-between align-items-center flex-wrap">
+                        <div class="d-flex m-2 flex-column flex-lg-row align-content-center gap-4">
                             <h5>Medication</h5>
                             <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" 
@@ -177,7 +177,7 @@
   </ul>
                             </div>
                         </div>
-                        <div class="d-flex flex-row align-content-center gap-4">
+                        <div class="d-flex m-2 flex-column flex-lg-row align-content-center gap-4">
                             <h5>Category</h5>
                             <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" 
@@ -200,10 +200,76 @@
                         </div>
                         <div></div>
                     </div>
-                </div>
+                    <form class="d-grid m-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="form-field">
+  <label for="exampleFormControlInput1" class="form-label">Start date</label>
+  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                     </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-field">
+  <label for="exampleFormControlInput1" class="form-label">End date</label>
+  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                     </div>
+                            </div>
+                        </div>
+                        <div class="row my-5">
+                            <div class="col-12 col-lg-4">
+                                <div class="form-field">
+  <label for="exampleFormControlInput1" class="form-label">Dosage</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                     </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-field">
+  <label for="exampleFormControlInput1" class="form-label">Frequncy</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                     </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-field">
+  <label for="exampleFormControlInput1" class="form-label">Strenght</label>
+  <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                     </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-12">
+                                <div class="d-flex m-2 flex-column flex-lg-row align-content-center gap-4">
+                            <h5>Medication Form</h5>
+                            <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" 
+                            type="button" 
+                               id="dropdownMenuButton" 
+                            data-bs-toggle="dropdown" 
+                               aria-expanded="false">
+                                 Select an option
+                                 </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><h6 class="dropdown-header">Actions</h6></li>
+    <li><a class="dropdown-item" href="#">Edit</a></li>
+    <li><a class="dropdown-item" href="#">Duplicate</a></li>
+    <li><a class="dropdown-item" href="#">Archive</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header">Danger zone</h6></li>
+    <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+  </ul>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-between align-content-center m-3">
+                            <button class="btn  btn-primary m-2">+ Add new Medication</button>
+                            <button class="btn  btn-primary m-2">Save Prescription</button>
+                             <button class="btn  btn-secondary m-2">Save Edits</button>
+                        </div>
+            </form>
             </div>
         </div>
     </div>
+
      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -211,7 +277,5 @@
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
 </body>
 </html>
