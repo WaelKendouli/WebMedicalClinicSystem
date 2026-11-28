@@ -1,6 +1,8 @@
 
 import * as objLoad from './h_LoadAndRender.js';
 
+
+let MedicationCardID = 0;
 const UI = {
     GeneralInformations : {
         giIssueDate : document.getElementById("giIssueDate"),
@@ -117,11 +119,13 @@ let liCategories = null ;
 let liDosageForms = null; 
 
 function renderMedicationCard(med) {
+  MedicationCardID ++;
   const layout = UI.layout.medicationsLayout;
-
   const card = document.createElement('div');
   card.className = 'card my-4 text-center';
   card.dataset.medicationId = med.medicationID;
+  card.dataset.CardId = MedicationCardID;
+
 
   const title = document.createElement('h4');
   title.className = 'card-title my-2';
@@ -216,6 +220,41 @@ function renderMedicationCard(med) {
   card.append(title, subtitle, body, editBtn);
   layout.appendChild(card);
 }
+
+function AddCardToLayout()
+{
+   const medSelect = UI.AddNewPrecription.listMedications;
+    const catSelect = UI.AddNewPrecription.listCategories;
+    const formSelect = UI.AddNewPrecription.listMedicationForm;
+
+    // The <option> the user actually picked
+    const medOption  = medSelect.selectedOptions[0];
+    const catOption  = catSelect.selectedOptions[0];
+    const formOption = formSelect.selectedOptions[0];
+
+    // Guard: nothing selected → bail out
+    if (!medOption || !medOption.value) {
+        alert("Please select a medication.");
+        return;
+    }
+
+    const NewMedicationCardInfo = {
+        medicationId          : medOption.dataset.medicationId,   // from data-* attr
+        medicationName        : medOption.textContent,            // visible label
+        medicationCategoryName: catOption?.textContent ?? '—',
+        startDate             : UI.AddNewPrecription.txtStartDate.value,
+        endDate               : UI.AddNewPrecription.txtEndDate.value,
+        dosage                : UI.AddNewPrecription.txtDosage.value,
+        frequency             : UI.AddNewPrecription.txtFrequncy.value,
+        formName              : formOption?.textContent ?? '—',
+    };
+renderMedicationCard(NewMedicationCardInfo);
+}
+
+UI.AddNewPrecription.btnAddnewMedication.addEventListener("click" , (e) => {
+  e.preventDefault();
+AddCardToLayout();
+});
 
 document.addEventListener("DOMContentLoaded" , async function(){
    await Promise.allSettled([
