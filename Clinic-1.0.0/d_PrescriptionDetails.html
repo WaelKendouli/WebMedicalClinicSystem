@@ -27,6 +27,7 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
     <script src="/ClinicLogicLayer/Layout.js" defer></script>
+    <script src="/ClinicLogicLayer/d_Prescription.js" defer></script>
 </head>
 <body>
     <div id="Doctor-header-placeholder"></div>
@@ -44,33 +45,33 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="d-flex flex-row flex-wrap gap-2">
                                         <div class="card-text">Issue Date :</div>
-                                        <div class="card-text text-muted">2026/11/27</div>
+                                        <div id="giIssueDate" class="card-text text-muted">2026/11/27</div>
                                     </div>
                                     <div class="d-flex flex-row flex-wrap gap-2">
                                         <div class="card-text">Height :</div>
-                                        <div class="card-text text-muted">187 cm</div>
+                                        <div id="giHeight" class="card-text text-muted">187 cm</div>
                                     </div>
                                     <div class="d-flex flex-row flex-wrap gap-2">
                                         <div class="card-text">Blood pressure :</div>
-                                        <div class="card-text text-muted">156</div>
+                                        <div id="giBlood" class="card-text text-muted">156</div>
                                     </div>
                                     <div class="d-flex flex-row flex-wrap gap-2">
                                         <div class="card-text">Temperature :</div>
-                                        <div class="card-text text-muted">35</div>
+                                        <div id="giTempreture" class="card-text text-muted">35</div>
                                     </div>
                                     <div class="d-flex flex-row flex-wrap gap-2">
                                         <div class="card-text">Plus :</div>
-                                        <div class="card-text text-muted">65</div>
+                                        <div id="giPlus" class="card-text text-muted">65</div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="d-flex flex-row flex-wrap gap-2">
                                         <div class="card-text">Doctor :</div>
-                                        <div class="card-text text-muted">Said Messoudi</div>
+                                        <div id="giDoctorName" class="card-text text-muted">Said Messoudi</div>
                                     </div>
                                     <div class="d-flex flex-row flex-wrap gap-2">
                                         <div class="card-text">Patient :</div>
-                                        <div class="card-text text-muted">Wael Kendouli</div>
+                                        <div id="giPatient" class="card-text text-muted">Wael Kendouli</div>
                                     </div>
                                 </div>
                             </div>
@@ -162,11 +163,11 @@
                     <div class="m-3 d-flex flex-column justify-content-center flex-wrap">
                         <div class="d-flex m-2 flex-row justify-content-center gap-4">
                             <h5>Medication</h5>
-                            <select id="listSpecialities" class="form-select"></select>
+                            <select id="listMedications" class="form-select"></select>
                         </div>
                         <div class="d-flex m-2 flex-row justify-content-center gap-4">
                             <h5>Category</h5>
-                            <select id="listSpecialities" class="form-select"></select>
+                            <select id="listCategories" class="form-select"></select>
                         </div>
                         <div></div>
                     </div>
@@ -174,14 +175,14 @@
                         <div class="row">
                             <div class="col-12 col-lg-6">
                                 <div class="form-field">
-  <label for="exampleFormControlInput1" class="form-label">Start date</label>
-  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <label  for="exampleFormControlInput1" class="form-label">Start date</label>
+  <input type="date" class="form-control" id="txtStartDate" placeholder="name@example.com">
                      </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">End date</label>
-  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="date" class="form-control" id="txtEndDate" placeholder="name@example.com">
                      </div>
                             </div>
                         </div>
@@ -189,19 +190,19 @@
                             <div class="col-12 col-lg-4">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">Dosage</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="text" class="form-control" id="txtDosage" placeholder="name@example.com">
                      </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">Frequncy</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="text" class="form-control" id="txtFrequncy" placeholder="name@example.com">
                      </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">Strenght</label>
-  <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="number" class="form-control" id="txtStrenght" placeholder="name@example.com">
                      </div>
                             </div>
                         </div>
@@ -209,13 +210,13 @@
                             <div class="col-12">
                                 <div class="d-flex m-2 flex-column flex-lg-row align-content-center gap-4">
                             <h5>Medication Form</h5>
-                            <select name="" id="AdMedicationForm" class="form-select w-50 h-50"></select>
+                            <select  id="AddMedicationFormList" class="form-select w-50 h-50"></select>
                         </div>
                             </div>
                         </div>
                         <div class="d-flex flex-wrap justify-content-between align-content-center m-3">
-                            <button class="btn  btn-primary m-2">+ Add new Medication</button>
-                            <button class="btn  btn-primary m-2">Save Prescription</button>
+                            <button id="btnAddnewMedication" class="btn  btn-primary m-2">+ Add new Medication</button>
+                            <button id="btnSavePrescription" class="btn  btn-primary m-2">Save Prescription</button>
                         </div>
             </form>
             </div>
@@ -226,26 +227,25 @@
             <div class="m-3 d-flex flex-column justify-content-center flex-wrap">
                         <div class="d-flex m-2 flex-row justify-content-center gap-4">
                             <h5>Medication</h5>
-                            <select id="listSpecialities" class="form-select w-75"></select>
+                            <select id="listMedications_ed" class="form-select w-75"></select>
                         </div>
                         <div class="d-flex m-2 flex-row justify-content-center gap-4">
                             <h5>Category</h5>
-                            <select id="listSpecialities" class="form-select w-75"></select>
+                            <select id="listCategories_ed" class="form-select w-75"></select>
                         </div>
-                        <div></div>
                     </div>
             <form class="d-grid m-2">
                         <div class="row">
                             <div class="col-12 col-lg-6">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">Start date</label>
-  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="date" class="form-control" id="txtStartDate_ed" placeholder="name@example.com">
                      </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">End date</label>
-  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="date" class="form-control" id="txtEndDate_ed" placeholder="name@example.com">
                      </div>
                             </div>
                         </div>
@@ -253,19 +253,19 @@
                             <div class="col-12 col-lg-4">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">Dosage</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="text" class="form-control" id="txtDosage_ed" placeholder="name@example.com">
                      </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">Frequncy</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="text" class="form-control" id="txtFequency_ed" placeholder="name@example.com">
                      </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-field">
   <label for="exampleFormControlInput1" class="form-label">Strenght</label>
-  <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  <input type="number" class="form-control" id="txtStrenght_ed" placeholder="name@example.com">
                      </div>
                             </div>
                         </div>
@@ -273,14 +273,14 @@
                             <div class="col-12">
                                 <div class="d-flex m-2 flex-row align-content-center gap-4">
                             <h5>Medication Form</h5>
-                            <select id="listSpecialities" class="form-select w-50">
+                            <select id="listMedicationsForms_ed" class="form-select w-50">
 
                             </select>
                         </div>
                             </div>
                         </div>
                         <div class="d-flex flex-wrap justify-content-center align-content-center m-3">
-                            <button class="btn btn-md btn-primary m-2">Confirm</button>
+                            <button id="btnConfirm" class="btn btn-md btn-primary m-2">Confirm</button>
                             <button type="button" class="btn btn-md btn-secondary m-2" commandfor="EditDialog" command="close">Cancel</button>
                         </div>
             </form>
