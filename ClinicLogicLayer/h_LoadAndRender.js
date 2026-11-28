@@ -63,3 +63,33 @@
      console.log(error.message);
    }
  }
+
+ export async function LoadAllMedications(RenderingFunction)
+ {
+  try {
+    const data = await CRUDHelper.Get("Medications" , "GetListOfMedications");
+    await RenderingFunction(data);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+ }
+
+ export async function LoadAllCategories(RenderingFunction)
+ {
+  try {
+    const data = await CRUDHelper.Get("Medications" , "GetListOfMedicationCategories");
+    await RenderingFunction(data);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+ }
+
+ export async function LoadAllDosageForms(RenderingFunction)
+ {
+  try {
+    const data = await CRUDHelper.Get("Medications" , "GetListOfDosageForm");
+    await RenderingFunction(data);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+ }
